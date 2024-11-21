@@ -1,25 +1,14 @@
 //import liraries
-import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, {Component} from 'react';
+import {View, Text} from 'react-native';
+import {styles} from './Categories.styles';
 
-// create a component
 const Category = () => {
-    return (
-        <View style={styles.container}>
-            <Text>Category</Text>
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <Text>Category</Text>
+    </View>
+  );
 };
 
-// define your styles
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#2c3e50',
-    },
-});
-
-//make this component available to the app
 export default Category;

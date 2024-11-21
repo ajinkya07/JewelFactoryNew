@@ -181,6 +181,7 @@ const PressableComponent = observer(
         case PRESSABLE_BTN_TYPE.PRIMARY:
           return colors.white;
         case PRESSABLE_BTN_TYPE.SECONDARY:
+        case PRESSABLE_BTN_TYPE.TEXT:
           return colors.gray;
       }
     }, [btnType, colors]);

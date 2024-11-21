@@ -3,11 +3,10 @@ import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {observer, Observer} from 'mobx-react';
 import React, {useEffect, useState} from 'react';
-import {StatusBar, View, Platform} from 'react-native';
+import {StatusBar, View, Platform, Image} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {navigationRef} from './utils/NavigationService';
 import RootStore from './stores/RootStore';
-
 import Login from './screens/OnBoarding/Login/Login';
 import Home from './screens/Home/Home';
 import Category from './screens/Categories/Categories';
@@ -15,6 +14,10 @@ import {colors} from './utils/colors';
 import SplashVideoScreen from './components/SplashScreen/SplashScreen';
 import Register from './screens/OnBoarding/Register/Register';
 import ForgotPassword from './screens/OnBoarding/ForgotPassword/ForgotPassword';
+import IconPack from './utils/IconPack';
+import Cart from './screens/Cart/Cart/Cart';
+import Customise from './screens/Customise/Customise';
+import Menu from './screens/Menu/Menu';
 
 const routeOptions = {
   headerShown: false,
@@ -41,9 +44,6 @@ const CardCentreStackOptions = RootStore.appStore.isiOS
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-/**
- * App Initialize page
- */
 const AuthLoadingStack = () => {
   return (
     <Stack.Navigator>
@@ -58,9 +58,6 @@ const AuthLoadingStack = () => {
   );
 };
 
-/**
- * Login Stack Screens
- */
 const LoginStack = observer(() => {
   return (
     <Stack.Navigator initialRouteName={'Login'}>
@@ -85,20 +82,16 @@ const LoginStack = observer(() => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 });
-
-const ICON_WIDTH = 24;
-const ICON_HEIGHT = 24;
-
-export const bottomTabsConfig = {
-  home: 'home',
-  deposits: 'deposits',
-  scanQR: 'scanQR',
-  offers: 'offers',
-  menu: 'menu',
-};
 
 const TabBarBottom = observer(() => {
   return (
@@ -107,16 +100,18 @@ const TabBarBottom = observer(() => {
       initialRouteName={Home}
       screenOptions={TabBarScreenOptions}>
       <Tab.Screen
-        name={Home}
+        name={'Home'}
         component={Home}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({focused}) => {
             return (
-              <SvgHomeFocusedIcon
-                fill={focused ? colors.brandColor : colors.black}
-                width={ICON_WIDTH}
-                height={ICON_HEIGHT}
+              <Image
+                source={IconPack.CART}
+                style={[
+                  styles.tabIcon,
+                  {tintColor: focused ? colors.brandColor : colors.black},
+                ]}
               />
             );
           },
@@ -130,10 +125,12 @@ const TabBarBottom = observer(() => {
           tabBarLabel: 'Category',
           tabBarIcon: ({focused}) => {
             return (
-              <SvgHomeFocusedIcon
-                fill={focused ? colors.brandColor : colors.black}
-                width={ICON_WIDTH}
-                height={ICON_HEIGHT}
+              <Image
+                source={IconPack.CART}
+                style={[
+                  styles.tabIcon,
+                  {tintColor: focused ? colors.brandColor : colors.black},
+                ]}
               />
             );
           },
@@ -147,10 +144,12 @@ const TabBarBottom = observer(() => {
           tabBarLabel: 'Cart',
           tabBarIcon: ({focused}) => {
             return (
-              <SvgHomeFocusedIcon
-                fill={focused ? colors.brandColor : colors.black}
-                width={ICON_WIDTH}
-                height={ICON_HEIGHT}
+              <Image
+                source={IconPack.CART}
+                style={[
+                  styles.tabIcon,
+                  {tintColor: focused ? colors.brandColor : colors.black},
+                ]}
               />
             );
           },
@@ -158,16 +157,18 @@ const TabBarBottom = observer(() => {
       />
 
       <Tab.Screen
-        name="Custimise"
-        component={Custimise}
+        name="Customise"
+        component={Customise}
         options={{
-          tabBarLabel: 'Custimise',
+          tabBarLabel: 'Customise',
           tabBarIcon: ({focused}) => {
             return (
-              <SvgHomeFocusedIcon
-                fill={focused ? colors.brandColor : colors.black}
-                width={ICON_WIDTH}
-                height={ICON_HEIGHT}
+              <Image
+                source={IconPack.CART}
+                style={[
+                  styles.tabIcon,
+                  {tintColor: focused ? colors.brandColor : colors.black},
+                ]}
               />
             );
           },
@@ -181,10 +182,12 @@ const TabBarBottom = observer(() => {
           tabBarLabel: 'Menu',
           tabBarIcon: ({focused}) => {
             return (
-              <SvgHomeFocusedIcon
-                fill={focused ? colors.brandColor : colors.black}
-                width={ICON_WIDTH}
-                height={ICON_HEIGHT}
+              <Image
+                source={IconPack.CART}
+                style={[
+                  styles.tabIcon,
+                  {tintColor: focused ? colors.brandColor : colors.black},
+                ]}
               />
             );
           },
@@ -207,6 +210,13 @@ const MainApp = observer(() => {
       <Stack.Screen
         name="Login"
         component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Home"
+        component={Home}
         options={{
           headerShown: false,
         }}
@@ -239,7 +249,7 @@ const AppStack = () => (
   <Observer>
     {() => (
       <>
-        {!RootStore.appStore.showAuthLoading ? (
+        {RootStore.appStore.showAuthLoading ? (
           <SplashVideoScreen />
         ) : RootStore.appStore.showPreLogin ? (
           <LoginStack />
@@ -267,7 +277,7 @@ const TopLevelStack = () => {
 
 const Routes = observer(({}) => {
   useEffect(() => {
-    const barStyle = 'light-content';
+    const barStyle = 'dark-content';
     setTimeout(() => {
       StatusBar.setBarStyle(barStyle);
       if (RootStore.appStore.isAndroid) {
@@ -311,14 +321,14 @@ const TabBarScreenOptions = () => {
     tabBarStyle: {
       height: RootStore.appStore.isiOS ? 86 : 72,
       backgroundColor: colors.white,
-      borderTopWidth: 0,
-      paddingTop: RootStore.appStore.isiOS ? 12 : 12,
+      borderTopWidth: 0.5,
+      paddingTop: 12,
       paddingBottom: RootStore.appStore.isiOS ? 34 : 16,
       elevation: 0,
     },
     tabBarLabelStyle: {
       fontSize: 12,
-      fontFamily: RootStore.languageStore.fontFamilySemiBold,
+      fontFamily: 'Manrope-SemiBold',
       lineHeight: 18,
     },
     tabBarActiveTintColor: colors.brandColor,

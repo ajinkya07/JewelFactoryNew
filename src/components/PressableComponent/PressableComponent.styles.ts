@@ -1,9 +1,10 @@
-import {StyleSheet} from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { colors } from '../../utils/colors';
 
+const { height, width } = Dimensions.get('window')
 
-export const styles = 
-   StyleSheet.create({
+export const styles =
+  StyleSheet.create({
     defaultStyle: {
       alignItems: 'center',
     },
@@ -15,6 +16,8 @@ export const styles =
       alignSelf: 'center',
       backgroundColor: colors.brandColor,
       borderWidth: 0,
+      height: 32,
+      width: width - 40,
     },
     primaryBtnPressable: {
       borderRadius: 12,
@@ -25,17 +28,19 @@ export const styles =
       borderWidth: 0,
       paddingHorizontal: 12,
       paddingVertical: 8,
+      height: 32,
+      width: width - 40,
     },
     primaryBtnDisabled: {
       opacity: 0.5,
     },
     primaryBtnText: {
-      fontSize:16,
+      fontSize: 16,
       textAlign: 'center',
       color: colors.white,
     },
     textButton: {
-      fontSize:14,
+      fontSize: 14,
       color: colors.white,
     },
     secBtnText: {

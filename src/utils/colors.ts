@@ -2,7 +2,6 @@ export const colors = {
     backgroundColor: '#f4f4f4',
     brandColor: '#d1ab66',
     iconsTintColor: '#d1ab66',
-  
     primaryGray: '#E6E6E6',
     secondaryGray: '#E3E3E3',
     tertiaryGray: '#404040',
@@ -21,7 +20,6 @@ export const colors = {
     green: '#19af81',
     black: '#303030',
     themeColor: '#91381f',
-  
     lightBlue: '#eef6ff',
   };
   

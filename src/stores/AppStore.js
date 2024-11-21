@@ -59,13 +59,9 @@ export class AppStore {
 
   isLoading = false;
 
-  downloadProgress = 0;
-
   isNetworkConnected = true;
-  isDevOptionEnabled = false;
 
-  // Screens conditions
-  showAuthLoading = true;
+  showAuthLoading = false;
 
   showPreLogin = true;
 
