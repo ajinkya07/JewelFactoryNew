@@ -1,50 +1,53 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import { colors } from '../../utils/colors';
+import EStyleSheet from 'react-native-extended-stylesheet';
+import { fontFamilyBold } from '../../utils/helper';
 
 const { height, width } = Dimensions.get('window')
 
 export const styles =
-  StyleSheet.create({
+  EStyleSheet.create({
     defaultStyle: {
       alignItems: 'center',
     },
     primaryBtnContainer: {
       flexDirection: 'row',
-      borderRadius: 12,
+      borderRadius: '12rem',
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
       backgroundColor: colors.brandColor,
-      borderWidth: 0,
-      height: 32,
+      height: '52rem',
       width: width - 40,
     },
     primaryBtnPressable: {
-      borderRadius: 12,
+      borderRadius: '12rem',
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
       backgroundColor: colors.brandColor,
-      borderWidth: 0,
-      paddingHorizontal: 12,
-      paddingVertical: 8,
-      height: 32,
+      paddingHorizontal: '12rem',
+      paddingVertical: '8rem',
+      height: '52rem',
       width: width - 40,
     },
     primaryBtnDisabled: {
       opacity: 0.5,
     },
     primaryBtnText: {
-      fontSize: 16,
+      fontSize: '16rem',
+      fontFamily: fontFamilyBold,
       textAlign: 'center',
       color: colors.white,
     },
     textButton: {
-      fontSize: 14,
+      fontSize: '14rem',
       color: colors.white,
+      fontWeight: fontFamilyBold,
     },
     secBtnText: {
       color: colors.black,
+      fontWeight: fontFamilyBold,
     },
     secBtnPressable: {
       backgroundColor: `${colors.brandColor}1A`,

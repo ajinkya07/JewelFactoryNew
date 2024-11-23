@@ -1,4 +1,4 @@
-import {Text, TextInput, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {observer} from 'mobx-react';
 import {styles} from './Login.styles';
 import RootStore from '../../../stores/RootStore';
@@ -8,6 +8,7 @@ import {useState} from 'react';
 import PressableComponent, {
   PRESSABLE_BTN_TYPE,
 } from '../../../components/PressableComponent/PressableComponent';
+import InputComponent from '../../../components/InputComponent/InputComponent';
 
 const Login = () => {
   const [inputs, setLoginInputs] = useState({
@@ -43,24 +44,23 @@ const Login = () => {
         <Text style={styles.appName}>{strings.appName}</Text>
       </View>
       <View style={styles.inputView}>
-        <TextInput
+        <InputComponent
           value={inputs.mobileNo}
-          onChangeText={value => onChangeText('mobileNo', value)}
-          style={styles.input}
-          placeholder="Mobile Number"
+          onChangeText={(value: string) => onChangeText('mobileNo', value)}
+          placeholder={strings.mobileNo}
         />
-        <TextInput
+
+        <InputComponent
           value={inputs.password}
-          onChangeText={value => onChangeText('password', value)}
-          style={[styles.input, styles.passwordInputTop]}
-          placeholder="Phone Number"
+          onChangeText={(value: string) => onChangeText('password', value)}
+          style={styles.passwordInputTop}
+          placeholder={strings.password}
         />
       </View>
       <PressableComponent
         btnType={PRESSABLE_BTN_TYPE.PRIMARY}
         text={strings.login}
         containerStyle={styles.btnContainer}
-        pressableStyle={styles.btnContainer}
         onPress={onPressLogin}
       />
 

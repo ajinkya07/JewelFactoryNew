@@ -2,10 +2,20 @@ export const strings = {
   appName: 'Jewel Factory',
   appSubName: '',
   login: 'Log In',
+  welcome: 'Welcome to',
+  to: 'To',
+  mobileNo: 'Mobile Number',
+  password: 'Password',
+  email: 'Email ID',
+  name: 'Name',
+  company: 'Company name',
   forgotPassText: 'Forgot password?',
   forgotPassLink: 'Get Help',
   dontHaveAccount: "Don't have an account? ",
   register: 'Register',
+  newPassword: 'New Password',
+  conformPassword: 'Confirm new password',
+  next: "Next",
   invalidEmail: 'Please enter correct email',
   invalidPassword:
     'Password must be atleast six character long, contain one special character and one numeric',
@@ -20,6 +30,17 @@ export const strings = {
   submit: 'Submit',
   scannedCodePH: 'Code you have scanned will appear here..',
   close: 'close',
-  welcome: 'Welcome to',
-  to: 'To'
+  aboutUs: 'About us',
+  privacyPolicy: 'Privacy policy',
+  termsCondition: 'Terms & conditions',
+  logout: 'Log out',
+  customOrder: 'Custom order',
+  share: 'Share',
+  exclusive: 'Exclusive',
+  connectWithUs: 'Connect with us',
+  deleteAccount: 'Delete account',
+  rateUs: 'Rate us'
+
+
+
 };

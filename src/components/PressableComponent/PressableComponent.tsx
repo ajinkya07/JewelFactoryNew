@@ -89,7 +89,9 @@ const PressableComponent = observer(
     isLoading = false,
   }: PressableComponentProps) => {
     const getAlign = useMemo(() => {
-      return align ? PRESSABLE_ALIGN_CONFIG[align] : PRESSABLE_ALIGN_CONFIG.TOP;
+      return align
+        ? PRESSABLE_ALIGN_CONFIG[align]
+        : PRESSABLE_ALIGN_CONFIG[PRESSABLE_ALIGN_CONFIG.TOP];
     }, [align]);
 
     const getStyleBasedOnType = useMemo(() => {

@@ -11,7 +11,7 @@ export const styles = EStyleSheet.create({
         marginHorizontal: '20rem',
     },
     nameView: {
-        marginTop: '70rem'
+        marginTop: '70rem',
     },
     appName: {
         fontSize: '40rem',
@@ -28,14 +28,6 @@ export const styles = EStyleSheet.create({
     },
     inputView: {
         marginTop: '80rem'
-    },
-    input: {
-        height: '50rem',
-        width: width - 40,
-        borderColor: colors.lightGray,
-        borderWidth: '0.5rem',
-        borderRadius: "12rem",
-        paddingHorizontal: '10rem'
     },
     passwordInputTop: {
         marginTop: '20rem'
