@@ -46,8 +46,10 @@ const Menu = () => {
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <ScrollView
-        contentContainerStyle={styles.container}
-        style={styles.scrollContainer}>
+        bounces
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainer}
+        style={styles.container}>
         <View style={styles.menuListContainer}>
           <View style={styles.nameRow}>
             <View>

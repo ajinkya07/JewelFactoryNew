@@ -7,13 +7,14 @@ export const styles = EStyleSheet.create({
         flex: 1,
         backgroundColor: colors.white,
     },
-    container: {
-        flex: 1,
+    contentContainer: {
         paddingHorizontal: '10rem',
         backgroundColor: colors.white,
+        paddingBottom: '90rem'
     },
-    scrollContainer: {
-        backgroundColor: colors.bgColor,
+    container: {
+        flex: 1,
+        backgroundColor: colors.white,
     },
     menuListContainer: {
         flex: 1,
@@ -49,7 +50,7 @@ export const styles = EStyleSheet.create({
         color: colors.hyperlinkColor,
     },
     footer: {
-        marginTop: '50rem',
+        marginTop: '70rem',
     },
     editPressed: {
         alignSelf: 'flex-start',

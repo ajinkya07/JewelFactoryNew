@@ -37,12 +37,16 @@ export const strings = {
   customOrder: 'Custom order',
   share: 'Share',
   exclusive: 'Exclusive',
+  orderHistory: 'Order history',
   connectWithUs: 'Connect with us',
   deleteAccount: 'Delete account',
   rateUs: 'Rate us',
   edit: 'Edit',
   version: 'Version:',
   madeWithLove: 'Made with ❤️ by',
-  muskseed: 'Muskseed'
+  muskseed: 'Muskseed',
+  explore: 'Explore',
+  shareApp: 'Share app',
+  rateApp: 'Rate app',
 
 };

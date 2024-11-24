@@ -11,7 +11,11 @@ export const MENU_OPTIONS = () => {
                     method: strings.exclusive,
                     icon: IconPack.CART,
                 },
-
+                {
+                    id: strings.orderHistory,
+                    method: strings.orderHistory,
+                    icon: IconPack.CART,
+                },
             ],
         },
         {
@@ -32,6 +36,22 @@ export const MENU_OPTIONS = () => {
                     method: strings.termsCondition,
                     icon: IconPack.CART,
                 },
+            ],
+        },
+        {
+            title: 'share',
+            values: [
+                {
+                    id: strings.shareApp,
+                    method: strings.shareApp,
+                    icon: IconPack.CART,
+                },
+                {
+                    id: strings.rateApp,
+                    method: strings.rateApp,
+                    icon: IconPack.CART,
+                },
+
             ],
         },
         {

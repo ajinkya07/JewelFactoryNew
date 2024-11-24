@@ -30,4 +30,12 @@ export const colors = {
   divider: '#d7d7d7',
   touchHighlightGray: '#f0f0f0',
 
+  // for categories
+  bg1: '#FFF0F5',
+  bg2: '#F0FFFF',
+  bg3: '#FFDAB91A',
+  bg4: '#F8F8FF',
+  bg5: '#FAFAD2',
+  bg6: '#EED2EE',
+  bg7: '#D4D4D4',
 };
