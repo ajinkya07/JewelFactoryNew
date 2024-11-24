@@ -6,7 +6,8 @@ export const colors = {
   secondaryGray: '#E3E3E3',
   tertiaryGray: '#404040',
   white: '#FFFFFF',
-  gray: '#3d3d3d',
+  gray: '#808080',
+  smokeGray: '#71797E',
   lightGray: '#cccccc',
   lightGrayClicked: '#cccccc1A',
   extraLightGray: '#FBFBFB',
@@ -16,6 +17,7 @@ export const colors = {
   borderGray: '#bfbdbd',
   textNote: '#999999',
   hyperlinkColor: '#3857FF',
+  hyperlinkPressed: '#3857FF1A',
   golden: '#fbcb84',
   headerColor: '#EEF8F7',
   green: '#19af81',
@@ -25,5 +27,7 @@ export const colors = {
   red: '#FF0049',
   error: '#EC1E30',
   success: '#14bf0d',
-  divider: '#d7d7d7'
+  divider: '#d7d7d7',
+  touchHighlightGray: '#f0f0f0',
+
 };

@@ -18,6 +18,7 @@ import IconPack from './utils/IconPack';
 import Cart from './screens/Cart/Cart/Cart';
 import Customise from './screens/Customise/Customise';
 import Menu from './screens/Menu/Menu';
+import WebviewComponent from './components/WebviewComponent/WebviewComponent';
 
 const routeOptions = {
   headerShown: false,
@@ -107,10 +108,12 @@ const TabBarBottom = observer(() => {
           tabBarIcon: ({focused}) => {
             return (
               <Image
-                source={IconPack.CART}
+                source={IconPack.HOME}
                 style={[
                   styles.tabIcon,
-                  {tintColor: focused ? colors.brandColor : colors.black},
+                  {
+                    tintColor: focused ? colors.brandColor : colors.smokeGray,
+                  },
                 ]}
               />
             );
@@ -126,10 +129,12 @@ const TabBarBottom = observer(() => {
           tabBarIcon: ({focused}) => {
             return (
               <Image
-                source={IconPack.CART}
+                source={IconPack.CATEGORY}
                 style={[
                   styles.tabIcon,
-                  {tintColor: focused ? colors.brandColor : colors.black},
+                  {
+                    tintColor: focused ? colors.brandColor : colors.smokeGray,
+                  },
                 ]}
               />
             );
@@ -148,7 +153,9 @@ const TabBarBottom = observer(() => {
                 source={IconPack.CART}
                 style={[
                   styles.tabIcon,
-                  {tintColor: focused ? colors.brandColor : colors.black},
+                  {
+                    tintColor: focused ? colors.brandColor : colors.smokeGray,
+                  },
                 ]}
               />
             );
@@ -164,10 +171,12 @@ const TabBarBottom = observer(() => {
           tabBarIcon: ({focused}) => {
             return (
               <Image
-                source={IconPack.CART}
+                source={IconPack.CUSTOMISE}
                 style={[
                   styles.tabIcon,
-                  {tintColor: focused ? colors.brandColor : colors.black},
+                  {
+                    tintColor: focused ? colors.brandColor : colors.smokeGray,
+                  },
                 ]}
               />
             );
@@ -183,10 +192,12 @@ const TabBarBottom = observer(() => {
           tabBarIcon: ({focused}) => {
             return (
               <Image
-                source={IconPack.CART}
+                source={IconPack.MENU}
                 style={[
                   styles.tabIcon,
-                  {tintColor: focused ? colors.brandColor : colors.black},
+                  {
+                    tintColor: focused ? colors.brandColor : colors.smokeGray,
+                  },
                 ]}
               />
             );
@@ -233,6 +244,13 @@ const MainApp = observer(() => {
         component={Home}
         options={{
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WebviewComponent"
+        component={WebviewComponent}
+        options={{
+          headerShown: true,
         }}
       />
     </Stack.Navigator>
@@ -346,7 +364,7 @@ const TabBarScreenOptions = () => {
       lineHeight: 18,
     },
     tabBarActiveTintColor: colors.brandColor,
-    tabBarInactiveTintColor: colors.gray,
+    tabBarInactiveTintColor: colors.smokeGray,
   };
 };
 

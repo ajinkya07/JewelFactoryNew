@@ -1,8 +1,10 @@
 import EStyleSheet from "react-native-extended-stylesheet";
+import { fontFamilySemiBold } from "../../utils/helper";
 
 export const styles = EStyleSheet.create({
   touchContainer: {
-    padding: '16rem',
+    paddingHorizontal: '16rem',
+    paddingVertical: '12rem',
   },
   itemContainer: {
     flexDirection: 'row',
@@ -14,9 +16,9 @@ export const styles = EStyleSheet.create({
     alignItems: 'center',
   },
   rightArrowSide: {
-    height: '20rem',
+    height: '14rem',
     width: undefined,
-    aspectRatio: 512 / 853,
+    aspectRatio: 512 / 512,
   },
   rightContainer: {
     flexDirection: 'row',
@@ -39,6 +41,6 @@ export const styles = EStyleSheet.create({
   },
   titleStyle: {
     fontSize: '16rem',
-    fontFamily: 'Manrope-Medium',
+    fontFamily: fontFamilySemiBold,
   }
 });

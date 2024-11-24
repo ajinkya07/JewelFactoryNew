@@ -91,7 +91,7 @@ const ListItemComponent = ({
                   )}
 
                   <Image
-                    source={iconRight ? iconRight : IconPack.FORWARD_ARROW}
+                    source={iconRight ? iconRight : IconPack.RIGHT_ARROW}
                     style={[
                       styles.rightArrowSide,
                       iconRightStyle,

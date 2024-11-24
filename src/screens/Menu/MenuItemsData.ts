@@ -42,11 +42,6 @@ export const MENU_OPTIONS = () => {
                     method: strings.connectWithUs,
                     icon: IconPack.CART,
                 },
-            ],
-        },
-        {
-            title: 'Delete account',
-            values: [
                 {
                     id: strings.deleteAccount,
                     method: strings.deleteAccount,

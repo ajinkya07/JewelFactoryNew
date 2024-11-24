@@ -1,8 +1,7 @@
 var url = 'https://jewel.factory.jewelmarts.in/webservices/';
+var adminWeb = 'https://jewel.factory.jewelmarts.in/adminWeb/';
 
 export const urls = {
-  baseUrl: 'https://jewel.factory.jewelmarts.in/webservices/',
-
   imageUrl: 'https://jewel.factory.jewelmarts.in/',
   // https://jewel.factory.jewelmarts.in/admin_panel/privacy_policy
 
@@ -144,5 +143,8 @@ export const urls = {
 
   DeleteAccount: {
     url: url + 'Delete_account',
+  },
+  Customise: {
+    url: adminWeb + 'Client_custom_order/create_order',
   },
 };

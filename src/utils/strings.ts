@@ -39,8 +39,10 @@ export const strings = {
   exclusive: 'Exclusive',
   connectWithUs: 'Connect with us',
   deleteAccount: 'Delete account',
-  rateUs: 'Rate us'
-
-
+  rateUs: 'Rate us',
+  edit: 'Edit',
+  version: 'Version:',
+  madeWithLove: 'Made with ❤️ by',
+  muskseed: 'Muskseed'
 
 };

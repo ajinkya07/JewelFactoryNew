@@ -43,11 +43,11 @@ export const styles =
     textButton: {
       fontSize: '14rem',
       color: colors.white,
-      fontWeight: fontFamilyBold,
+      fontFamily: fontFamilyBold,
     },
     secBtnText: {
       color: colors.black,
-      fontWeight: fontFamilyBold,
+      fontFamily: fontFamilyBold,
     },
     secBtnPressable: {
       backgroundColor: `${colors.brandColor}1A`,
