@@ -1,6 +1,6 @@
 export default {
   APP_LOGO: require('../assets/image/app_logo.jpg'),
-  LOGIN_BG: require('../assets/image/background.jpg'),
+  BG: require('../assets/image/background.jpg'),
   MOBILE: require('../assets/image/mobile.png'),
   KEY_LOGO: require('../assets/image/key.png'),
   HIDE: require('../assets/image/hide.png'),

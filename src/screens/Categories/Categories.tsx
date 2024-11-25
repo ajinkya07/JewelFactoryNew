@@ -13,6 +13,7 @@ import {styles} from './Categories.styles';
 import IconPack from '../../utils/IconPack';
 import {colors} from '../../utils/colors';
 import {strings} from '../../utils/strings';
+import {observer} from 'mobx-react';
 
 const {width, height} = Dimensions.get('window');
 
@@ -115,4 +116,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default observer(Category);

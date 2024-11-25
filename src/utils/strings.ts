@@ -48,5 +48,5 @@ export const strings = {
   explore: 'Explore',
   shareApp: 'Share app',
   rateApp: 'Rate app',
-
+  categories: "Categories"
 };

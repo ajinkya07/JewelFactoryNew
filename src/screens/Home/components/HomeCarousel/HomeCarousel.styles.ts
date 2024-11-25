@@ -1,32 +1,28 @@
 import { Dimensions } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
-import { colors } from "../../utils/colors";
+import { colors } from "../../../../utils/colors";
 
 const { width, height } = Dimensions.get('window')
 
 export const styles = EStyleSheet.create({
-    container: {
-        flex: 1,
-    },
     bottom10: {
         paddingBottom: '10rem',
         marginTop: '20rem'
     },
     cardView: {
-        width: width - 5,
+        width: width,
         alignSelf: 'center',
-        borderRadius: '10rem',
         borderWidth: '1rem',
         borderColor: colors.lightBlue,
         backgroundColor: colors.touchHighlightGray,
     },
     imageView: {
-        width: width / 2 + 20
+        width: width
     },
-    categoryImage: {
-        height: '110rem',
-        width: width - 5,
-        borderRadius: '10rem',
+    image: {
+        alignItems: 'center',
+        height: '230rem',
+        width: width,
         backgroundColor: colors.gray,
     },
 })

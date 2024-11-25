@@ -8,7 +8,6 @@ const { width, height } = Dimensions.get('window')
 export const styles = EStyleSheet.create({
     container: {
         flex: 1,
-
     },
     bottom10: {
         paddingBottom: '10rem',
@@ -38,7 +37,7 @@ export const styles = EStyleSheet.create({
         borderRadius: '10rem',
     },
     categoryImage: {
-        height: 110,
+        height: '110rem',
         width: width / 2 - 40,
         borderTopRightRadius: '10rem',
         borderBottomRightRadius: '10rem',

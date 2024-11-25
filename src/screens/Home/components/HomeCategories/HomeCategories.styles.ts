@@ -1,16 +1,21 @@
 import { Dimensions } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
-import { colors } from "../../utils/colors";
+import { colors } from "../../../../utils/colors";
+import { fontFamilySemiBold } from "../../../../utils/helper";
 
 const { width, height } = Dimensions.get('window')
 
 export const styles = EStyleSheet.create({
-    container: {
-        flex: 1,
-    },
     bottom10: {
         paddingBottom: '10rem',
-        marginTop: '20rem'
+
+    },
+    categoriesText: {
+        fontSize: '16rem',
+        fontFamily: fontFamilySemiBold,
+        marginTop: '20rem',
+        marginBottom: '10rem',
+        marginLeft: '10rem',
     },
     cardView: {
         width: width - 5,
