@@ -13,3 +13,8 @@ export const fontFamilyBold = 'Manrope-Bold'
 export const openLink = (url: string) => {
   isDefined(url) ? Linking.openURL(url) : ''
 }
+
+
+export const toUpperCase = (value: string) => {
+  return isDefined(value) ? value.charAt(0).toUpperCase() + value.slice(1) : '';
+};

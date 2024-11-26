@@ -19,6 +19,7 @@ import Cart from './screens/Cart/Cart/Cart';
 import Customise from './screens/Customise/Customise';
 import Menu from './screens/Menu/Menu';
 import WebviewComponent from './components/WebviewComponent/WebviewComponent';
+import ProductList from './screens/Product/ProductList/ProductList';
 
 const routeOptions = {
   headerShown: false,
@@ -251,6 +252,13 @@ const MainApp = observer(() => {
         component={WebviewComponent}
         options={{
           headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="ProductList"
+        component={ProductList}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

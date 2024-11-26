@@ -19,13 +19,14 @@ const InputComponent = (props: any) => {
   return (
     <View style={styles.container}>
       <TextInput
+        {...props}
         value={value}
         onChangeText={(value: string) => onChangeText(value)}
         style={[styles.input, style]}
         placeholder={placeholder}
         keyboardAppearance={'light'}
         contextMenuHidden
-        lightGray={lightGray}
+        placeholderTextColor={lightGray}
       />
     </View>
   );

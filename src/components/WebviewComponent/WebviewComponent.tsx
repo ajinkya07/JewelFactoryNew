@@ -26,12 +26,7 @@ const WebviewComponent = (props: any) => {
       },
       headerTitleAlign: 'center',
     });
-  }, [
-    colors.black,
-    props.navigation,
-    props.route.params?.cardOverlayEnabled,
-    props.route.params.title,
-  ]);
+  }, [colors.black, props.navigation, props.route.params.title]);
 
   const onErrorWebview = () => {
     //

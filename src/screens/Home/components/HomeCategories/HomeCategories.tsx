@@ -5,11 +5,19 @@ import {styles} from './HomeCategories.styles';
 import IconPack from '../../../../utils/IconPack';
 import {strings} from '../../../../utils/strings';
 import {isDefined} from '../../../../utils/helper';
+import {useNavigation} from '@react-navigation/native';
 
 const HomeCategories = ({data}: any) => {
+  const navigation = useNavigation();
+
   if (!isDefined(data)) {
     return null;
   }
+
+  const onPressCategory = (data: any) => {
+    // @ts-ignore
+    navigation.navigate('ProductList', {title: data.product_name});
+  };
 
   return (
     <>
@@ -24,10 +32,8 @@ const HomeCategories = ({data}: any) => {
             <Pressable
               key={`category${index}`}
               style={({pressed}) => styles.cardView}
-              onPress={() => null}>
-              <View style={styles.imageView}>
-                <Image source={IconPack.BG} style={styles.categoryImage} />
-              </View>
+              onPress={() => onPressCategory(item)}>
+              <Image source={item.source} style={styles.categoryImage} />
             </Pressable>
           );
         }}

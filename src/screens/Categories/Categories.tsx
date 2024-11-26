@@ -14,6 +14,7 @@ import IconPack from '../../utils/IconPack';
 import {colors} from '../../utils/colors';
 import {strings} from '../../utils/strings';
 import {observer} from 'mobx-react';
+import {PRODUCT_DATA} from '../Product/ProductList/productsData';
 
 const {width, height} = Dimensions.get('window');
 
@@ -53,29 +54,13 @@ const categoryDataSource = [
   },
 ];
 
-const categoryData = [
-  {
-    description: 'Rings',
-  },
-  {
-    description: 'Diamonds',
-  },
-  {
-    description: 'Diamonds',
-  },
-  {
-    description: 'Diamonds',
-  },
-  {
-    description: 'Diamonds',
-  },
-];
-
 const Category = () => {
+  const DATA = PRODUCT_DATA();
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={categoryData}
+        data={DATA}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.bottom10}
         keyExtractor={(item, index) => index.toString()}
@@ -95,17 +80,14 @@ const Category = () => {
               <>
                 <View style={styles.nameView}>
                   <Text style={styles.categoryTitle}>
-                    {strings.explore} {item.description}
+                    {strings.explore} {item.product_name}
                   </Text>
                   <Text numberOfLines={3} style={styles.categorySubTitle}>
-                    {item?.description}
+                    {item?.disc}
                   </Text>
                 </View>
                 <View style={styles.imageView}>
-                  <Image
-                    source={IconPack.APP_LOGO}
-                    style={styles.categoryImage}
-                  />
+                  <Image source={item.source} style={styles.categoryImage} />
                 </View>
               </>
             </Pressable>

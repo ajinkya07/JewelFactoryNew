@@ -22,6 +22,9 @@ const HomeCarousel = ({data}: any) => {
         itemWidth={width}
         itemHeight={230}
         data={data}
+        // autoplay={true}
+        // loop={true}
+        autoplayDelay={1000}
         onSnapToItem={onSnapToItem}
         renderItem={({item, index}) => (
           <Pressable
@@ -29,7 +32,7 @@ const HomeCarousel = ({data}: any) => {
             style={({pressed}) => styles.cardView}
             onPress={() => null}>
             <View style={styles.imageView}>
-              <Image source={IconPack.BG} style={styles.image} />
+              <Image source={item.source} style={styles.image} />
             </View>
           </Pressable>
         )}

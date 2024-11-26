@@ -8,7 +8,6 @@ const { width, height } = Dimensions.get('window')
 export const styles = EStyleSheet.create({
     bottom10: {
         paddingBottom: '10rem',
-
     },
     categoriesText: {
         fontSize: '16rem',
@@ -25,13 +24,11 @@ export const styles = EStyleSheet.create({
         borderColor: colors.lightBlue,
         backgroundColor: colors.touchHighlightGray,
     },
-    imageView: {
-        width: width / 2 + 20
-    },
     categoryImage: {
         height: '110rem',
         width: width - 5,
         borderRadius: '10rem',
-        backgroundColor: colors.gray,
+        backgroundColor: colors.lightBlue,
+        marginBottom: '5rem'
     },
 })

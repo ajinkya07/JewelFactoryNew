@@ -20,7 +20,7 @@ const CardPagination = ({
   length,
   index,
   fillColor,
-  width = 77,
+  width = 70,
 }: CardPaginationProps) => {
   const FILL_WIDTH = width / length;
 
@@ -66,7 +66,7 @@ const styles = EStyleSheet.create({
     borderRadius: '100rem',
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: '10rem',
+    marginTop: '8rem',
   },
   progressAnimation: {
     height: '3rem',

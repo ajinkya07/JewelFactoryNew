@@ -16,31 +16,16 @@ import {colors} from '../../utils/colors';
 import IconPack from '../../utils/IconPack';
 import HomeCategories from './components/HomeCategories/HomeCategories';
 import HomeCarousel from './components/HomeCarousel/HomeCarousel';
-
-const categoryData = [
-  {
-    description: 'Rings',
-  },
-  {
-    description: 'Diamonds',
-  },
-  {
-    description: 'Diamonds',
-  },
-  {
-    description: 'Diamonds',
-  },
-  {
-    description: 'Diamonds',
-  },
-];
+import {PRODUCT_DATA} from '../Product/ProductList/productsData';
 
 const Home = () => {
+  const DATA = PRODUCT_DATA();
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <HomeCarousel data={categoryData} />
-        <HomeCategories data={categoryData} />
+        <HomeCarousel data={DATA} />
+        <HomeCategories data={DATA} />
       </ScrollView>
     </SafeAreaView>
   );

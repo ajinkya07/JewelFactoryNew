@@ -17,7 +17,7 @@ const BackHeader = ({
   leftIcon,
   leftIconStyle,
   rightIconUnderlayColor,
-}) => {
+}: any) => {
   return (
     <Observer>
       {() => (
@@ -45,18 +45,6 @@ const BackHeader = ({
               ]}
             />
           </TouchableHighlight>
-          {Boolean(rightText) && (
-            <TouchableHighlight
-              onPress={onPressRight ? onPressRight : () => {}}
-              underlayColor={
-                rightIconUnderlayColor || colors.touchHighlightGray
-              }
-              style={styles.rightText}>
-              <Text style={[rightTextStyle && rightTextStyle]}>
-                {rightText}
-              </Text>
-            </TouchableHighlight>
-          )}
         </View>
       )}
     </Observer>

@@ -48,4 +48,12 @@ export default {
   MENU: require('../assets/image/menu.png'),
   RIGHT_ARROW: require('../assets/image/right_arrow.png'),
   LEFT_ARROW: require('../assets/image/left_arrow.png'),
+  HEADPHONE: require('../assets/image/headphone.png'),
+  HEART: require('../assets/image/heart.png'),
+
+  IMAGE_1: require('../assets/image/image1.png'),
+  IMAGE_2: require('../assets/image/image2.png'),
+  IMAGE_3: require('../assets/image/image3.png'),
+  IMAGE_4: require('../assets/image/image4.png'),
+  IMAGE_5: require('../assets/image/image5.png'),
 };

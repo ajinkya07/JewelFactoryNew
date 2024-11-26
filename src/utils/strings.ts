@@ -48,5 +48,9 @@ export const strings = {
   explore: 'Explore',
   shareApp: 'Share app',
   rateApp: 'Rate app',
-  categories: "Categories"
+  categories: "Categories",
+  filter: 'Filter',
+  sort: 'Sort',
+  viewAs: 'View as',
+  productsFound: 'products found'
 };
