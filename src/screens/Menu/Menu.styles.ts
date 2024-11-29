@@ -1,6 +1,6 @@
 import EStyleSheet from "react-native-extended-stylesheet";
 import { colors } from "../../utils/colors";
-import { fontFamilyBold, fontFamilyMedium, fontFamilySemiBold } from "../../utils/helper";
+import { fontFamilyBold, fontFamilySemiBold } from "../../utils/constants";
 
 export const styles = EStyleSheet.create({
     safeAreaContainer: {

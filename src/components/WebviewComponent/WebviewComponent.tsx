@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {Linking, View} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import WebView from 'react-native-webview';
-import {fontFamilyMedium} from '../../utils/helper';
+import {fontFamilyMedium} from '../../utils/constants';
 import {colors} from '../../utils/colors';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import BackHeader from '../BackHeader';

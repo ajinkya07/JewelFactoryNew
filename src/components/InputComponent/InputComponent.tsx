@@ -27,6 +27,8 @@ const InputComponent = (props: any) => {
         keyboardAppearance={'light'}
         contextMenuHidden
         placeholderTextColor={lightGray}
+        autoCapitalize={'none'}
+        maxLength={maxLength}
       />
     </View>
   );

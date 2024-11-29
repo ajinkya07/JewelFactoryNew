@@ -3,43 +3,42 @@ import axios from 'axios';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {urls} from '../network/urls';
+import {Platform} from 'react-native';
+import {showToast} from '../utils/helper';
+import {Section} from '../utils/types';
+
 const header = {
   headers: {
     Accept: 'application/json',
     'Content-Type': 'multipart/form-data',
   },
 };
-class LoginStore {
-  constructor() {
+export class LoginStore {
+  constructor(rootStore) {
+    this.rootStore = rootStore;
     makeAutoObservable(this);
   }
 
-  loginUserDataApiState = 'pending';
+  isLoginApiLoading = false;
   loginUserData = [];
 
-  registerUserDataApiState = 'pending';
+  isVerifyOtpRegisterApiLoading = false;
   registerUserData = 0;
 
-  getOtpApiState = 'pending';
+  isOtpApiLoading = false;
   otpData = [];
 
-  forgotPasswordApiState = 'pending';
+  isForgotPasswordApiLoading = false;
   forgotPasswordData = [];
 
-  loginErrorText = '';
-  registerErrorText = '';
   getOtpErrorText = '';
   resetPasswordErrorText = '';
 
   userId = '';
-
   emailId = '';
-
   fullName = '';
-
   mobileNumber = '';
-
-  deleteAccountApiState = 'pending';
+  deleteAccountApiState = false;
 
   setFields(eName, data) {
     this[eName] = data;
@@ -47,164 +46,158 @@ class LoginStore {
   }
 
   resetFields() {
-    this.loginUserDataApiState = 'pending';
+    this.isLoginApiLoading = false;
     this.loginUserData = [];
 
-    this.registerUserDataApiState = 'pending';
+    this.isVerifyOtpRegisterApiLoading = false;
     this.registerUserData = [];
 
-    this.getOtpApiState = 'pending';
+    this.isOtpApiLoading = false;
     this.otpData = [];
 
-    this.forgotPasswordApiState = 'pending';
+    this.isForgotPasswordApiLoading = false;
     this.forgotPasswordData = [];
 
-    this.loginErrorText = '';
-    this.registerErrorText = '';
     this.getOtpErrorText = '';
     this.resetPasswordErrorText = '';
 
     this.userId = '';
-
     this.emailId = '';
-
     this.fullName = '';
-
     this.mobileNumber = '';
-    this.deleteAccountApiState = 'pending';
+    this.deleteAccountApiState = false;
   }
 
-  onLoginUser = (data, props) => {
+  // Login
+  loginApi = data => {
     console.log('onLoginUser', data);
 
-    if (this.loginUserDataApiState == 'loading') {
+    if (this.isLoginApiLoading) {
       return true;
     }
-    this.loginUserDataApiState = 'loading';
-    this.setFields('loginErrorText', '');
+    this.setFields('isLoginApiLoading', true);
 
     axios
       .post(urls.Login.url, data, header)
       .then(res => {
-        console.log('onLoginUser', res);
+        console.log('onLoginUser', res.data);
+        this.setFields('isLoginApiLoading', false);
+
         if (res.data.ack === '1') {
-          this.loginUserDataApiState = 'done';
+          if (res.data.user_status === 'Available') {
+            this.sendFcmToken();
 
-          this.loginUserData = res.data?.data;
+            // this.loginUserData = res.data?.data;
+            this.setLoginData(res.data);
 
-          let user_id = res.data?.data?.user_id;
-          let email_id = res.data?.data?.email_id;
-          let full_name = res.data?.data?.full_name;
-          let mobile_number = res.data?.data?.mobile_number;
-
-          this.userId = `${user_id}`;
-          this.emailId = `${email_id}`;
-          this.fullName = `${full_name}`;
-          this.mobileNumber = `${mobile_number}`;
-
-          AsyncStorage.setItem('userId', `${user_id}`);
-          AsyncStorage.setItem('emailId', email_id);
-          AsyncStorage.setItem('fullName', full_name);
-          AsyncStorage.setItem('mobileNumber', mobile_number);
-
-          props.navigation.navigate('Home');
+            this.rootStore.appStore.setFields('showPreLogin', false);
+            this.rootStore.appStore.setFields('isLoggedIn', true);
+            this.rootStore.appStore.handleScreenNavigation('Home');
+          } else {
+            // error
+          }
         } else {
-          this.loginUserDataApiState = 'error';
-          this.setFields('loginErrorText', res.data?.msg);
+          showToast({title: res?.data?.msg});
         }
       })
       .catch(function (error) {
         console.log('error', error);
-        this.loginUserDataApiState = 'error';
+        showToast({title: error});
+        this.setFields('isLoginApiLoading', false);
       });
   };
 
-  onRegisterUser = (data, props) => {
-    if (this.registerUserDataApiState == 'loading') {
+  // OTP for Register and forgot password
+  otpApi = (data, registerData, section) => {
+    if (this.isOtpApiLoading == true) {
       return true;
     }
-    this.registerUserDataApiState = 'loading';
-    this.setFields('registerErrorText', '');
+    this.setFields('isOtpApiLoading', true);
+
+    axios
+      .post(urls.SendOtp.url, data, header)
+      .then(res => {
+        console.log('otpApi', res.data);
+        this.setFields('isOtpApiLoading', false);
+
+        if (res.data.ack === '1') {
+          const {otp} = res.data?.data;
+
+          showToast({type: 'success', title: res?.data?.msg});
+
+          this.rootStore.appStore.handleScreenNavigation('VerifyOTP', {
+            inputs: registerData,
+            otp: otp,
+            section: section,
+          });
+        } else {
+          showToast({title: res?.data?.msg});
+        }
+      })
+      .catch(function (error) {
+        console.log('otpApi', error);
+        this.setFields('isOtpApiLoading', false);
+        showToast({title: error});
+      });
+  };
+
+  // Register
+  verifyOtpRegisterApi = data => {
+    if (this.isVerifyOtpRegisterApiLoading) {
+      return true;
+    }
+    this.setFields('isVerifyOtpRegisterApiLoading', true);
 
     axios
       .post(urls.Register.url, data, header)
       .then(res => {
+        console.log('registerApi', res.data);
         if (res.data.ack === '1') {
-          console.log('onLoginUser', res.data);
-          this.registerUserDataApiState = 'done';
+          this.setFields('isVerifyOtpRegisterApiLoading', false);
+
           this.registerUserData = res.data?.data;
-          Toast.show({
-            type: 'success',
-            text1: 'Done',
-            text2: `${res.data?.msg} `,
-            position: 'bottom',
-          });
-          props.navigation.goBack();
 
-          props.navigation.navigate('Login');
+          showToast({type: 'success', title: res?.data?.msg});
+
+          this.rootStore.appStore.handleScreenNavigationGoBack();
+          this.rootStore.appStore.handleScreenNavigation('Login');
         } else {
-          this.setFields('registerErrorText', res.data?.msg);
-          this.registerUserDataApiState = 'error';
+          showToast({title: res?.data?.msg});
+
+          this.setFields('isVerifyOtpRegisterApiLoading', false);
         }
       })
       .catch(function (error) {
-        this.registerUserDataApiState = 'error';
+        this.setFields('isVerifyOtpRegisterApiLoading', false);
+        showToast({title: error});
       });
   };
 
-  getOTP = (data, props) => {
-    if (this.getOtpApiState == 'loading') {
-      return true;
-    }
-    this.getOtpApiState = 'loading';
-
-    axios
-      .post(urls.Otp.url, data, header)
-      .then(res => {
-        console.log('getOTP', res.data);
-        if (res.data.ack === '1') {
-          this.getOtpApiState = 'done';
-          this.otpData = res.data?.data;
-          props.navigation.navigate('Otp');
-        } else {
-          this.getOtpApiState = 'error';
-        }
-      })
-      .catch(function (error) {
-        console.log('getOTP', error);
-        this.getOtpApiState = 'error';
-      });
-  };
-
-  resetPassword = (data, props) => {
+  forgotPasswordApi = data => {
     console.log('resetPassword data', data);
-    if (this.forgotPasswordApiState == 'loading') {
+    if (this.isForgotPasswordApiLoading) {
       return true;
     }
-    this.forgotPasswordApiState = 'loading';
-    this.setFields('resetPasswordErrorText', '');
+    this.setFields('isForgotPasswordApiLoading', true);
 
     axios
-      .post(urls.ForgotPassword.url, data, header)
+      .post(urls.ChangePassword.url, data, header)
       .then(res => {
         if (res.data.ack === '1') {
-          console.log('resetPassword', res.data);
-          this.forgotPasswordApiState = 'done';
-          this.forgotPasswordData = res.data?.data;
-          Toast.show({
-            type: 'success',
-            text1: 'Done',
-            text2: `${res.data?.msg} `,
-            position: 'bottom',
-          });
-          props.navigation.navigate('Login');
+          console.log('forgotPasswordApi', res.data);
+
+          this.setFields('isForgotPasswordApiLoading', false);
+          showToast({type: 'success', title: res.data.msg});
+
+          this.rootStore.appStore.handleScreenNavigation('Login');
         } else {
-          this.setFields('resetPasswordErrorText', res.data?.msg);
-          this.forgotPasswordApiState = 'error';
+          showToast({title: res.data.msg});
+          this.setFields('isForgotPasswordApiLoading', false);
         }
       })
       .catch(function (error) {
-        this.forgotPasswordApiState = 'error';
+        showToast({title: error});
+        this.setFields('isForgotPasswordApiLoading', false);
       });
   };
 
@@ -223,8 +216,8 @@ class LoginStore {
           this.deleteAccountApiState = 'done';
           Toast.show({
             type: 'success',
-            text1: 'Done',
-            text2: `${res.data?.msg} `,
+            title: 'Done',
+            subtitle: `${res.data?.msg} `,
             position: 'bottom',
           });
           AsyncStorage.setItem('userId', '');
@@ -240,11 +233,45 @@ class LoginStore {
         this.deleteAccountApiState = 'error';
         Toast.show({
           type: 'error',
-          text1: 'Oops',
-          text2: 'Something went wrong',
+          title: 'Oops',
+          subtitle: 'Something went wrong',
           position: 'bottom',
         });
       });
   };
+
+  setLoginData(data) {
+    global.userId = data.data.user_id;
+    AsyncStorage.setItem('userId', data.data.user_id.toString());
+    AsyncStorage.setItem('fullName', data.data.full_name.toString());
+    AsyncStorage.setItem('userStatus', data.data.user_status.toString());
+    AsyncStorage.setItem('mobileNumber', data.data.mobile_number.toString());
+    AsyncStorage.setItem('emailId', data.data.email_id.toString());
+  }
+
+  // FCM Token Api
+  sendFcmTokenApi(data) {
+    axios
+      .post(urls.sendFCMToken.url, data, header)
+      .then(res => {})
+      .catch(function (error) {
+        // error
+      });
+  }
+
+  sendFcmToken = async userId => {
+    let fcmToken = await AsyncStorage.getItem('fcmToken');
+    let platform = Platform.OS === 'ios' ? 'ios' : 'android';
+
+    const fcmData = new FormData();
+
+    fcmData.append('worker_id', userId);
+    fcmData.append('type', 'client');
+    fcmData.append('gcm_no', fcmToken);
+    fcmData.append('platform', platform);
+
+    this.sendFcmTokenApi(fcmData);
+  };
 }
-export default new LoginStore();
+
+export default LoginStore;

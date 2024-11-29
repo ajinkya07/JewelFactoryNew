@@ -1,7 +1,6 @@
 import EStyleSheet from "react-native-extended-stylesheet";
-import { fontFamilyBold, fontFamilyMedium, } from "../../../utils/helper";
+import { fontFamilyBold, fontFamilyMedium, } from "../../../utils/constants";
 import { colors } from "../../../utils/colors";
-import { Dimensions } from "react-native";
 
 
 export const styles = EStyleSheet.create({
@@ -11,6 +10,19 @@ export const styles = EStyleSheet.create({
     },
     nameView: {
         marginTop: '70rem'
+    },
+    resetPassword: {
+        color: colors.black,
+        fontSize: '20rem',
+        textAlign: 'left',
+        marginBottom: '5rem',
+        fontFamily: fontFamilyBold,
+    },
+    enterMobNoText: {
+        color: colors.gray,
+        fontSize: '14rem',
+        textAlign: 'left',
+        fontFamily: fontFamilyMedium,
     },
     appName: {
         fontSize: '40rem',
@@ -26,7 +38,7 @@ export const styles = EStyleSheet.create({
         color: colors.gray
     },
     inputView: {
-        marginTop: '80rem'
+        marginTop: '90rem'
     },
     passwordInputTop: {
         marginTop: '15rem'

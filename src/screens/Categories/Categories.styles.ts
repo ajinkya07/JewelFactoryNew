@@ -1,7 +1,7 @@
 import { Dimensions } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { colors } from "../../utils/colors";
-import { fontFamilyBold } from "../../utils/helper";
+import { fontFamilyBold } from "../../utils/constants";
 
 const { width, height } = Dimensions.get('window')
 

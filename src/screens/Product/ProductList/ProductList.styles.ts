@@ -1,5 +1,5 @@
 import EStyleSheet from "react-native-extended-stylesheet";
-import { fontFamilyBold, fontFamilySemiBold } from "../../../utils/helper";
+import { fontFamilyBold, fontFamilySemiBold } from "../../../utils/constants";
 import { colors } from "../../../utils/colors";
 import { Dimensions } from "react-native";
 

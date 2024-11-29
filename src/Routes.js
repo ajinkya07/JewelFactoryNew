@@ -11,6 +11,7 @@ import Login from './screens/OnBoarding/Login/Login';
 import Home from './screens/Home/Home';
 import Category from './screens/Categories/Categories';
 import {colors} from './utils/colors';
+import Toast from 'react-native-toast-message';
 import SplashVideoScreen from './components/SplashScreen/SplashScreen';
 import Register from './screens/OnBoarding/Register/Register';
 import ForgotPassword from './screens/OnBoarding/ForgotPassword/ForgotPassword';
@@ -20,6 +21,7 @@ import Customise from './screens/Customise/Customise';
 import Menu from './screens/Menu/Menu';
 import WebviewComponent from './components/WebviewComponent/WebviewComponent';
 import ProductList from './screens/Product/ProductList/ProductList';
+import VerifyOTP from './screens/OnBoarding/VerifyOTP/VerifyOTP';
 
 const routeOptions = {
   headerShown: false,
@@ -85,6 +87,13 @@ const LoginStack = observer(() => {
         }}
       />
       <Stack.Screen
+        name="VerifyOTP"
+        component={VerifyOTP}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="Home"
         component={Home}
         options={{
@@ -99,7 +108,7 @@ const TabBarBottom = observer(() => {
   return (
     <Tab.Navigator
       backBehavior="initialRoute"
-      initialRouteName={Home}
+      initialRouteName={'Home'}
       screenOptions={TabBarScreenOptions}>
       <Tab.Screen
         name={'Home'}
@@ -241,6 +250,14 @@ const MainApp = observer(() => {
         }}
       />
       <Stack.Screen
+        name="VerifyOTP"
+        component={VerifyOTP}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
         name="Home"
         component={Home}
         options={{
@@ -296,6 +313,7 @@ const AppStack = () => (
         ) : RootStore.appStore.isLoggedIn ? (
           <MainApp />
         ) : null}
+        <Toast />
       </>
     )}
   </Observer>

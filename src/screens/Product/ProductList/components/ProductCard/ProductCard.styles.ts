@@ -1,7 +1,7 @@
 import { Dimensions } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { colors } from "../../../../../utils/colors";
-import { fontFamilyMedium, fontFamilyRegular, fontFamilySemiBold } from "../../../../../utils/helper";
+import { fontFamilyMedium } from "../../../../../utils/constants";
 
 const { width, height } = Dimensions.get('window')
 // alignItems: 'center',

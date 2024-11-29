@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import { colors } from '../../utils/colors';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { fontFamilyBold } from '../../utils/helper';
+import { fontFamilyBold } from '../../utils/constants';
 
 const { height, width } = Dimensions.get('window')
 
@@ -25,7 +25,7 @@ export const styles =
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
-      backgroundColor: colors.brandColor,
+      backgroundColor: colors.pressedBtnColor,
       paddingHorizontal: '12rem',
       paddingVertical: '8rem',
       height: '52rem',

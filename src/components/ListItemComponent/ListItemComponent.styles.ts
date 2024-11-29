@@ -1,5 +1,5 @@
 import EStyleSheet from "react-native-extended-stylesheet";
-import { fontFamilySemiBold } from "../../utils/helper";
+import { fontFamilySemiBold } from "../../utils/constants";
 
 export const styles = EStyleSheet.create({
   touchContainer: {

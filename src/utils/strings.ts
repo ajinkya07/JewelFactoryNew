@@ -52,5 +52,22 @@ export const strings = {
   filter: 'Filter',
   sort: 'Sort',
   viewAs: 'View as',
-  productsFound: 'products found'
+  productsFound: 'products found',
+  enterMobileNo: 'Please enter mobile number',
+  enterValidMobileNo: 'Please enter valid mobile number',
+  enterPassword: 'Please enter password',
+  defaultToastText1: 'Oops',
+  defaultToastText2: 'Something went wrong',
+  enterName: 'Please enter full name',
+  enterEmail: 'Please enter email address',
+  enterValidEmail: 'Please enter valid email address',
+  enterValidPassword: 'Password must be atleast 4 character long',
+  verifyMobileNo: 'Verify your Mobile Number',
+  enterOtpSentTo: 'Please enter OTP sent to ******',
+  enterOtp: 'Please enter OTP',
+  enterValidOtp: 'Please enter valid OTP',
+  resendOtp: 'Resend OTP',
+  getOtp: 'Get OTP',
+  resetYourPasswordHere: 'Reset your password here',
+  enterRegisteredMobileNo: 'Enter the mobile number associated\nwith your account'
 };

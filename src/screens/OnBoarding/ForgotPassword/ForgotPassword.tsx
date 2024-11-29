@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {observer} from 'mobx-react';
 import {styles} from './ForgotPassword.styles';
 import RootStore from '../../../stores/RootStore';
@@ -9,11 +9,18 @@ import PressableComponent, {
   PRESSABLE_BTN_TYPE,
 } from '../../../components/PressableComponent/PressableComponent';
 import InputComponent from '../../../components/InputComponent/InputComponent';
+import {
+  showToast,
+  validateMobNum,
+  validatePassword,
+} from '../../../utils/helper';
+import {Section} from '../../../utils/types';
+import {constatnts} from '../../../utils/constants';
 
 const ForgotPassword = () => {
   const [inputs, setLoginInputs] = useState({
+    mobileNo: '',
     newPassword: '',
-    conformPassword: '',
   });
 
   const onChangeText = (key: string, value: string) => {
@@ -24,37 +31,78 @@ const ForgotPassword = () => {
   };
 
   const onPressForgotPassword = () => {
-    RootStore.appStore.handleScreenNavigation('ForgotPassword');
+    const {mobileNo, newPassword} = inputs;
+    let error = '';
+    try {
+      if (mobileNo == '') {
+        error = strings.enterMobileNo;
+        throw new Error();
+      } else if (!validateMobNum(mobileNo)) {
+        error = strings.enterValidMobileNo;
+        throw new Error();
+      } else if (newPassword == '') {
+        error = strings.enterPassword;
+        throw new Error();
+      } else if (!validatePassword(newPassword)) {
+        error = strings.enterValidPassword;
+        throw new Error();
+      } else {
+        const inputData = inputs;
+
+        const params = new FormData();
+        params.append('mobile_number', mobileNo);
+
+        RootStore.loginStore.otpApi(params, inputData, Section.FORGOT_PASSWORD);
+      }
+    } catch (err) {
+      console.log('err', err);
+      showToast({title: error});
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.nameView}>
-        <Text style={styles.title}>{strings.welcome}</Text>
-        <Text style={styles.appName}>{strings.appName}</Text>
-      </View>
-      <View style={styles.inputView}>
-        <InputComponent
-          value={inputs.newPassword}
-          onChangeText={(value: string) => onChangeText('newPassword', value)}
-          placeholder={strings.newPassword}
-        />
+      <ScrollView
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled">
+        <>
+          <View style={styles.nameView}>
+            <Text style={styles.resetPassword}>
+              {strings.resetYourPasswordHere}
+            </Text>
+            <Text style={styles.enterMobNoText}>
+              {strings.enterRegisteredMobileNo}
+            </Text>
+          </View>
+          <View style={styles.inputView}>
+            <InputComponent
+              value={inputs.mobileNo}
+              onChangeText={(value: string) => onChangeText('mobileNo', value)}
+              placeholder={strings.mobileNo}
+              maxLength={constatnts.MOBILE_NUMBER_MAX_LENGTH}
+              returnKeyType="next"
+              keyboardType="number-pad"
+            />
 
-        <InputComponent
-          value={inputs.conformPassword}
-          onChangeText={(value: string) =>
-            onChangeText('conformPassword', value)
-          }
-          style={styles.passwordInputTop}
-          placeholder={strings.conformPassword}
-        />
-      </View>
-      <PressableComponent
-        btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-        text={strings.next}
-        containerStyle={styles.btnContainer}
-        onPress={onPressForgotPassword}
-      />
+            <InputComponent
+              value={inputs.newPassword}
+              onChangeText={(value: string) =>
+                onChangeText('newPassword', value)
+              }
+              placeholder={strings.newPassword}
+              style={styles.passwordInputTop}
+            />
+          </View>
+          <PressableComponent
+            btnType={PRESSABLE_BTN_TYPE.PRIMARY}
+            text={strings.getOtp}
+            containerStyle={styles.btnContainer}
+            onPress={onPressForgotPassword}
+            isLoading={RootStore.loginStore.isOtpApiLoading}
+          />
+        </>
+      </ScrollView>
     </SafeAreaView>
   );
 };

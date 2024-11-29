@@ -1,7 +1,6 @@
 import EStyleSheet from "react-native-extended-stylesheet";
-import { fontFamilyBold, fontFamilyMedium } from "../../../utils/helper";
+import { fontFamilyBold, fontFamilyMedium } from "../../../utils/constants";
 import { colors } from "../../../utils/colors";
-import { Dimensions } from "react-native";
 
 export const styles = EStyleSheet.create({
     container: {
@@ -33,6 +32,4 @@ export const styles = EStyleSheet.create({
     btnContainer: {
         marginTop: '40rem',
     },
-
-
 })

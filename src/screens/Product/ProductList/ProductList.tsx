@@ -11,10 +11,8 @@ import {
 } from 'react-native';
 import {styles} from './ProductList.styles';
 import {observer} from 'mobx-react';
-import {fontFamilyMedium, toUpperCase} from '../../../utils/helper';
+import {toUpperCase} from '../../../utils/helper';
 import {colors} from '../../../utils/colors';
-import BackHeader from '../../../components/BackHeader';
-import IconPack from '../../../utils/IconPack';
 import LoadingComponent from '../../../components/LoadingComponent/LoadingComponent';
 import PressableComponent, {
   PRESSABLE_BTN_TYPE,
