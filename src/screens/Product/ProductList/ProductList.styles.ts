@@ -20,6 +20,7 @@ export const styles = EStyleSheet.create({
         marginBottom: '5rem',
         marginLeft: '12rem',
         marginTop: '30rem',
+        textTransform: 'capitalize'
     },
     productsCountText: {
         fontSize: '13rem',

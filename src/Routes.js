@@ -22,6 +22,7 @@ import Menu from './screens/Menu/Menu';
 import WebviewComponent from './components/WebviewComponent/WebviewComponent';
 import ProductList from './screens/Product/ProductList/ProductList';
 import VerifyOTP from './screens/OnBoarding/VerifyOTP/VerifyOTP';
+import TopLevelModal from './components/ComingSoon/TopLevelModal';
 
 const routeOptions = {
   headerShown: false,
@@ -314,6 +315,7 @@ const AppStack = () => (
           <MainApp />
         ) : null}
         <Toast />
+        <TopLevelModal />
       </>
     )}
   </Observer>

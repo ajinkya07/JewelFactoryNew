@@ -6,6 +6,7 @@ import IconPack from '../../../../utils/IconPack';
 import {strings} from '../../../../utils/strings';
 import {isDefined} from '../../../../utils/helper';
 import {useNavigation} from '@react-navigation/native';
+import {constatnts} from '../../../../utils/constants';
 
 const HomeCategories = ({data}: any) => {
   const navigation = useNavigation();
@@ -16,29 +17,32 @@ const HomeCategories = ({data}: any) => {
 
   const onPressCategory = (data: any) => {
     // @ts-ignore
-    navigation.navigate('ProductList', {title: data.product_name});
+    navigation.navigate('ProductList', {title: data.col_name});
   };
 
   return (
-    <>
-      <Text style={styles.categoriesText}>{strings.categories}</Text>
-      <FlatList
-        data={data}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.bottom10}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({item, index}) => {
+    data.length > 0 && (
+      <>
+        <Text style={styles.categoriesText}>{strings.categories}</Text>
+        {data.map((item: any, index: number) => {
           return (
             <Pressable
               key={`category${index}`}
               style={({pressed}) => styles.cardView}
               onPress={() => onPressCategory(item)}>
-              <Image source={item.source} style={styles.categoryImage} />
+              <Image
+                source={
+                  item.image_name != ''
+                    ? {uri: constatnts.IMAGE_URL + item.image_name}
+                    : IconPack.APP_LOGO
+                }
+                style={styles.categoryImage}
+              />
             </Pressable>
           );
-        }}
-      />
-    </>
+        })}
+      </>
+    )
   );
 };
 

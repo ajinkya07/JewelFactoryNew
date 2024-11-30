@@ -43,6 +43,9 @@ const Menu = () => {
     }
   };
 
+  const onPressEdit = () => {
+    RootStore.appStore.setFields('isComingSoonVisible', true);
+  };
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <ScrollView
@@ -58,7 +61,7 @@ const Menu = () => {
             </View>
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.TEXT}
-              onPress={() => null}
+              onPress={onPressEdit}
               text={strings.edit}
               align={PRESSABLE_ALIGN.LEFT}
               colorConfig={{

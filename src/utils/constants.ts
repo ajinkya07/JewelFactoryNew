@@ -1,6 +1,9 @@
+import { urls } from "../network/urls";
+
 export const constatnts = {
     muskseedWebUrl: 'https://muskseeds.com/',
-    MOBILE_NUMBER_MAX_LENGTH: 10
+    MOBILE_NUMBER_MAX_LENGTH: 10,
+    IMAGE_URL: urls.imageUrl + 'public/backend/collection/'
 }
 
 export const fontFamilyLight = 'Manrope-Light';

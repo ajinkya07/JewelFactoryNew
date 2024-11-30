@@ -6,6 +6,7 @@ import IconPack from '../../../../utils/IconPack';
 import Carousel from 'react-native-snap-carousel';
 import CardPagination from '../../../../components/CardPagination';
 import {colors} from '../../../../utils/colors';
+import RootStore from '../../../../stores/RootStore';
 
 const {width, height} = Dimensions.get('window');
 
@@ -13,7 +14,9 @@ const HomeCarousel = ({data}: any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const onSnapToItem = (index: number) => setCurrentIndex(index);
+  console.log('data', data);
 
+  const imageBasePath = RootStore.homeStore.basePath;
   return (
     <>
       <Carousel
@@ -28,11 +31,14 @@ const HomeCarousel = ({data}: any) => {
         onSnapToItem={onSnapToItem}
         renderItem={({item, index}) => (
           <Pressable
-            key={`category${index}`}
+            key={`carousel${index}`}
             style={({pressed}) => styles.cardView}
             onPress={() => null}>
             <View style={styles.imageView}>
-              <Image source={item.source} style={styles.image} />
+              <Image
+                source={{uri: imageBasePath + item.brand_image}}
+                style={styles.image}
+              />
             </View>
           </Pressable>
         )}

@@ -114,12 +114,12 @@ const ProductList = (props: any) => {
                 )}
                 ListHeaderComponent={() => (
                   <>
-                    <Text style={styles.categoryTextStyle}>
-                      {toUpperCase(title)}
-                    </Text>
-                    <Text style={styles.productsCountText}>
-                      {DATA.length} {strings.productsFound}
-                    </Text>
+                    <Text style={styles.categoryTextStyle}>{title}</Text>
+                    {DATA.length > 0 && (
+                      <Text style={styles.productsCountText}>
+                        {DATA.length} {strings.productsFound}
+                      </Text>
+                    )}
                   </>
                 )}
               />

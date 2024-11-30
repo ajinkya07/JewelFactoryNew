@@ -15,8 +15,8 @@ import {colors} from '../../../utils/colors';
 
 const Login = () => {
   const [inputs, setLoginInputs] = useState({
-    mobileNo: '',
-    password: '',
+    mobileNo: '9876543211',
+    password: '12345',
   });
 
   const onPressLogin = async () => {
@@ -34,11 +34,13 @@ const Login = () => {
         error = strings.enterPassword;
         throw new Error();
       } else {
+        let deviceId = await getDeviceId();
+
         const data = new FormData();
         data.append('mobile_number', inputs.mobileNo);
         data.append('password', inputs.password);
         data.append('login_type', 'client');
-        data.append('device_id', getDeviceId());
+        data.append('device_id', deviceId);
 
         RootStore.loginStore.loginApi(data);
       }
@@ -56,7 +58,10 @@ const Login = () => {
   };
 
   const onPressForgotPassword = () => {
-    RootStore.appStore.handleScreenNavigation('ForgotPassword');
+    // RootStore.appStore.handleScreenNavigation('ForgotPassword');
+
+    RootStore.appStore.setFields('showPreLogin', false);
+    RootStore.appStore.setFields('isLoggedIn', true);
   };
 
   const onPressRegister = () => {

@@ -34,8 +34,9 @@ const VerifyOTP = (props: any) => {
     RootStore.loginStore.forgotPasswordApi(params);
   };
 
-  const registerApiCall = () => {
+  const registerApiCall = async () => {
     const reg_source = Platform.OS === 'ios' ? 'ios' : 'android';
+    const deviceId = await getDeviceId();
 
     const params = new FormData();
     params.append('full_name', name);
@@ -43,7 +44,7 @@ const VerifyOTP = (props: any) => {
     params.append('email_id', email);
     params.append('password', password);
     params.append('reg_source', reg_source);
-    params.append('device_id', getDeviceId());
+    params.append('device_id', deviceId);
 
     RootStore.loginStore.verifyOtpRegisterApi(params);
   };

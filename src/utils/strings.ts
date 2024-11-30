@@ -69,5 +69,10 @@ export const strings = {
   resendOtp: 'Resend OTP',
   getOtp: 'Get OTP',
   resetYourPasswordHere: 'Reset your password here',
-  enterRegisteredMobileNo: 'Enter the mobile number associated\nwith your account'
+  enterRegisteredMobileNo: 'Enter the mobile number associated\nwith your account',
+  coming_soon_title: 'Coming Soon!!',
+  coming_soon_subtitle:
+    'Like all good things, this feature will take some time to be live.',
+
+
 };

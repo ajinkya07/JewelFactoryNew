@@ -8,9 +8,9 @@ export const styles = EStyleSheet.create({
     container: {
         flex: 1,
     },
-    bottom10: {
-        paddingBottom: '10rem',
-        marginTop: '20rem'
+    scrollStyle: {
+        paddingBottom: '20rem',
+        marginTop: '20rem',
     },
     cardView: {
         width: width - 5,

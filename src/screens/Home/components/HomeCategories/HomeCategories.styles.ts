@@ -25,7 +25,7 @@ export const styles = EStyleSheet.create({
         backgroundColor: colors.touchHighlightGray,
     },
     categoryImage: {
-        height: '110rem',
+        height: '130rem',
         width: width - 5,
         borderRadius: '10rem',
         backgroundColor: colors.lightBlue,

@@ -17,6 +17,7 @@ export const isDefined = <T>(value: T): value is NonNullable<T> => {
 
 export const getDeviceId = async () => {
   const deviceId = await DeviceInfo.getUniqueId();
+
   return deviceId
 }
 

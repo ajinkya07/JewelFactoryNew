@@ -50,6 +50,7 @@ export default {
   LEFT_ARROW: require('../assets/image/left_arrow.png'),
   HEADPHONE: require('../assets/image/headphone.png'),
   HEART: require('../assets/image/heart.png'),
+  TIMER: require('../assets/image/timer.png'),
 
   IMAGE_1: require('../assets/image/image1.png'),
   IMAGE_2: require('../assets/image/image2.png'),

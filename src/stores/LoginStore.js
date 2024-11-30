@@ -84,17 +84,16 @@ export class LoginStore {
         this.setFields('isLoginApiLoading', false);
 
         if (res.data.ack === '1') {
-          if (res.data.user_status === 'Available') {
+          const {user_status} = res.data.data;
+          if (user_status === 'Available') {
             this.sendFcmToken();
 
-            // this.loginUserData = res.data?.data;
             this.setLoginData(res.data);
 
             this.rootStore.appStore.setFields('showPreLogin', false);
             this.rootStore.appStore.setFields('isLoggedIn', true);
-            this.rootStore.appStore.handleScreenNavigation('Home');
           } else {
-            // error
+            showToast({title: res?.data?.msg});
           }
         } else {
           showToast({title: res?.data?.msg});
@@ -242,11 +241,11 @@ export class LoginStore {
 
   setLoginData(data) {
     global.userId = data.data.user_id;
-    AsyncStorage.setItem('userId', data.data.user_id.toString());
-    AsyncStorage.setItem('fullName', data.data.full_name.toString());
-    AsyncStorage.setItem('userStatus', data.data.user_status.toString());
-    AsyncStorage.setItem('mobileNumber', data.data.mobile_number.toString());
-    AsyncStorage.setItem('emailId', data.data.email_id.toString());
+    AsyncStorage.setItem('userId', data.data?.user_id.toString());
+    AsyncStorage.setItem('fullName', data.data?.full_name.toString());
+    AsyncStorage.setItem('userStatus', data.data?.user_status.toString());
+    AsyncStorage.setItem('mobileNumber', data.data?.mobile_number.toString());
+    AsyncStorage.setItem('emailId', data.data?.email_id.toString());
   }
 
   // FCM Token Api
