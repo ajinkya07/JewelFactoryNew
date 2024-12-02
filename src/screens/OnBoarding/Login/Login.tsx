@@ -15,8 +15,8 @@ import {colors} from '../../../utils/colors';
 
 const Login = () => {
   const [inputs, setLoginInputs] = useState({
-    mobileNo: '9876543211',
-    password: '12345',
+    mobileNo: '', //'9876543211',
+    password: '', //'12345',
   });
 
   const onPressLogin = async () => {
@@ -58,10 +58,7 @@ const Login = () => {
   };
 
   const onPressForgotPassword = () => {
-    // RootStore.appStore.handleScreenNavigation('ForgotPassword');
-
-    RootStore.appStore.setFields('showPreLogin', false);
-    RootStore.appStore.setFields('isLoggedIn', true);
+    RootStore.appStore.handleScreenNavigation('ForgotPassword');
   };
 
   const onPressRegister = () => {

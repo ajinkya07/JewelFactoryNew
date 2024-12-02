@@ -15,9 +15,17 @@ import {observer} from 'mobx-react';
 import RootStore from '../../stores/RootStore';
 import {constatnts} from '../../utils/constants';
 import {useNavigation} from '@react-navigation/native';
+import {navigateToCategoryOrSubCategory} from '../Home/Home.utils';
+import HeaderComponent from '../../components/Header/HeaderComponent';
 
-const Category = () => {
-  const navigation = useNavigation();
+const Categories = (props: any) => {
+  const isFromSubcategory = props.route.params?.isFromSubcategory || false;
+  const categoryData = isFromSubcategory
+    ? props.route.params?.categoryData
+    : RootStore.homeStore.collectionData;
+  console.log('isFromSubcategory', isFromSubcategory);
+
+  console.log('categoryData', categoryData);
 
   const categoryDataSource = [
     {
@@ -55,15 +63,17 @@ const Category = () => {
   ];
 
   const onPressCategory = (data: any) => {
-    // @ts-ignore
-    navigation.navigate('ProductList', {title: data.col_name});
+    navigateToCategoryOrSubCategory(data);
   };
 
-  // {"col_name": "SET", "created": "2023-12-18 06:30:40", "created_date": "18-12-2023", "id": "83", "image_name": "WhatsApp_Image_2023-11-28_at_19_16_171.jpg", "latest": 1, "position": "1", "short_code": "S", "subcategory": [Array]}
   return (
     <SafeAreaView style={styles.container}>
+      {isFromSubcategory && (
+        <HeaderComponent rightIcon1={true} onFirstIconPress={() => null} />
+      )}
+
       <FlatList
-        data={RootStore.homeStore.collectionData}
+        data={categoryData}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollStyle}
         keyExtractor={(item, index) => index.toString()}
@@ -71,7 +81,7 @@ const Category = () => {
           return (
             <Pressable
               key={`category-tab${index}`}
-              style={({pressed}) => [
+              style={() => [
                 styles.cardView,
                 {
                   backgroundColor:
@@ -93,6 +103,7 @@ const Category = () => {
                       : IconPack.APP_LOGO
                   }
                   style={styles.categoryImage}
+                  resizeMode={item.image_name != '' ? 'cover' : 'stretch'}
                 />
               </>
             </Pressable>
@@ -103,4 +114,4 @@ const Category = () => {
   );
 };
 
-export default observer(Category);
+export default observer(Categories);

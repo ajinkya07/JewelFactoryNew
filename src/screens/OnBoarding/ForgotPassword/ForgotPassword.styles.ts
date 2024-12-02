@@ -6,10 +6,11 @@ import { colors } from "../../../utils/colors";
 export const styles = EStyleSheet.create({
     container: {
         flex: 1,
-        marginHorizontal: '20rem',
+        paddingHorizontal: '20rem',
+        alignSelf: 'center'
     },
     nameView: {
-        marginTop: '70rem'
+        marginTop: '80rem'
     },
     resetPassword: {
         color: colors.black,

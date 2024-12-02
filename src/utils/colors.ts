@@ -2,6 +2,7 @@ export const colors = {
   bgColor: '#F5F5F7',
   brandColor: '#d1ab66',
   iconsTintColor: '#d1ab66',
+  brandColorOpacity: '#d1ab661A',
   pressedBtnColor: '#d1b466',
   primaryGray: '#E6E6E6',
   secondaryGray: '#E3E3E3',

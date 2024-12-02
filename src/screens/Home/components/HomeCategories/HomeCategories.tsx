@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, Pressable, FlatList, Image, Text} from 'react-native';
+import React from 'react';
+import {View, Pressable, Image, Text} from 'react-native';
 import {observer} from 'mobx-react';
 import {styles} from './HomeCategories.styles';
 import IconPack from '../../../../utils/IconPack';
@@ -7,6 +7,7 @@ import {strings} from '../../../../utils/strings';
 import {isDefined} from '../../../../utils/helper';
 import {useNavigation} from '@react-navigation/native';
 import {constatnts} from '../../../../utils/constants';
+import {navigateToCategoryOrSubCategory} from '../../Home.utils';
 
 const HomeCategories = ({data}: any) => {
   const navigation = useNavigation();
@@ -16,8 +17,7 @@ const HomeCategories = ({data}: any) => {
   }
 
   const onPressCategory = (data: any) => {
-    // @ts-ignore
-    navigation.navigate('ProductList', {title: data.col_name});
+    navigateToCategoryOrSubCategory(data);
   };
 
   return (

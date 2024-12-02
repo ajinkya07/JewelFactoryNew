@@ -9,7 +9,6 @@ import {navigationRef} from './utils/NavigationService';
 import RootStore from './stores/RootStore';
 import Login from './screens/OnBoarding/Login/Login';
 import Home from './screens/Home/Home';
-import Category from './screens/Categories/Categories';
 import {colors} from './utils/colors';
 import Toast from 'react-native-toast-message';
 import SplashVideoScreen from './components/SplashScreen/SplashScreen';
@@ -23,6 +22,8 @@ import WebviewComponent from './components/WebviewComponent/WebviewComponent';
 import ProductList from './screens/Product/ProductList/ProductList';
 import VerifyOTP from './screens/OnBoarding/VerifyOTP/VerifyOTP';
 import TopLevelModal from './components/ComingSoon/TopLevelModal';
+import SubCategoryList from './screens/Product/SubCategoryList/SubCategoryList';
+import Categories from './screens/Categories/Categories';
 
 const routeOptions = {
   headerShown: false,
@@ -134,7 +135,7 @@ const TabBarBottom = observer(() => {
 
       <Tab.Screen
         name="Category"
-        component={Category}
+        component={Categories}
         options={{
           tabBarLabel: 'Category',
           tabBarIcon: ({focused}) => {
@@ -279,6 +280,20 @@ const MainApp = observer(() => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="Categories"
+        component={Categories}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SubCategoryList"
+        component={SubCategoryList}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 });
@@ -303,23 +318,31 @@ const defaultHeaderOptions = {
   },
 };
 
-const AppStack = () => (
-  <Observer>
-    {() => (
-      <>
-        {RootStore.appStore.showAuthLoading ? (
-          <SplashVideoScreen />
-        ) : RootStore.appStore.showPreLogin ? (
-          <LoginStack />
-        ) : RootStore.appStore.isLoggedIn ? (
-          <MainApp />
-        ) : null}
-        <Toast />
-        <TopLevelModal />
-      </>
-    )}
-  </Observer>
-);
+const AppStack = () => {
+  console.log('RootStore.appStore.isLoggedIn ', RootStore.appStore.isLoggedIn);
+  console.log(
+    'RootStore.appStore.showPreLogin ',
+    RootStore.appStore.showPreLogin,
+  );
+
+  return (
+    <Observer>
+      {() => (
+        <>
+          {RootStore.appStore.showAuthLoading ? (
+            <SplashVideoScreen />
+          ) : RootStore.appStore.showPreLogin ? (
+            <LoginStack />
+          ) : RootStore.appStore.isLoggedIn ? (
+            <MainApp />
+          ) : null}
+          <Toast />
+          <TopLevelModal />
+        </>
+      )}
+    </Observer>
+  );
+};
 
 const TopLevelStack = () => {
   return (

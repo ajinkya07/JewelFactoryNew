@@ -3,7 +3,9 @@ import { urls } from "../network/urls";
 export const constatnts = {
     muskseedWebUrl: 'https://muskseeds.com/',
     MOBILE_NUMBER_MAX_LENGTH: 10,
-    IMAGE_URL: urls.imageUrl + 'public/backend/collection/'
+    IMAGE_URL: urls.imageUrl + 'public/backend/collection/',
+    THUMB_URL: urls.imageUrl + 'public/backend/product_images/thumb_image/',
+    AVAILABLE: 'Available'
 }
 
 export const fontFamilyLight = 'Manrope-Light';

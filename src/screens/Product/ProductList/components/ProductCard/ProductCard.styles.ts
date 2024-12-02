@@ -1,7 +1,7 @@
 import { Dimensions } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { colors } from "../../../../../utils/colors";
-import { fontFamilyMedium } from "../../../../../utils/constants";
+import { fontFamilyBold, fontFamilyMedium } from "../../../../../utils/constants";
 
 const { width, height } = Dimensions.get('window')
 // alignItems: 'center',
@@ -16,8 +16,6 @@ export const styles = EStyleSheet.create({
         borderRadius: '12rem',
         backgroundColor: colors.white,
         paddingBottom: '10rem',
-        // borderColor: colors.touchHighlightGray,
-        // borderWidth: '0.5rem',
         marginLeft: CARD_MARGIN_LEFT,
         marginTop: '20rem',
         shadowColor: '#000',
@@ -31,6 +29,7 @@ export const styles = EStyleSheet.create({
         height: '170rem',
         borderTopLeftRadius: '12rem',
         borderTopRightRadius: '12rem',
+        backgroundColor: colors.brandColorOpacity,
     },
     hitSlop10: {
         right: 10,
@@ -40,11 +39,10 @@ export const styles = EStyleSheet.create({
     },
     wishlistCartContiner: {
         flexDirection: 'row',
-        marginTop: '8rem',
+        marginTop: '5rem',
         justifyContent: 'space-evenly',
         width: '100%',
-        // backgroundColor: colors.lightBlue,
-        // paddingVertical: "10rem"
+        alignItems: 'center',
     },
     flexRow2: {
         flexDirection: 'row',
@@ -70,7 +68,13 @@ export const styles = EStyleSheet.create({
     infoTitle: {
         flex: 1,
         color: colors.black,
-        fontSize: '14rem',
+        fontSize: '12rem',
         fontFamily: fontFamilyMedium,
     },
+    quantityText: {
+        marginTop: '4rem',
+        color: colors.black,
+        fontSize: '16rem',
+        fontFamily: fontFamilyBold,
+    }
 })

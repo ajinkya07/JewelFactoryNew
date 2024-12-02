@@ -73,6 +73,6 @@ export const strings = {
   coming_soon_title: 'Coming Soon!!',
   coming_soon_subtitle:
     'Like all good things, this feature will take some time to be live.',
-
+  noDataFound: 'No data found'
 
 };

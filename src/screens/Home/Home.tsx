@@ -1,31 +1,20 @@
-import React, {Component, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
-  Text,
-  StyleSheet,
-  Pressable,
-  FlatList,
   SafeAreaView,
-  Image,
   ScrollView,
   Platform,
   RefreshControl,
 } from 'react-native';
 import {styles} from './Home.styles';
 import {observer} from 'mobx-react';
-import {strings} from '../../utils/strings';
-import {colors} from '../../utils/colors';
-import IconPack from '../../utils/IconPack';
 import HomeCategories from './components/HomeCategories/HomeCategories';
 import HomeCarousel from './components/HomeCarousel/HomeCarousel';
-import {PRODUCT_DATA} from '../Product/ProductList/productsData';
 import RootStore from '../../stores/RootStore';
 import {getDeviceId} from '../../utils/helper';
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent';
 
 const Home = () => {
-  const DATA = PRODUCT_DATA();
-
   useEffect(() => {
     callHomePageApis();
   }, []);
@@ -44,15 +33,17 @@ const Home = () => {
 
     RootStore.homeStore.getHomeDataApi(params);
 
-    // const params = new FormData();
-    // params.append('user_id', userId);
+    const params2 = new FormData();
+    params2.append('user_id', userId);
 
-    // await props.allParameters(params);
+    RootStore.homeStore.getAllParameterApi(params2);
   };
 
   const onRefresh = () => {
     callHomePageApis();
   };
+
+  console.log('allParameterData', RootStore.homeStore.allParameterData);
 
   return (
     <SafeAreaView style={styles.container}>

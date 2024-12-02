@@ -34,7 +34,7 @@ export const styles = EStyleSheet.create({
         width: width * 0.66,
         borderTopRightRadius: '10rem',
         borderBottomRightRadius: '10rem',
-        backgroundColor: colors.gray,
+        backgroundColor: colors.lightBlue,
         overflow: 'hidden'
     },
     categoryTitle: {

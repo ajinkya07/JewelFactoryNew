@@ -8,7 +8,8 @@ const { height, width } = Dimensions.get('window')
 export const styles = EStyleSheet.create({
     container: {
         flex: 1,
-        marginHorizontal: '20rem',
+        paddingHorizontal: '20rem',
+        alignSelf: 'center'
     },
     nameView: {
         marginTop: '70rem',

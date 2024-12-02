@@ -1,7 +1,7 @@
 import {makeAutoObservable} from 'mobx';
 import axios from 'axios';
 import {urls} from '../network/urls';
-import {showToast} from '../utils/helper';
+import {isDefined, showToast} from '../utils/helper';
 
 const header = {
   headers: {
@@ -30,6 +30,9 @@ export class HomeStore {
   };
   searchCollectionData = [];
 
+  isAllParametersApiLoading = false;
+  allParameterData = {};
+
   setFields(eName, data) {
     this[eName] = data;
     console.log(eName, data);
@@ -50,6 +53,9 @@ export class HomeStore {
       zoom_image: '',
     };
     this.searchCollectionData = [];
+
+    isAllParametersApiLoading = false;
+    allParameterData = {};
   }
 
   getHomeDataApi = data => {
@@ -90,6 +96,32 @@ export class HomeStore {
         console.log('error', error);
         showToast({title: error});
         this.setFields('isHomeApiLoading', false);
+      });
+  };
+
+  getAllParameterApi = data => {
+    console.log('getAllParameterApi', data);
+    if (this.isAllParametersApiLoading) {
+      return true;
+    }
+    this.setFields('isAllParametersApiLoading', true);
+
+    axios
+      .post(urls.AllParameter.url, data, header)
+      .then(res => {
+        console.log('allParameters', res.data);
+
+        if (isDefined(res?.data)) {
+          this.setFields('allParameterData', res.data);
+        } else {
+          showToast({title: res?.data?.msg});
+        }
+        this.setFields('isAllParametersApiLoading', false);
+      })
+      .catch(function (error) {
+        console.log('error', error);
+        showToast({title: error});
+        this.setFields('isAllParametersApiLoading', false);
       });
   };
 }

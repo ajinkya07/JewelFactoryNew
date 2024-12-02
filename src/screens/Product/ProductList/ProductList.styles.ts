@@ -19,12 +19,12 @@ export const styles = EStyleSheet.create({
         color: colors.black,
         marginBottom: '5rem',
         marginLeft: '12rem',
-        marginTop: '30rem',
+        marginTop: '20rem',
         textTransform: 'capitalize'
     },
     productsCountText: {
-        fontSize: '13rem',
-        color: colors.black,
+        fontSize: '14rem',
+        color: colors.smokeGray,
         marginBottom: '26rem',
         marginLeft: '12rem',
         fontFamily: fontFamilySemiBold,
@@ -44,6 +44,7 @@ export const styles = EStyleSheet.create({
         color: colors.black,
         fontSize: '14rem',
         fontFamily: fontFamilyBold,
+        marginLeft: '5rem'
     },
     filterRowContainer: {
         flexDirection: 'row',
@@ -62,4 +63,9 @@ export const styles = EStyleSheet.create({
         flex: 1,
         alignSelf: 'center',
     },
+    filterImageStyle: {
+        height: '24rem',
+        width: '24rem',
+        tintColor: colors.black
+    }
 });
