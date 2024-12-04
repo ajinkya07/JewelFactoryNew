@@ -49,7 +49,7 @@ export default {
   RIGHT_ARROW: require('../assets/image/right_arrow.png'),
   LEFT_ARROW: require('../assets/image/left_arrow.png'),
   HEADPHONE: require('../assets/image/headphone.png'),
-  HEART: require('../assets/image/heart.png'),
+  WISHLIST_EMPTY: require('../assets/image/wishlist_empty.png'),
   TIMER: require('../assets/image/timer.png'),
   SORT: require('../assets/image/sort.png'),
   FILTER: require('../assets/image/filter.png'),

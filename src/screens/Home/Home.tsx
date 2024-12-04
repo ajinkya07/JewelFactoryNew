@@ -43,8 +43,6 @@ const Home = () => {
     callHomePageApis();
   };
 
-  console.log('allParameterData', RootStore.homeStore.allParameterData);
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView

@@ -32,10 +32,10 @@ export const styles = EStyleSheet.create({
         backgroundColor: colors.brandColorOpacity,
     },
     hitSlop10: {
-        right: 10,
-        left: 10,
-        top: 10,
-        bottom: 10,
+        right: 20,
+        left: 20,
+        top: 20,
+        bottom: 20,
     },
     wishlistCartContiner: {
         flexDirection: 'row',

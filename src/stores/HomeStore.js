@@ -35,7 +35,6 @@ export class HomeStore {
 
   setFields(eName, data) {
     this[eName] = data;
-    console.log(eName, data);
   }
 
   resetFields() {

@@ -12,8 +12,7 @@ const ProductCard = ({
   item,
   addToWishlist,
   addToCart,
-  removeProductFromCartByOne,
-  addProductToCartPlusOne,
+  addRemoveByPlusOne,
 }: any) => {
   const navigation = useNavigation();
 
@@ -28,59 +27,56 @@ const ProductCard = ({
   const KEYS = item.key;
   const VALUES = item.value;
 
-  console.log('item', item);
-
   return (
     <Observer>
       {() => (
-        <Pressable
-          key={`card-${item.id}`}
-          style={styles.imageContainer}
-          onPress={() => onPress()}>
-          <Image
-            style={styles.imageStyle}
-            source={
-              item.image_name != ''
-                ? {uri: constatnts.THUMB_URL + item.image_name}
-                : IconPack.APP_LOGO
-            }
-          />
+        <View key={`card-${item.id}`} style={styles.imageContainer}>
+          <Pressable onPress={() => onPress()}>
+            <Image
+              style={styles.imageStyle}
+              source={
+                item.image_name != ''
+                  ? {uri: constatnts.THUMB_URL + item.image_name}
+                  : IconPack.APP_LOGO
+              }
+            />
 
-          <View style={styles.productInfo}>
-            <View style={styles.flexRow2}>
-              <View>
-                {KEYS.map((key: any, index: number) => {
-                  return (
-                    <Text key={`key-${index}`} style={styles.infoTitle}>
-                      {key.replace('_', ' ')}
-                    </Text>
-                  );
-                })}
-              </View>
-              <View>
-                {VALUES.map((value: any, index: number) => {
-                  return (
-                    <Text
-                      key={`value-${index}`}
-                      style={[
-                        styles.infoTitle,
-                        {
-                          textAlign: 'right',
-                          color:
-                            value?.toLowerCase() == 'on order'
-                              ? colors.darkBlue
-                              : value?.toLowerCase() == 'ready'
-                              ? colors.success
-                              : colors.black,
-                        },
-                      ]}>
-                      {value.replace('_', ' ')}
-                    </Text>
-                  );
-                })}
+            <View style={styles.productInfo}>
+              <View style={styles.flexRow2}>
+                <View>
+                  {KEYS.map((key: any, index: number) => {
+                    return (
+                      <Text key={`key-${index}`} style={styles.infoTitle}>
+                        {key.replace('_', ' ')}
+                      </Text>
+                    );
+                  })}
+                </View>
+                <View>
+                  {VALUES.map((value: any, index: number) => {
+                    return (
+                      <Text
+                        key={`value-${index}`}
+                        style={[
+                          styles.infoTitle,
+                          {
+                            textAlign: 'right',
+                            color:
+                              value?.toLowerCase() == 'on order'
+                                ? colors.darkBlue
+                                : value?.toLowerCase() == 'ready'
+                                ? colors.success
+                                : colors.black,
+                          },
+                        ]}>
+                        {value.replace('_', ' ')}
+                      </Text>
+                    );
+                  })}
+                </View>
               </View>
             </View>
-          </View>
+          </Pressable>
 
           <View style={styles.wishlistCartContiner}>
             {item.quantity == 0 && (
@@ -91,12 +87,14 @@ const ProductCard = ({
                     style={styles.wishlistView}
                     onPress={() => addToWishlist(item)}>
                     <Image
-                      source={IconPack.WISHLIST}
+                      source={IconPack.WISHLIST_EMPTY}
                       style={styles.wishlistIcon}
                     />
                   </Pressable>
                 ) : (
-                  <Pressable disabled={true} style={styles.wishlistView}>
+                  <Pressable
+                    onPress={() => addToWishlist(item)}
+                    style={styles.wishlistView}>
                     <Image
                       source={IconPack.WISHLIST}
                       style={styles.wishlistIcon}
@@ -123,7 +121,7 @@ const ProductCard = ({
                 <Pressable
                   hitSlop={styles.hitSlop10}
                   style={styles.wishlistView}
-                  onPress={() => removeProductFromCartByOne(item)}>
+                  onPress={() => addRemoveByPlusOne(item, false)}>
                   <Image source={IconPack.MINUS} style={styles.wishlistIcon} />
                 </Pressable>
 
@@ -134,13 +132,13 @@ const ProductCard = ({
                 <Pressable
                   hitSlop={styles.hitSlop10}
                   style={styles.wishlistView}
-                  onPress={() => addProductToCartPlusOne(item)}>
+                  onPress={() => addRemoveByPlusOne(item, true)}>
                   <Image source={IconPack.PLUS} style={styles.wishlistIcon} />
                 </Pressable>
               </View>
             )}
           </View>
-        </Pressable>
+        </View>
       )}
     </Observer>
   );
