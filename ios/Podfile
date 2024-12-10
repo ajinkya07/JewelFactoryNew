@@ -46,6 +46,7 @@ target 'JewelFactoryNew' do
   pod 'FirebaseCore', :modular_headers => true
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
 
   post_install do |installer|

@@ -74,5 +74,14 @@ export const strings = {
   coming_soon_subtitle:
     'Like all good things, this feature will take some time to be live.',
   noDataFound: 'No data found',
-  alreadyAddedToWishlist: 'Product already added to wishlist'
+  alreadyAddedToWishlist: 'Product already added to wishlist',
+  code: "Code",
+  collection: 'Collection',
+  moreDetails: 'More Details',
+  moveToWishlist: 'Move to wishlist',
+  delete: 'Delete',
+  cart: 'cart',
+  wishlist: 'wishlist',
+  cartWeight: 'Cart Weight',
+  placeOrder: 'Place Order'
 };

@@ -60,13 +60,9 @@ export class AppStore {
   isLoading = false;
 
   isNetworkConnected = true;
-
   showAuthLoading = false;
   showPreLogin = true;
-  isMpinSet = false;
   isLoggedIn = false;
-  isSoftLogout = false;
-
   isComingSoonVisible = false;
 
   setFields(eName, data) {

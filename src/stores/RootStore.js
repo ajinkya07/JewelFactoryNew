@@ -1,4 +1,5 @@
 import AppStore from './AppStore';
+import CartStore from './CartStore';
 import HomeStore from './HomeStore';
 import LoginStore from './LoginStore';
 import ProductStore from './ProductStore';
@@ -8,6 +9,7 @@ class RootStore {
     this.loginStore = new LoginStore(this);
     this.homeStore = new HomeStore(this);
     this.productStore = new ProductStore(this);
+    this.cartStore = new CartStore(this);
   }
 }
 

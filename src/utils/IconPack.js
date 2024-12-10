@@ -20,6 +20,7 @@ export default {
   FORWARD_ARROW: require('../assets/image/forward_arrow.png'),
   EDIT: require('../assets/image/edit.png'),
   DELETE: require('../assets/image/delete.png'),
+  SWAP: require('../assets/image/swap.png'),
   CLOSE: require('../assets/image/close.png'),
   DOWN_ARROW: require('../assets/image/down_arrow.png'),
   PLUS: require('../assets/image/plus.png'),
@@ -54,10 +55,4 @@ export default {
   SORT: require('../assets/image/sort.png'),
   FILTER: require('../assets/image/filter.png'),
   VIEW_AS: require('../assets/image/view_as.png'),
-
-  IMAGE_1: require('../assets/image/image1.png'),
-  IMAGE_2: require('../assets/image/image2.png'),
-  IMAGE_3: require('../assets/image/image3.png'),
-  IMAGE_4: require('../assets/image/image4.png'),
-  IMAGE_5: require('../assets/image/image5.png'),
 };

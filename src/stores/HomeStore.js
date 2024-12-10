@@ -108,8 +108,6 @@ export class HomeStore {
     axios
       .post(urls.AllParameter.url, data, header)
       .then(res => {
-        console.log('allParameters', res.data);
-
         if (isDefined(res?.data)) {
           this.setFields('allParameterData', res.data);
         } else {

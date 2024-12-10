@@ -12,6 +12,16 @@ export const styles = EStyleSheet.create({
         paddingBottom: '20rem',
         marginTop: '20rem',
     },
+    contentContainerStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loader: {
+        alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        flex: 1,
+    },
     cardView: {
         width: width - 5,
         alignSelf: 'center',

@@ -50,10 +50,10 @@ const Home = () => {
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={onRefresh} />
         }
-        style={styles.scrollStyle}>
+        style={styles.scrollStyle}
+        contentContainerStyle={styles.contentContainerStyle}>
         {RootStore.homeStore.isHomeApiLoading ? (
-          <View
-            style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+          <View style={styles.loader}>
             <LoadingComponent />
           </View>
         ) : (

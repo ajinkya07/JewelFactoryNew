@@ -23,9 +23,6 @@ const Categories = (props: any) => {
   const categoryData = isFromSubcategory
     ? props.route.params?.categoryData
     : RootStore.homeStore.collectionData;
-  console.log('isFromSubcategory', isFromSubcategory);
-
-  console.log('categoryData', categoryData);
 
   const categoryDataSource = [
     {

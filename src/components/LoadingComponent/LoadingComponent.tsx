@@ -10,15 +10,11 @@ type ContainerStyleProp = {
 
 const LoadingComponent = ({containerStyle}: ContainerStyleProp) => {
   return (
-    <Observer>
-      {() => (
-        <>
-          <View style={[styles.container, containerStyle]}>
-            <ActivityIndicator size={'small'} color={colors.brandColor} />
-          </View>
-        </>
-      )}
-    </Observer>
+    <>
+      <View style={[styles.container, containerStyle]}>
+        <ActivityIndicator size={'small'} color={colors.brandColor} />
+      </View>
+    </>
   );
 };
 
