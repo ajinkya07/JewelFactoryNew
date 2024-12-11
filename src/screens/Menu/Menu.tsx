@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {View, Text, ScrollView, SafeAreaView} from 'react-native';
 import RootStore from '../../stores/RootStore';
 import {styles} from './Menu.styles';
@@ -15,13 +15,27 @@ import PressableComponent, {
 import {constatnts} from '../../utils/constants';
 import {openLink} from '../../utils/helper';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Menu = () => {
   const navigation = useNavigation();
+  const [userData, setUserDetails] = useState({
+    fullName: '',
+  });
 
-  const onPressLogOut = () => {
-    RootStore.appStore.setFields('isLoggedIn', false);
-    RootStore.appStore.setFields('showPreLogin', true);
+  useEffect(() => {
+    setDetails();
+  }, []);
+
+  const setDetails = async () => {
+    let value = await AsyncStorage.getItem('fullName');
+
+    if (value) {
+      setUserDetails({
+        ...userData,
+        ['fullName']: value,
+      });
+    }
   };
 
   const onPressMuskseed = () => {
@@ -36,6 +50,24 @@ const Menu = () => {
           title: strings.aboutUs,
           url: constatnts.muskseedWebUrl,
         });
+        break;
+      case strings.privacyPolicy:
+        // @ts-ignore
+        navigation.navigate('WebviewComponent', {
+          title: strings.privacyPolicy,
+          url: constatnts.muskseedWebUrl,
+        });
+        break;
+      case strings.termsCondition:
+        // @ts-ignore
+        navigation.navigate('WebviewComponent', {
+          title: strings.termsCondition,
+          url: constatnts.muskseedWebUrl,
+        });
+        break;
+
+      case strings.connectWithUs:
+        RootStore.appStore.setFields('isContactUsModalVisible', true);
         break;
 
       case strings.logout:
@@ -60,8 +92,7 @@ const Menu = () => {
         <View style={styles.menuListContainer}>
           <View style={styles.nameRow}>
             <View>
-              <Text style={styles.name}>Ajinkya</Text>
-              <Text style={styles.name}>Palvankar</Text>
+              <Text style={styles.name}>{userData.fullName}</Text>
             </View>
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.TEXT}
@@ -100,11 +131,6 @@ const Menu = () => {
                         ]}
                         isDividerVisible={index !== items.values.length - 1}
                         titleColor={
-                          item.id === strings.logout
-                            ? colors.error
-                            : colors.black
-                        }
-                        iconColor={
                           item.id === strings.logout
                             ? colors.error
                             : colors.black

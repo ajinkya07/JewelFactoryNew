@@ -20,12 +20,14 @@ import PressableComponent, {
 import {strings} from '../../../utils/strings';
 import CartWeightModal from '../components/CartWeightModal/CartWeightModal';
 import PlaceOrderModal from '../components/PlaceOrderModal/PlaceOrderModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Cart = observer((props: any) => {
   const userId = RootStore.appStore.userId;
   const cartData = RootStore.cartStore.cartData;
 
   const [hideButtons, hideButtonsOnScroll] = useState(false);
+  var userData = {fullName: '', mobileNo: '', email: ''};
 
   useEffect(() => {
     cartData.length === 0 ? callApis() : null;
@@ -43,7 +45,21 @@ const Cart = observer((props: any) => {
     RootStore.cartStore.callCartSumaryApi(userId);
   };
 
-  const onPressPlaceOrder = () => {
+  const onPressPlaceOrder = async () => {
+    const name = await AsyncStorage.getItem('fullName');
+    const mobile = await AsyncStorage.getItem('mobileNumber');
+    const email = await AsyncStorage.getItem('emailId');
+
+    if (name) {
+      userData.fullName = name;
+    }
+    if (mobile) {
+      userData.mobileNo = mobile;
+    }
+    if (email) {
+      userData.email = email;
+    }
+
     RootStore.cartStore.setFields('showPlaceOrderModal', true);
   };
 
@@ -120,7 +136,7 @@ const Cart = observer((props: any) => {
         setModalVisible={() => {
           RootStore.cartStore.setFields('showPlaceOrderModal', false);
         }}
-        onPress={() => onPressPlaceOrder()}
+        userData={userData}
       />
     </SafeAreaView>
   );

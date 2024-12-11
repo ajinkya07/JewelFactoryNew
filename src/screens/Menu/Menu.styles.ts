@@ -42,7 +42,8 @@ export const styles = EStyleSheet.create({
     },
     name: {
         fontSize: '20rem',
-        fontFamily: fontFamilyBold
+        fontFamily: fontFamilyBold,
+        textTransform: 'capitalize'
     },
     editText: {
         fontSize: '16rem',

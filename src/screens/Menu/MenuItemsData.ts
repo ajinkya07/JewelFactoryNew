@@ -9,12 +9,12 @@ export const MENU_OPTIONS = () => {
                 {
                     id: strings.exclusive,
                     method: strings.exclusive,
-                    icon: IconPack.CART,
+                    icon: IconPack.EXCLUSIVE,
                 },
                 {
                     id: strings.orderHistory,
                     method: strings.orderHistory,
-                    icon: IconPack.CART,
+                    icon: IconPack.ORDER_HISTORY,
                 },
             ],
         },
@@ -24,17 +24,17 @@ export const MENU_OPTIONS = () => {
                 {
                     id: strings.aboutUs,
                     method: strings.aboutUs,
-                    icon: IconPack.CART,
+                    icon: IconPack.ABOUT,
                 },
                 {
                     id: strings.privacyPolicy,
                     method: strings.privacyPolicy,
-                    icon: IconPack.CART,
+                    icon: IconPack.PRIVACY_POLICY,
                 },
                 {
                     id: strings.termsCondition,
                     method: strings.termsCondition,
-                    icon: IconPack.CART,
+                    icon: IconPack.TERMS_CONDITIONS,
                 },
             ],
         },
@@ -44,12 +44,12 @@ export const MENU_OPTIONS = () => {
                 {
                     id: strings.shareApp,
                     method: strings.shareApp,
-                    icon: IconPack.CART,
+                    icon: IconPack.SHARE,
                 },
                 {
                     id: strings.rateApp,
                     method: strings.rateApp,
-                    icon: IconPack.CART,
+                    icon: IconPack.RATE,
                 },
 
             ],
@@ -60,12 +60,12 @@ export const MENU_OPTIONS = () => {
                 {
                     id: strings.connectWithUs,
                     method: strings.connectWithUs,
-                    icon: IconPack.CART,
+                    icon: IconPack.HEADPHONE,
                 },
                 {
                     id: strings.deleteAccount,
                     method: strings.deleteAccount,
-                    icon: IconPack.CART,
+                    icon: IconPack.DELETE_ACCOUNT,
                 },
             ],
         },
@@ -75,7 +75,7 @@ export const MENU_OPTIONS = () => {
                 {
                     id: strings.logout,
                     method: strings.logout,
-                    icon: IconPack.CART,
+                    icon: IconPack.LOGOUT,
                 },
             ],
         },

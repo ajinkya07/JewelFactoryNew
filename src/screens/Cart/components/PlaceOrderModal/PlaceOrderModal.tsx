@@ -13,19 +13,26 @@ import {showToast, validateMobNum} from '../../../../utils/helper';
 import RootStore from '../../../../stores/RootStore';
 import moment from 'moment';
 import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type PlaceOrderModalType = {
   isModalVisible: boolean;
   setModalVisible: (value: boolean) => void;
-  onPress: () => void;
+  userData?: {
+    fullName: '';
+    mobileNo: '';
+    email: '';
+  };
 };
 
 const PlaceOrderModal = observer(
-  ({isModalVisible, setModalVisible, onPress}: PlaceOrderModalType) => {
+  ({isModalVisible, setModalVisible, userData}: PlaceOrderModalType) => {
+    console.log('userData', userData);
+
     const [inputs, setLoginInputs] = useState({
-      name: 'Ajinkya',
-      mobileNo: '9876543211',
-      email: 'ajinkyapalv@gmail.com',
+      fullName: userData?.fullName,
+      mobileNo: userData?.mobileNo,
+      email: userData?.email,
       comments: '',
       date: '30-12-2024',
     });
@@ -53,10 +60,10 @@ const PlaceOrderModal = observer(
     };
 
     const placeOrderFromCart = () => {
-      const {comments, date, name, email, mobileNo} = inputs;
+      const {comments, date, fullName, email, mobileNo} = inputs;
       const deviceType = RootStore.appStore.isiOS ? 'ios' : 'android';
 
-      if (name == '') {
+      if (fullName == '') {
         showToast({title: strings.enterName});
         return true;
       }
@@ -72,7 +79,7 @@ const PlaceOrderModal = observer(
         const params = new FormData();
 
         params.append('user_id', RootStore.appStore.userId);
-        params.append('full_name', name);
+        params.append('full_name', fullName);
         params.append('email_id', email);
         params.append('mobile_number', mobileNo);
         params.append('which_device', deviceType);
@@ -117,8 +124,10 @@ const PlaceOrderModal = observer(
 
             <View style={styles.content}>
               <InputComponent
-                value={inputs.name}
-                onChangeText={(value: string) => onChangeText('name', value)}
+                value={inputs.fullName}
+                onChangeText={(value: string) =>
+                  onChangeText('fullName', value)
+                }
                 style={styles.marginTop10}
                 placeholder={strings.name}
                 returnKeyType="done"
@@ -130,6 +139,7 @@ const PlaceOrderModal = observer(
                 style={styles.marginTop10}
                 placeholder={strings.email}
                 returnKeyType="done"
+                keyboardType="email-address"
               />
 
               <InputComponent

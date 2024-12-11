@@ -66,8 +66,8 @@ const ListItemComponent = ({
                         {backgroundColor: colors.lightGray},
                       ]}>
                       <Image
+                        source={icon}
                         style={{
-                          tintColor: iconColor ? iconColor : colors.black,
                           height: ICON_DIMENTION,
                           width: ICON_DIMENTION,
                         }}
