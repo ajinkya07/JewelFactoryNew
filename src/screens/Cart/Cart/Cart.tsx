@@ -11,7 +11,6 @@ import {styles} from './Cart.styles';
 import {observer} from 'mobx-react';
 import RootStore from '../../../stores/RootStore';
 import LoadingComponent from '../../../components/LoadingComponent/LoadingComponent';
-import HeaderComponent from '../../../components/Header/HeaderComponent';
 import CartWishlistItem from '../components/CartWishlistItem/CartWishlistItem';
 import NoDataFoundComponent from '../../../components/NoDataFoundComponent/NoDataFoundComponent';
 import TopTab from '../components/Tabs/Tabs';
@@ -23,7 +22,6 @@ import CartWeightModal from '../components/CartWeightModal/CartWeightModal';
 import PlaceOrderModal from '../components/PlaceOrderModal/PlaceOrderModal';
 
 const Cart = observer((props: any) => {
-  const showHeader = props.route?.params?.showHeader || false;
   const userId = RootStore.appStore.userId;
   const cartData = RootStore.cartStore.cartData;
 
@@ -53,12 +51,8 @@ const Cart = observer((props: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {showHeader && (
-        <HeaderComponent rightIcon1={true} onFirstIconPress={() => null} />
-      )}
       <>
         <ScrollView
-          bounces={false}
           // onMomentumScrollBegin={() => handleScroll(true)}
           // onMomentumScrollEnd={() => handleScroll(false)}
           showsVerticalScrollIndicator={false}

@@ -17,6 +17,7 @@ import HeaderComponent from '../../../components/Header/HeaderComponent';
 import RootStore from '../../../stores/RootStore';
 import NoDataFoundComponent from '../../../components/NoDataFoundComponent/NoDataFoundComponent';
 import IconPack from '../../../utils/IconPack';
+import {useNavigation} from '@react-navigation/native';
 
 const ProductList = (props: any) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -24,9 +25,7 @@ const ProductList = (props: any) => {
   const [selectedPriceIndex, setSelectedPrice] = useState(0);
   const [selectedPriceId, setSelectedPriceId] = useState('0');
   const [selectedSortById, setSortById] = useState('6');
-
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
-
   const [isImageNotFound, setNoImageFound] = useState(false);
   const [productInventoryId, setProductInventoryId] = useState(false);
   const [netWeight, setNetWeight] = useState({
@@ -38,7 +37,9 @@ const ProductList = (props: any) => {
     maxGrossWeight: '',
   });
 
-  const userId = global.userId;
+  const navigation = useNavigation();
+
+  const userId = RootStore.appStore.userId;
 
   const {
     collectionId: id,
@@ -140,7 +141,7 @@ const ProductList = (props: any) => {
     RootStore.productStore.addProductToWishlist(wishlistData);
   };
 
-  const addToCart = async (item: any) => {
+  const addToCart = (item: any) => {
     let cartData = new FormData();
 
     cartData.append('product_id', item.product_inventory_id);
@@ -149,7 +150,7 @@ const ProductList = (props: any) => {
     cartData.append('no_quantity', 1);
     cartData.append('product_inventory_table', 'product_master');
 
-    await RootStore.productStore.addProductToCart(cartData);
+    RootStore.productStore.addProductToCart(cartData);
 
     // const countData = new FormData();
     // countData.append('user_id', userId);
@@ -223,7 +224,7 @@ const ProductList = (props: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderComponent rightIcon1={true} />
+      <HeaderComponent rightIcon1={true} rightIcon4={true} />
 
       <View style={styles.container}>
         {RootStore.productStore.isProductListApiLoading ? (

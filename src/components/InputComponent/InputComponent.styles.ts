@@ -1,6 +1,7 @@
 import EStyleSheet from "react-native-extended-stylesheet";
 import { Dimensions } from "react-native";
 import { colors } from "../../utils/colors";
+import { fontFamilyMedium } from "../../utils/constants";
 
 const { height, width } = Dimensions.get('window')
 
@@ -13,6 +14,8 @@ export const styles = EStyleSheet.create({
         borderWidth: '0.5rem',
         borderRadius: "8rem",
         paddingHorizontal: '10rem',
-        color: colors.black
+        color: colors.black,
+        fontSize: '14rem',
+        fontFamily: fontFamilyMedium
     },
 })

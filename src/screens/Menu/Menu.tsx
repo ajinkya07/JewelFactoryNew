@@ -38,6 +38,10 @@ const Menu = () => {
         });
         break;
 
+      case strings.logout:
+        RootStore.appStore.resetStoreOnLogout();
+        break;
+
       default:
         break;
     }

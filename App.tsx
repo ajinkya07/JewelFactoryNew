@@ -14,6 +14,7 @@ export class App extends Component {
 
   componentDidMount = () => {
     LogBox.ignoreAllLogs(true);
+    LogBox.uninstall();
 
     this.setState({showSplashScreen: true});
     SplashScreen.hide();

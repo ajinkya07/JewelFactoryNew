@@ -17,6 +17,7 @@ import {
 import RootStore from '../../../stores/RootStore';
 import {constatnts} from '../../../utils/constants';
 import {Section} from '../../../utils/types';
+import HeaderComponent from '../../../components/Header/HeaderComponent';
 
 const Register = () => {
   const [inputs, setLoginInputs] = useState({
@@ -86,7 +87,12 @@ const Register = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+      <HeaderComponent rightIcon1={true} showDivider={false} />
+
+      <ScrollView
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollContainer}>
         <View style={styles.nameView}>
           <Text style={styles.title}>{strings.welcome}</Text>
           <Text style={styles.appName}>{strings.appName}</Text>

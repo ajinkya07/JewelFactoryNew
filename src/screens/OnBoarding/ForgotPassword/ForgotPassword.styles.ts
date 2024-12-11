@@ -6,11 +6,13 @@ import { colors } from "../../../utils/colors";
 export const styles = EStyleSheet.create({
     container: {
         flex: 1,
+    },
+    scrollContainer: {
         paddingHorizontal: '20rem',
         alignSelf: 'center'
     },
     nameView: {
-        marginTop: '80rem'
+        marginTop: '30rem'
     },
     resetPassword: {
         color: colors.black,
@@ -39,7 +41,7 @@ export const styles = EStyleSheet.create({
         color: colors.gray
     },
     inputView: {
-        marginTop: '90rem'
+        marginTop: '100rem'
     },
     passwordInputTop: {
         marginTop: '15rem'

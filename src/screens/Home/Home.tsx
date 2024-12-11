@@ -20,7 +20,7 @@ const Home = () => {
   }, []);
 
   const callHomePageApis = async () => {
-    const userId = global.userId;
+    const userId = RootStore.appStore.userId;
 
     const type = Platform.OS === 'ios' ? 'ios' : 'android';
     let uniqueId = await getDeviceId();

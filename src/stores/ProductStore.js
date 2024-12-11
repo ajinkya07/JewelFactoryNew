@@ -69,9 +69,8 @@ export class ProductStore {
       .catch(function (error) {
         console.log('error', error);
         this.setFields('productListData', []);
-
-        showToast({title: error});
         this.setFields('isProductListApiLoading', false);
+        showToast({title: error});
       });
   };
 

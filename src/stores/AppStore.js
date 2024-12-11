@@ -127,19 +127,15 @@ export class AppStore {
   }
 
   // Reset store fields
-  resetStoreOnLogout = clearAllData => {
-    global.userId = '';
-
-    const keys = [
-      'userId',
-      'fullName',
-      'userStatus',
-      'mobileNumber',
-      'emailId',
-    ];
+  resetStoreOnLogout = () => {
+    const keys = ['fullName', 'userStatus', 'mobileNumber', 'emailId'];
 
     this.resetFields();
     AsyncStorage.multiRemove(keys);
+
+    AsyncStorage.setItem('userId', '');
+    AsyncStorage.setItem('showPreLogin', 'true');
+    AsyncStorage.setItem('isLoggedIn', 'false');
   };
 }
 export default AppStore;

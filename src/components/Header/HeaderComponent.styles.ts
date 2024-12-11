@@ -13,12 +13,10 @@ export const styles = EStyleSheet.create({
     headerText: {
         fontSize: '16rem',
         fontFamily: fontFamilyBold,
-        letterSpacing: 0.5,
     },
     rightText: {
         marginRight: '10rem',
     },
-    headerViewContentStyle: {},
     headerInnerContentStyle: {
         flex: 1,
         marginLeft: '8rem',
@@ -46,4 +44,8 @@ export const styles = EStyleSheet.create({
     flexRow: {
         flexDirection: 'row',
     },
+    divider: {
+        height: '0.7rem',
+        backgroundColor: colors.divider,
+    }
 })

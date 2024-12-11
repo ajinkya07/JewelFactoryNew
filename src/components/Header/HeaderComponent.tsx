@@ -7,6 +7,7 @@ import {colors} from '../../utils/colors';
 import {styles} from './HeaderComponent.styles';
 import BackHeader from '../BackHeader';
 import RootStore from '../../stores/RootStore';
+import Divider from '../Divider';
 
 const HeaderComponent = ({
   isBack = true,
@@ -23,6 +24,7 @@ const HeaderComponent = ({
   onSecondIconPress,
   onThirdIconPress,
   onFourthIconPress,
+  showDivider = true,
 }: any) => {
   const navigation = useNavigation();
 
@@ -30,6 +32,12 @@ const HeaderComponent = ({
     onFirstIconPress()
       ? onFirstIconPress()
       : RootStore.appStore.setFields('isContactUsModalVisible', true);
+  };
+
+  const navigateToCart = () => {
+    // @ts-ignore
+    onFourthIconPress ? onFourthIconPress() : navigation.navigate('Cart');
+    RootStore.cartStore.callCartWishlistApis();
   };
 
   return (
@@ -95,26 +103,21 @@ const HeaderComponent = ({
               )}
               {rightIcon4 && (
                 <TouchableOpacity
-                  onPress={() => onFourthIconPress()}
+                  onPress={() => navigateToCart()}
                   style={{marginHorizontal: 12}}>
                   <Image
                     style={styles.imageIconStyle}
                     resizeMode="contain"
                     source={IconPack.CART}
                   />
-                  <View style={styles.wishlistCount}>
+                  {/* <View style={styles.wishlistCount}>
                     <Text style={styles.wishlistCountText}>2</Text>
-                  </View>
+                  </View> */}
                 </TouchableOpacity>
               )}
             </View>
           </View>
-          <View
-            style={{
-              borderBottomColor: colors.divider,
-              borderBottomWidth: 0.7,
-            }}
-          />
+          {showDivider && <Divider style={styles.divider} />}
         </>
       )}
     </Observer>

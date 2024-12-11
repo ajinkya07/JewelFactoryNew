@@ -5,11 +5,13 @@ import { colors } from "../../../utils/colors";
 export const styles = EStyleSheet.create({
     container: {
         flex: 1,
+    },
+    scrollContainer: {
         paddingHorizontal: '20rem',
         alignSelf: 'center'
     },
     nameView: {
-        marginTop: '70rem'
+        marginTop: '30rem'
     },
     appName: {
         fontSize: '40rem',
@@ -25,7 +27,7 @@ export const styles = EStyleSheet.create({
         color: colors.gray
     },
     inputView: {
-        marginTop: '80rem'
+        marginTop: '70rem'
     },
     inputTop: {
         marginTop: '15rem'

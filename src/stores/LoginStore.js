@@ -233,7 +233,6 @@ export class LoginStore {
   };
 
   setLoginData(data) {
-    global.userId = data.data.user_id;
     this.rootStore.appStore.setFields(
       'userId',
       String(data.data?.user_id) || '',
@@ -243,6 +242,8 @@ export class LoginStore {
     AsyncStorage.setItem('userStatus', String(data.data?.user_status));
     AsyncStorage.setItem('mobileNumber', String(data.data?.mobile_number));
     AsyncStorage.setItem('emailId', String(data.data?.email_id));
+    AsyncStorage.setItem('showPreLogin', 'false');
+    AsyncStorage.setItem('isLoggedIn', 'true');
   }
 
   // FCM Token Api

@@ -2,7 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {observer, Observer} from 'mobx-react';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar, Image} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {navigationRef} from './utils/NavigationService';
@@ -271,31 +271,39 @@ const defaultHeaderOptions = {
 };
 
 const AppStack = observer(() => {
-  const userId = RootStore.appStore.userId;
-  const showPreLogin = RootStore.appStore.showPreLogin;
-  const isLoggedIn = RootStore.appStore.isLoggedIn;
+  const [isLoading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(true);
+    getLoginData();
+  }, [
+    RootStore.appStore.userId,
+    RootStore.appStore.showPreLogin,
+    RootStore.appStore.isLoggedIn,
+  ]);
 
-  // useEffect(() => {
-  //   getLoginData();
-  // });
+  const getLoginData = async () => {
+    const id = await AsyncStorage.getItem('userId');
+    const showPreLogin = await AsyncStorage.getItem('showPreLogin');
+    const showLoggedIn = await AsyncStorage.getItem('isLoggedIn');
 
-  // const getLoginData = async () => {
-  //   userId = await AsyncStorage.getItem('userId');
-  //   showPreLogin = await AsyncStorage.getItem('showPreLogin');
-  //   isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+    const parsedId = JSON.parse(id);
+    const parsedPrelogin = JSON.parse(showPreLogin);
+    const parsedLogin = JSON.parse(showLoggedIn);
 
-  //   console.log('getLoginData', userId);
-  //   console.log('showPreLogin', showPreLogin);
-  //   console.log('isLoggedIn', userId);
+    RootStore.appStore.setFields('userId', parsedId);
+    RootStore.appStore.setFields('showPreLogin', parsedPrelogin);
+    RootStore.appStore.setFields('isLoggedIn', parsedLogin);
 
-  // };
+    setLoading(false);
+  };
+
   return (
     <Observer>
       {() => (
         <>
-          {showPreLogin && userId == '' ? (
+          {!isLoading && RootStore.appStore.showPreLogin ? (
             <LoginStack />
-          ) : isLoggedIn && userId != '' ? (
+          ) : !isLoading && RootStore.appStore.isLoggedIn ? (
             <MainApp />
           ) : null}
           <Toast />

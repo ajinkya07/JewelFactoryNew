@@ -164,13 +164,13 @@ export class CartStore {
 
   callCartWishlistApis = id => {
     const cartParams = new FormData();
-    cartParams.append('user_id', id);
+    cartParams.append('user_id', id || this.rootStore.appStore.userId);
     cartParams.append('table', 'cart');
 
     this.getCartDataApi(cartParams);
 
     const wishlistParams = new FormData();
-    wishlistParams.append('user_id', id);
+    wishlistParams.append('user_id', id || this.rootStore.appStore.userId);
     wishlistParams.append('table', 'wishlist');
 
     this.getWishlistDataApi(wishlistParams);
@@ -178,7 +178,7 @@ export class CartStore {
 
   callCartSumaryApi = id => {
     const params = new FormData();
-    params.append('user_id', id);
+    params.append('user_id', id || this.rootStore.appStore.userId);
     this.getCartWeightApi(params);
   };
 }

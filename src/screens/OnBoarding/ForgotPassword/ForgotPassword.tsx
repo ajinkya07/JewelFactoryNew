@@ -16,6 +16,7 @@ import {
 } from '../../../utils/helper';
 import {Section} from '../../../utils/types';
 import {constatnts} from '../../../utils/constants';
+import HeaderComponent from '../../../components/Header/HeaderComponent';
 
 const ForgotPassword = () => {
   const [inputs, setLoginInputs] = useState({
@@ -62,8 +63,11 @@ const ForgotPassword = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <HeaderComponent rightIcon1={true} showDivider={false} />
+
       <ScrollView
         bounces={false}
+        style={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled">
         <>
