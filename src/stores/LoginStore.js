@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {urls} from '../network/urls';
 import {Platform} from 'react-native';
 import {showToast} from '../utils/helper';
-import {Section} from '../utils/types';
 import {constatnts} from '../utils/constants';
 
 const header = {
@@ -35,7 +34,6 @@ export class LoginStore {
   getOtpErrorText = '';
   resetPasswordErrorText = '';
 
-  userId = '';
   emailId = '';
   fullName = '';
   mobileNumber = '';
@@ -62,7 +60,6 @@ export class LoginStore {
     this.getOtpErrorText = '';
     this.resetPasswordErrorText = '';
 
-    this.userId = '';
     this.emailId = '';
     this.fullName = '';
     this.mobileNumber = '';
@@ -220,11 +217,6 @@ export class LoginStore {
             subtitle: `${res.data?.msg} `,
             position: 'bottom',
           });
-          AsyncStorage.setItem('userId', '');
-          AsyncStorage.setItem('emailId', '');
-          AsyncStorage.setItem('fullName', '');
-
-          this.userId = '';
         } else {
           this.deleteAccountApiState = 'error';
         }
@@ -242,11 +234,15 @@ export class LoginStore {
 
   setLoginData(data) {
     global.userId = data.data.user_id;
-    AsyncStorage.setItem('userId', data.data?.user_id.toString());
-    AsyncStorage.setItem('fullName', data.data?.full_name.toString());
-    AsyncStorage.setItem('userStatus', data.data?.user_status.toString());
-    AsyncStorage.setItem('mobileNumber', data.data?.mobile_number.toString());
-    AsyncStorage.setItem('emailId', data.data?.email_id.toString());
+    this.rootStore.appStore.setFields(
+      'userId',
+      String(data.data?.user_id) || '',
+    );
+    AsyncStorage.setItem('userId', String(data.data?.user_id));
+    AsyncStorage.setItem('fullName', String(data.data?.full_name));
+    AsyncStorage.setItem('userStatus', String(data.data?.user_status));
+    AsyncStorage.setItem('mobileNumber', String(data.data?.mobile_number));
+    AsyncStorage.setItem('emailId', String(data.data?.email_id));
   }
 
   // FCM Token Api
@@ -259,13 +255,13 @@ export class LoginStore {
       });
   }
 
-  sendFcmToken = async userId => {
+  sendFcmToken = async id => {
     let fcmToken = await AsyncStorage.getItem('fcmToken');
     let platform = Platform.OS === 'ios' ? 'ios' : 'android';
 
     const fcmData = new FormData();
 
-    fcmData.append('worker_id', userId);
+    fcmData.append('worker_id', id);
     fcmData.append('type', 'client');
     fcmData.append('gcm_no', fcmToken);
     fcmData.append('platform', platform);

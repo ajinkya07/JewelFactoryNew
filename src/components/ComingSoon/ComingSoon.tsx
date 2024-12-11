@@ -1,20 +1,10 @@
-import {observer} from 'mobx-react';
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  SafeAreaView,
-  Image,
-  Pressable,
-} from 'react-native';
+import {View, Text, SafeAreaView, Image, Pressable} from 'react-native';
 import Modal from 'react-native-modal';
-import {colors} from '../../utils/colors';
 import IconPack from '../../utils/IconPack';
-import {fontFamilyBold} from '../../utils/constants';
 import {strings} from '../../utils/strings';
 import {styles} from './ComingSoon.styles';
-import HeaderComponent from '../Header/HeaderComponent';
+import {observer} from 'mobx-react';
 
 const ComingSoon = ({isModalVisible, setModalVisible}: any) => {
   return (

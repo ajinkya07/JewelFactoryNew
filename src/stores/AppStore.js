@@ -3,6 +3,7 @@ import {Platform} from 'react-native';
 import * as NavigationService from '../utils/NavigationService';
 import {initialWindowMetrics} from 'react-native-safe-area-context';
 import {isTablet} from 'react-native-device-info';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const height = initialWindowMetrics?.frame?.height || 812;
 const width = initialWindowMetrics?.frame?.width || 375;
@@ -59,11 +60,12 @@ export class AppStore {
 
   isLoading = false;
 
+  userId = '';
   isNetworkConnected = true;
-  showAuthLoading = false;
   showPreLogin = true;
   isLoggedIn = false;
   isComingSoonVisible = false;
+  isContactUsModalVisible = false;
 
   setFields(eName, data) {
     this[eName] = data;
@@ -112,15 +114,32 @@ export class AppStore {
         //do nothing
       },
       'Yes',
-      action(() => {}),
+      action(() => {
+        resetStoreOnLogout();
+      }),
     );
   }
 
-  resetFields() {}
+  resetFields() {
+    this.userId = '';
+    this.showPreLogin = true;
+    this.isLoggedIn = false;
+  }
 
   // Reset store fields
   resetStoreOnLogout = clearAllData => {
+    global.userId = '';
+
+    const keys = [
+      'userId',
+      'fullName',
+      'userStatus',
+      'mobileNumber',
+      'emailId',
+    ];
+
     this.resetFields();
+    AsyncStorage.multiRemove(keys);
   };
 }
 export default AppStore;

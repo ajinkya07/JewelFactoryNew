@@ -82,6 +82,24 @@ export const strings = {
   delete: 'Delete',
   cart: 'cart',
   wishlist: 'wishlist',
-  cartWeight: 'Cart Weight',
-  placeOrder: 'Place Order'
+  cartSummary: 'Cart Summary',
+  cartWeightDesc: 'Find the details about products here',
+  placeOrder: 'Place Order',
+  confirmOrder: "Confirm your order",
+  placeOrderSubtitle: "Make sure everything looks good\nand hit 'Place Order' to finish.",
+  contactUs: 'Contact Us',
+  contactUsDesc: "Connect with us if you are facing any issues.\nWe are happy to help you.",
+  whatsapp: 'Whatsapp',
+  callUs: 'Call Us',
+  totalWeight: 'Total Weight',
+  totalQuantity: "Total Quantity",
+  grossWt: 'Gross Wt',
+  netWt: 'Net Wt',
+  quantity: 'Quantity',
+  designNo: 'Design No',
+  comments: 'Comments',
+  deliveryDateMsg: 'Please select delivery date next to 12 days'
+
+  ////
+  ///
 };

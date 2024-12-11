@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, Text, Pressable, Image} from 'react-native';
 import {styles} from './CartWishlistItem.styles';
 import IconPack from '../../../../utils/IconPack';
@@ -12,8 +12,6 @@ const CartWishlistItem = ({
   onPressEdit,
   onPressDelete,
 }: any) => {
-  console.log('item', item);
-
   let baseurl2 = urls.imageUrl + item.zoom_image;
 
   const isToogleTwo = true;
@@ -105,14 +103,12 @@ const CartWishlistItem = ({
           <View style={[styles.flexRowJustify, styles.marginTop]}>
             {UPDATE_CART_OPTIONS.map((item, index) => {
               return (
-                <Pressable onPress={() => item.onPress(item)}>
-                  <View style={styles.bottomImgView}>
-                    <Image
-                      style={styles.tabCartBottomImg}
-                      source={item.source}
-                    />
-                    <Text style={styles.updateItemText}>{item.title}</Text>
-                  </View>
+                <Pressable
+                  key={`update-cart-options-${index}`}
+                  onPress={() => item.onPress(item)}
+                  style={styles.bottomImgView}>
+                  <Image style={styles.tabCartBottomImg} source={item.source} />
+                  <Text style={styles.updateItemText}>{item.title}</Text>
                 </Pressable>
               );
             })}

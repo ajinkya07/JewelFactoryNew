@@ -2,7 +2,7 @@ import { Dimensions } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { fontFamilyMedium } from "../../../utils/constants";
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 export const styles = EStyleSheet.create({
     container: {
@@ -13,13 +13,8 @@ export const styles = EStyleSheet.create({
         padding: '20rem',
     },
     contentContainerStyle: {
+        flexGrow: 1,
         paddingBottom: '50rem',
-    },
-    loader: {
-        alignItems: 'center',
-        alignSelf: 'center',
-        justifyContent: 'center',
-        flex: 1,
     },
     title: {
         fontSize: '16rem',

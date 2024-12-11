@@ -2,8 +2,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {observer, Observer} from 'mobx-react';
-import React, {useEffect, useState} from 'react';
-import {StatusBar, View, Platform, Image} from 'react-native';
+import React, {useEffect} from 'react';
+import {StatusBar, Image} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {navigationRef} from './utils/NavigationService';
 import RootStore from './stores/RootStore';
@@ -11,7 +11,6 @@ import Login from './screens/OnBoarding/Login/Login';
 import Home from './screens/Home/Home';
 import {colors} from './utils/colors';
 import Toast from 'react-native-toast-message';
-import SplashVideoScreen from './components/SplashScreen/SplashScreen';
 import Register from './screens/OnBoarding/Register/Register';
 import ForgotPassword from './screens/OnBoarding/ForgotPassword/ForgotPassword';
 import IconPack from './utils/IconPack';
@@ -24,45 +23,10 @@ import VerifyOTP from './screens/OnBoarding/VerifyOTP/VerifyOTP';
 import TopLevelModal from './components/ComingSoon/TopLevelModal';
 import SubCategoryList from './screens/Product/SubCategoryList/SubCategoryList';
 import Categories from './screens/Categories/Categories';
-
-const routeOptions = {
-  headerShown: false,
-  headerShadowVisible: false,
-  headerStyle: {
-    elevation: 0,
-    shadowOpacity: 0,
-  },
-  ...TransitionPresets.SlideFromRightIOS,
-};
-
-const CardCentreStackOptions = RootStore.appStore.isiOS
-  ? {
-      headerShown: false,
-      presentation: 'modal',
-      gesturesEnabled: true,
-      ...TransitionPresets.ModalPresentationIOS,
-    }
-  : {
-      headerShown: false,
-      ...defaultHeaderOptions,
-    };
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
-const AuthLoadingStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="AuthLoading"
-        component={AuthLoading}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-};
 
 const LoginStack = observer(() => {
   return (
@@ -298,18 +262,6 @@ const MainApp = observer(() => {
   );
 });
 
-const modalStyleStackOptions = RootStore.appStore.isiOS
-  ? {
-      headerShown: false,
-      presentation: 'modal',
-      gesturesEnabled: true,
-      ...TransitionPresets.ModalPresentationIOS,
-    }
-  : {
-      headerShown: false,
-      ...defaultHeaderOptions,
-    };
-
 const defaultHeaderOptions = {
   headerShadowVisible: false,
   headerStyle: {
@@ -318,22 +270,32 @@ const defaultHeaderOptions = {
   },
 };
 
-const AppStack = () => {
-  console.log('RootStore.appStore.isLoggedIn ', RootStore.appStore.isLoggedIn);
-  console.log(
-    'RootStore.appStore.showPreLogin ',
-    RootStore.appStore.showPreLogin,
-  );
+const AppStack = observer(() => {
+  const userId = RootStore.appStore.userId;
+  const showPreLogin = RootStore.appStore.showPreLogin;
+  const isLoggedIn = RootStore.appStore.isLoggedIn;
 
+  // useEffect(() => {
+  //   getLoginData();
+  // });
+
+  // const getLoginData = async () => {
+  //   userId = await AsyncStorage.getItem('userId');
+  //   showPreLogin = await AsyncStorage.getItem('showPreLogin');
+  //   isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+
+  //   console.log('getLoginData', userId);
+  //   console.log('showPreLogin', showPreLogin);
+  //   console.log('isLoggedIn', userId);
+
+  // };
   return (
     <Observer>
       {() => (
         <>
-          {RootStore.appStore.showAuthLoading ? (
-            <SplashVideoScreen />
-          ) : RootStore.appStore.showPreLogin ? (
+          {showPreLogin && userId == '' ? (
             <LoginStack />
-          ) : RootStore.appStore.isLoggedIn ? (
+          ) : isLoggedIn && userId != '' ? (
             <MainApp />
           ) : null}
           <Toast />
@@ -342,9 +304,9 @@ const AppStack = () => {
       )}
     </Observer>
   );
-};
+});
 
-const TopLevelStack = () => {
+const TopStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -379,23 +341,10 @@ const Routes = observer(({}) => {
           background: colors.white,
         },
       }}>
-      <TopLevelStack />
+      <TopStack />
     </NavigationContainer>
   );
 });
-
-const ModalCardOverlay = () => {
-  return <View style={[styles.flex, {backgroundColor: `${colors.white}99`}]} />;
-};
-
-const presentationModalOptions = {
-  headerShown: false,
-  cardOverlayEnabled: true,
-  cardOverlay: () => <ModalCardOverlay />,
-  presentation: 'transparentModal',
-  gestureEnabled: false,
-  ...TransitionPresets.BottomSheetAndroid,
-};
 
 const TabBarScreenOptions = () => {
   return {

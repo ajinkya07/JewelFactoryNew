@@ -6,6 +6,7 @@ import IconPack from '../../utils/IconPack';
 import {colors} from '../../utils/colors';
 import {styles} from './HeaderComponent.styles';
 import BackHeader from '../BackHeader';
+import RootStore from '../../stores/RootStore';
 
 const HeaderComponent = ({
   isBack = true,
@@ -24,6 +25,13 @@ const HeaderComponent = ({
   onFourthIconPress,
 }: any) => {
   const navigation = useNavigation();
+
+  const onPressContactUs = () => {
+    onFirstIconPress()
+      ? onFirstIconPress()
+      : RootStore.appStore.setFields('isContactUsModalVisible', true);
+  };
+
   return (
     <Observer>
       {() => (
@@ -51,7 +59,7 @@ const HeaderComponent = ({
             <View style={styles.flexRow}>
               {rightIcon1 && (
                 <TouchableOpacity
-                  onPress={() => onFirstIconPress()}
+                  onPress={onPressContactUs}
                   style={{marginHorizontal: 12}}>
                   <Image
                     style={styles.imageIconStyle}
@@ -78,7 +86,7 @@ const HeaderComponent = ({
                   <Image
                     style={styles.imageIconStyle}
                     resizeMode="contain"
-                    source={IconPack.HEART}
+                    source={IconPack.WISHLIST}
                   />
                   <View style={styles.wishlistCount}>
                     <Text style={styles.wishlistCountText}>2</Text>

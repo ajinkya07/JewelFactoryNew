@@ -13,8 +13,8 @@ export const styles = EStyleSheet.create({
         width: width,
         alignSelf: 'center',
         borderWidth: '1rem',
-        borderColor: colors.lightBlue,
-        backgroundColor: colors.touchHighlightGray,
+        borderColor: colors.brandColorOpacity,
+        backgroundColor: colors.brandColorOpacity,
     },
     imageView: {
         width: width
@@ -23,6 +23,6 @@ export const styles = EStyleSheet.create({
         alignItems: 'center',
         height: '230rem',
         width: width,
-        backgroundColor: colors.gray,
+        backgroundColor: colors.brandColorOpacity,
     },
 })

@@ -1,10 +1,10 @@
 import EStyleSheet from "react-native-extended-stylesheet";
 import { colors } from "../../../../utils/colors";
-import { fontFamilyBold, fontFamilyMedium, fontFamilySemiBold } from "../../../../utils/constants";
+import { fontFamilyMedium, fontFamilySemiBold } from "../../../../utils/constants";
 
 export const styles = EStyleSheet.create({
     container: {
-        marginBottom: '40rem'
+        marginBottom: '40rem',
     },
     flexRow: {
         flexDirection: 'row',

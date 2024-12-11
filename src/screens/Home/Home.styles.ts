@@ -14,7 +14,7 @@ export const styles = EStyleSheet.create({
     },
     contentContainerStyle: {
         justifyContent: 'center',
-        alignItems: 'center',
+        flexGrow: 1
     },
     loader: {
         alignItems: 'center',

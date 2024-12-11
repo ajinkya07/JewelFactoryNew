@@ -111,7 +111,7 @@ export const urls = {
   Notification: {
     url: url + 'Notification_List',
   },
-  CartSummery: {
+  CartSummary: {
     url: url + 'Cart_summary',
   },
   CartWeight: {

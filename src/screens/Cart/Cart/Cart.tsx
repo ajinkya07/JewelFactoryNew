@@ -1,5 +1,5 @@
 //import liraries
-import React, {Component, useEffect} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -19,26 +19,22 @@ import PressableComponent, {
   PRESSABLE_BTN_TYPE,
 } from '../../../components/PressableComponent/PressableComponent';
 import {strings} from '../../../utils/strings';
+import CartWeightModal from '../components/CartWeightModal/CartWeightModal';
+import PlaceOrderModal from '../components/PlaceOrderModal/PlaceOrderModal';
 
-const Cart = observer(() => {
+const Cart = observer((props: any) => {
+  const showHeader = props.route?.params?.showHeader || false;
+  const userId = RootStore.appStore.userId;
+  const cartData = RootStore.cartStore.cartData;
+
+  const [hideButtons, hideButtonsOnScroll] = useState(false);
+
   useEffect(() => {
-    // callApis();
+    cartData.length === 0 ? callApis() : null;
   }, []);
 
   const callApis = () => {
-    const userId = global.userId;
-
-    const cartParams = new FormData();
-    cartParams.append('user_id', userId);
-    cartParams.append('table', 'cart');
-
-    RootStore.cartStore.getCartDataApi(cartParams);
-
-    const wishlistParams = new FormData();
-    wishlistParams.append('user_id', userId);
-    wishlistParams.append('table', 'wishlist');
-
-    RootStore.cartStore.getWishlistDataApi(wishlistParams);
+    RootStore.cartStore.callCartWishlistApis(userId);
   };
 
   const onRefresh = () => {
@@ -46,15 +42,15 @@ const Cart = observer(() => {
   };
 
   const onPressCartWeight = () => {
-    //
+    RootStore.cartStore.callCartSumaryApi(userId);
   };
 
   const onPressPlaceOrder = () => {
-    //
+    RootStore.cartStore.setFields('showPlaceOrderModal', true);
   };
 
-  const showHeader = false;
-  const cartData = RootStore.cartStore.cartData;
+  const handleScroll = (value: boolean) => hideButtonsOnScroll(value);
+
   return (
     <SafeAreaView style={styles.container}>
       {showHeader && (
@@ -62,6 +58,9 @@ const Cart = observer(() => {
       )}
       <>
         <ScrollView
+          bounces={false}
+          // onMomentumScrollBegin={() => handleScroll(true)}
+          // onMomentumScrollEnd={() => handleScroll(false)}
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl refreshing={false} onRefresh={onRefresh} />
@@ -72,13 +71,19 @@ const Cart = observer(() => {
             {/* <TopTab /> */}
 
             {RootStore.cartStore.isCartApiLoading ? (
-              <View style={styles.loader}>
-                <LoadingComponent />
-              </View>
+              <LoadingComponent />
             ) : cartData.length > 0 ? (
               <>
                 {cartData.map((item, index) => {
-                  return <CartWishlistItem key={`cart-${index}`} item={item} />;
+                  return (
+                    <CartWishlistItem
+                      key={`cart-${index}`}
+                      item={item}
+                      onPressEdit={() => null}
+                      onPressMoveTo={() => null}
+                      onPressDelete={() => null}
+                    />
+                  );
                 })}
               </>
             ) : (
@@ -87,14 +92,15 @@ const Cart = observer(() => {
           </>
         </ScrollView>
 
-        {!RootStore.cartStore.isCartApiLoading && (
+        {cartData.length > 0 && !hideButtons && (
           <View style={styles.btnContainer}>
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-              text={strings.cartWeight}
+              text={strings.cartSummary}
               containerStyle={styles.btn}
               pressableStyle={styles.btn}
               onPress={onPressCartWeight}
+              isLoading={RootStore.cartStore.isCartWeightApiLoading}
             />
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.PRIMARY}
@@ -106,6 +112,22 @@ const Cart = observer(() => {
           </View>
         )}
       </>
+
+      <CartWeightModal
+        isModalVisible={RootStore.cartStore.showCartWeightModal}
+        setModalVisible={() => {
+          RootStore.cartStore.setFields('showCartWeightModal', false);
+        }}
+        data={RootStore.cartStore.cartWeightData}
+      />
+
+      <PlaceOrderModal
+        isModalVisible={RootStore.cartStore.showPlaceOrderModal}
+        setModalVisible={() => {
+          RootStore.cartStore.setFields('showPlaceOrderModal', false);
+        }}
+        onPress={() => onPressPlaceOrder()}
+      />
     </SafeAreaView>
   );
 });

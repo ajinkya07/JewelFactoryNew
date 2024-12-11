@@ -14,7 +14,6 @@ const HomeCarousel = ({data}: any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const onSnapToItem = (index: number) => setCurrentIndex(index);
-  console.log('data', data);
 
   const imageBasePath = RootStore.homeStore.basePath;
   return (
@@ -25,8 +24,8 @@ const HomeCarousel = ({data}: any) => {
         itemWidth={width}
         itemHeight={230}
         data={data}
-        // autoplay={true}
-        // loop={true}
+        autoplay={true}
+        loop={true}
         autoplayDelay={1000}
         onSnapToItem={onSnapToItem}
         renderItem={({item, index}) => (
