@@ -21,6 +21,7 @@ import {strings} from '../../../utils/strings';
 import CartWeightModal from '../components/CartWeightModal/CartWeightModal';
 import PlaceOrderModal from '../components/PlaceOrderModal/PlaceOrderModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import HeaderComponent from '../../../components/Header/HeaderComponent';
 
 const Cart = observer((props: any) => {
   const userId = RootStore.appStore.userId;
@@ -68,6 +69,7 @@ const Cart = observer((props: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <>
+        <HeaderComponent showAppIcon={true} isBack={false} />
         <ScrollView
           // onMomentumScrollBegin={() => handleScroll(true)}
           // onMomentumScrollEnd={() => handleScroll(false)}

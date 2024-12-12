@@ -1,4 +1,4 @@
-package com.jewelfactorynew
+package com.muskseed.jewelfactory
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

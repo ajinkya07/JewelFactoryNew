@@ -224,7 +224,7 @@ const ProductList = (props: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderComponent rightIcon1={true} rightIcon4={true} />
+      <HeaderComponent rightIcon4={true} />
 
       <View style={styles.container}>
         {RootStore.productStore.isProductListApiLoading ? (

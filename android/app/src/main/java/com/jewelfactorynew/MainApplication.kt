@@ -1,4 +1,4 @@
-package com.jewelfactorynew
+package com.muskseed.jewelfactory
 
 import android.app.Application
 import com.facebook.react.PackageList

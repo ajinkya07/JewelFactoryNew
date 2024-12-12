@@ -65,9 +65,10 @@ const Categories = (props: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {isFromSubcategory && (
-        <HeaderComponent rightIcon1={true} onFirstIconPress={() => null} />
-      )}
+      <HeaderComponent
+        showAppIcon={!isFromSubcategory}
+        isBack={isFromSubcategory}
+      />
 
       <FlatList
         data={categoryData}

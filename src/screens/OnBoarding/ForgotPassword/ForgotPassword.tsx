@@ -63,7 +63,7 @@ const ForgotPassword = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderComponent rightIcon1={true} showDivider={false} />
+      <HeaderComponent rightIcon1={false} showDivider={false} />
 
       <ScrollView
         bounces={false}

@@ -13,6 +13,7 @@ import {getDeviceId, isDefined, showToast} from '../../../utils/helper';
 import LoadingComponent from '../../../components/LoadingComponent/LoadingComponent';
 import {colors} from '../../../utils/colors';
 import {Section} from '../../../utils/types';
+import HeaderComponent from '../../../components/Header/HeaderComponent';
 
 const VerifyOTP = (props: any) => {
   const [code, saveCode] = useState('');
@@ -93,6 +94,8 @@ const VerifyOTP = (props: any) => {
     <Observer>
       {() => (
         <SafeAreaView style={styles.container}>
+          <HeaderComponent rightIcon1={false} showDivider={false} />
+
           <View style={styles.verifyMobileNoView}>
             <Text style={styles.verifyMobileText}>
               {strings.verifyMobileNo}

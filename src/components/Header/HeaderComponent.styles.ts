@@ -10,6 +10,12 @@ export const styles = EStyleSheet.create({
         minHeight: '48rem',
         backgroundColor: colors.white,
     },
+    appname: {
+        fontSize: '20rem',
+        fontFamily: fontFamilyBold,
+        marginLeft: '10rem',
+        color: colors.brandColor
+    },
     headerText: {
         fontSize: '16rem',
         fontFamily: fontFamilyBold,

@@ -70,6 +70,7 @@ const ListItemComponent = ({
                         style={{
                           height: ICON_DIMENTION,
                           width: ICON_DIMENTION,
+                          tintColor: colors.black,
                         }}
                       />
                     </View>

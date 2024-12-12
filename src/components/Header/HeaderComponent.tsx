@@ -8,13 +8,14 @@ import {styles} from './HeaderComponent.styles';
 import BackHeader from '../BackHeader';
 import RootStore from '../../stores/RootStore';
 import Divider from '../Divider';
+import {strings} from '../../utils/strings';
 
 const HeaderComponent = ({
   isBack = true,
   text,
   onBackPress,
   textStyle,
-  rightIcon1,
+  rightIcon1 = true,
   rightIcon2,
   rightIcon3,
   rightIcon4,
@@ -29,7 +30,7 @@ const HeaderComponent = ({
   const navigation = useNavigation();
 
   const onPressContactUs = () => {
-    onFirstIconPress()
+    onFirstIconPress
       ? onFirstIconPress()
       : RootStore.appStore.setFields('isContactUsModalVisible', true);
   };
@@ -50,11 +51,14 @@ const HeaderComponent = ({
               <BackHeader />
             )}
             {showAppIcon && !isBack && (
-              <Image
-                source={IconPack.APP_LOGO}
-                style={{width: 50, height: 50, marginLeft: 10}}
-                resizeMode="contain"
-              />
+              <View style={styles.flexRow}>
+                {/* <Image
+                  source={IconPack.APP_LOGO}
+                  style={{width: 50, height: 50, marginLeft: 10}}
+                  resizeMode="contain"
+                /> */}
+                <Text style={styles.appname}>{strings.appName}</Text>
+              </View>
             )}
             <View
               style={{

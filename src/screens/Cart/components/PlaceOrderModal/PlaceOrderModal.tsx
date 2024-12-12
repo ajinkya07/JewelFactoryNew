@@ -150,6 +150,7 @@ const PlaceOrderModal = observer(
                 style={styles.marginTop10}
                 placeholder={strings.mobileNo}
                 returnKeyType="done"
+                keyboardType="phone-pad"
               />
 
               <InputComponent

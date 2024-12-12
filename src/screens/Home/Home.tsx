@@ -13,6 +13,7 @@ import HomeCarousel from './components/HomeCarousel/HomeCarousel';
 import RootStore from '../../stores/RootStore';
 import {getDeviceId} from '../../utils/helper';
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent';
+import HeaderComponent from '../../components/Header/HeaderComponent';
 
 const Home = () => {
   useEffect(() => {
@@ -45,6 +46,8 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <HeaderComponent showAppIcon={true} isBack={false} />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={

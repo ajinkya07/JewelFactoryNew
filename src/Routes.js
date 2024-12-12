@@ -290,9 +290,20 @@ const AppStack = observer(() => {
     const parsedPrelogin = JSON.parse(showPreLogin);
     const parsedLogin = JSON.parse(showLoggedIn);
 
-    RootStore.appStore.setFields('userId', parsedId);
-    RootStore.appStore.setFields('showPreLogin', parsedPrelogin);
-    RootStore.appStore.setFields('isLoggedIn', parsedLogin);
+    RootStore.appStore.setFields(
+      'userId',
+      parsedId == null || parsedId == undefined ? '' : parsedId,
+    );
+    RootStore.appStore.setFields(
+      'showPreLogin',
+      parsedPrelogin == null || parsedPrelogin == undefined
+        ? true
+        : parsedPrelogin,
+    );
+    RootStore.appStore.setFields(
+      'isLoggedIn',
+      parsedLogin == null || parsedLogin == undefined ? false : parsedLogin,
+    );
 
     setLoading(false);
   };
