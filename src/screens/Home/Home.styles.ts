@@ -10,7 +10,6 @@ export const styles = EStyleSheet.create({
     },
     scrollStyle: {
         paddingBottom: '20rem',
-        marginTop: '20rem',
     },
     contentContainerStyle: {
         justifyContent: 'center',

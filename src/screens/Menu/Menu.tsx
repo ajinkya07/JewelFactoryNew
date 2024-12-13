@@ -13,16 +13,28 @@ import PressableComponent, {
   PRESSABLE_BTN_TYPE,
 } from '../../components/PressableComponent/PressableComponent';
 import {constatnts} from '../../utils/constants';
-import {openLink} from '../../utils/helper';
+import {openLink, openNativeShare} from '../../utils/helper';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HeaderComponent from '../../components/Header/HeaderComponent';
+import {urls} from '../../network/urls';
 
 const Menu = () => {
   const navigation = useNavigation();
   const [userData, setUserDetails] = useState({
     fullName: '',
   });
+
+  const userId = RootStore.appStore.userId;
+  const data = RootStore.homeStore.allParameterData || {};
+
+  const aboutUS = (data as any)?.about_us || '';
+  const privacyPolicy = (data as any)?.privacy_policy || '';
+  const termsConditions = (data as any)?.terms_and_conditions || '';
+
+  const orderHistoryUrl = `${urls.webUrl}ClientOrderHistory?user_id=${userId}`;
+
+  const callEmail = `${urls.imageUrl}adminApp/Call_Email_Us`;
 
   useEffect(() => {
     setDetails();
@@ -45,30 +57,45 @@ const Menu = () => {
 
   const onPressMenuOption = (id: string) => {
     switch (id) {
+      case strings.exclusive:
+      case strings.deleteAccount:
+        // @ts-ignore
+        RootStore.appStore.setFields('isComingSoonVisible', true);
+        break;
+      case strings.orderHistory:
+        // @ts-ignore
+        navigation.navigate('WebviewComponent', {
+          title: strings.orderHistory,
+          url: orderHistoryUrl,
+        });
+        break;
       case strings.aboutUs:
         // @ts-ignore
         navigation.navigate('WebviewComponent', {
           title: strings.aboutUs,
-          url: constatnts.muskseedWebUrl,
+          url: aboutUS,
         });
         break;
       case strings.privacyPolicy:
         // @ts-ignore
         navigation.navigate('WebviewComponent', {
           title: strings.privacyPolicy,
-          url: constatnts.muskseedWebUrl,
+          url: privacyPolicy,
         });
         break;
       case strings.termsCondition:
         // @ts-ignore
         navigation.navigate('WebviewComponent', {
           title: strings.termsCondition,
-          url: constatnts.muskseedWebUrl,
+          url: termsConditions,
         });
         break;
 
       case strings.connectWithUs:
         RootStore.appStore.setFields('isContactUsModalVisible', true);
+        break;
+      case strings.shareApp:
+        openNativeShare();
         break;
 
       case strings.logout:
@@ -83,6 +110,7 @@ const Menu = () => {
   const onPressEdit = () => {
     RootStore.appStore.setFields('isComingSoonVisible', true);
   };
+
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <ScrollView
@@ -132,6 +160,11 @@ const Menu = () => {
                         ]}
                         isDividerVisible={index !== items.values.length - 1}
                         titleColor={
+                          item.id === strings.logout
+                            ? colors.error
+                            : colors.black
+                        }
+                        iconColor={
                           item.id === strings.logout
                             ? colors.error
                             : colors.black

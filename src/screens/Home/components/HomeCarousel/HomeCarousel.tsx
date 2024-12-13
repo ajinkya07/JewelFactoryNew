@@ -20,13 +20,13 @@ const HomeCarousel = ({data}: any) => {
     <>
       <Carousel
         sliderWidth={width}
-        sliderHeight={230}
+        sliderHeight={220}
         itemWidth={width}
-        itemHeight={230}
+        itemHeight={220}
         data={data}
         autoplay={true}
         loop={true}
-        autoplayDelay={1000}
+        autoplayDelay={4000}
         onSnapToItem={onSnapToItem}
         renderItem={({item, index}) => (
           <Pressable

@@ -7,6 +7,7 @@ import {styles} from './ContactUs.styles';
 import IconPack from '../../utils/IconPack';
 import {strings} from '../../utils/strings';
 import Divider from '../Divider';
+import {openURL} from '../../utils/helper';
 
 type ContactUsType = {
   isModalVisible: boolean;
@@ -16,20 +17,18 @@ type ContactUsType = {
 const ContactUs = observer(
   ({isModalVisible, setModalVisible}: ContactUsType) => {
     const data = RootStore.homeStore.allParameterData;
+    const whatsApp = (data as any)?.whatsapp || '';
+    let mobileNo = (data as any)?.call || '';
 
     const call = () => {
-      // if (data != null) {
-      //   let no = data?.call;
-      //   const url = RootStore.appStore.isiOS ? `tel://${no}` : `tel:${no}`;
-      //   Linking.openURL(url);
-      // }
+      const url = RootStore.appStore.isiOS
+        ? `tel://${mobileNo}`
+        : `tel:${mobileNo}`;
+      openURL(url);
     };
 
     const whatsapp = () => {
-      // if (data != null) {
-      //   let whatsappNo = data?.whatsapp;
-      //   Linking.openURL(`whatsapp://send?phone=${'91' + whatsappNo}`);
-      // }
+      openURL(`whatsapp://send?phone=${'91' + whatsApp}&text=${''}`);
     };
 
     return (

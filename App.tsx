@@ -13,11 +13,12 @@ export class App extends Component {
   };
 
   componentDidMount = () => {
+    SplashScreen.hide();
+
     LogBox.ignoreAllLogs(true);
     LogBox.uninstall();
 
     this.setState({showSplashScreen: true});
-    SplashScreen.hide();
 
     notificationService.registerAppWithFCM();
     notificationService.register(this.onRegister, this.onNotification);

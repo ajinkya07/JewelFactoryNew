@@ -4,7 +4,7 @@ import { fontFamilyMedium, fontFamilySemiBold } from "../../../../utils/constant
 
 export const styles = EStyleSheet.create({
     container: {
-        marginBottom: '40rem',
+        marginBottom: '30rem',
     },
     flexRow: {
         flexDirection: 'row',
@@ -46,7 +46,7 @@ export const styles = EStyleSheet.create({
         fontFamily: fontFamilyMedium
     },
     marginTop: {
-        marginTop: '20rem'
+        marginTop: '10rem'
     },
     marginBottom: {
         marginBottom: '20rem'

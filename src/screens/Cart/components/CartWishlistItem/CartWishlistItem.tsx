@@ -68,10 +68,10 @@ const CartWishlistItem = ({
         </View>
       </View>
 
-      <View style={[styles.flexRowJustify, styles.marginTop]}>
+      {/* <View style={[styles.flexRowJustify, styles.marginTop]}>
         <Text style={styles.moreDetailText}>{strings.moreDetails}</Text>
         <Image source={IconPack.RIGHT_ARROW} style={styles.downArrow} />
-      </View>
+      </View> */}
 
       {isToogleTwo && openMoreDetailsIdCart !== item.cart_wish_id ? (
         <>

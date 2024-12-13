@@ -1,8 +1,9 @@
-import { Linking } from "react-native";
+import { Linking, Share } from "react-native";
 import Toast from "react-native-toast-message";
 import { strings } from "./strings";
 import DeviceInfo from "react-native-device-info";
 import { constatnts } from "./constants";
+import RootStore from "../stores/RootStore";
 
 type showToastPropType = {
   type?: string,
@@ -108,3 +109,33 @@ export const showToast = ({ type = 'error', title = '', subtitle = '', position 
     position: position,
   });
 }
+
+
+export const openURL = (url: string) => {
+  if (!isDefined(url)) {
+    showToast({ title: strings.defaultToastText2 })
+    return true
+  }
+  Linking.openURL(url);
+}
+
+
+export const openNativeShare = async () => {
+  const data = RootStore.homeStore.allParameterData
+  let type = RootStore.appStore.isiOS ? 'ios' : 'android';
+
+  let androidLink = (data as any)?.android_app_link || constatnts.muskseedPlayStoreUrl;
+  let iosLink = (data as any)?.ios_app_link || constatnts.muskseedAppStoreUrl;
+
+
+  const shareOptions = {
+    message: type == 'ios' ? iosLink : androidLink,
+  };
+
+  try {
+    await Share.share(shareOptions);
+  } catch (error) {
+    showToast({ title: strings.defaultToastText2 })
+    console.log('Error =>', error);
+  }
+};

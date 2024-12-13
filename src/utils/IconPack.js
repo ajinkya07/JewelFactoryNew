@@ -10,7 +10,7 @@ export default {
   WHATS_UP: require('../assets/image/whatsapp.png'),
   SHARE: require('../assets/image/share.png'),
   VERSION: require('../assets/image/version.png'),
-  RATE: require('../assets/image/rating.png'),
+  RATE: require('../assets/image/rate.png'),
   DELETE_ACCOUNT: require('../assets/image/delete_account.png'),
 
   MOVE_TO: require('../assets/image/move_to.png'),

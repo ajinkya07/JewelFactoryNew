@@ -10,7 +10,7 @@ export const styles = EStyleSheet.create({
     },
     scrollStyle: {
         flex: 1,
-        padding: '20rem',
+        padding: '14rem',
     },
     contentContainerStyle: {
         flexGrow: 1,

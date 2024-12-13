@@ -217,7 +217,7 @@ const ProductList = (props: any) => {
   };
 
   const onPressBottomItem = (id: number) => {
-    // id
+    RootStore.appStore.setFields('isComingSoonVisible', true);
   };
 
   const data = RootStore.productStore.productListData;

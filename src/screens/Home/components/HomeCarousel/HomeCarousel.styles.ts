@@ -21,7 +21,7 @@ export const styles = EStyleSheet.create({
     },
     image: {
         alignItems: 'center',
-        height: '230rem',
+        height: '220rem',
         width: width,
         backgroundColor: colors.brandColorOpacity,
     },
