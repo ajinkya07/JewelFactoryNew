@@ -24,6 +24,8 @@ import TopLevelModal from './components/ComingSoon/TopLevelModal';
 import SubCategoryList from './screens/Product/SubCategoryList/SubCategoryList';
 import Categories from './screens/Categories/Categories';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CartWishlist from './screens/Cart';
+import Exclusive from './screens/Menu/Exclusive/Exclusive';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -119,8 +121,8 @@ const TabBarBottom = observer(() => {
       />
 
       <Tab.Screen
-        name="Cart"
-        component={Cart}
+        name="CartWishlist"
+        component={CartWishlist}
         options={{
           tabBarLabel: 'Cart',
           tabBarIcon: ({focused}) => {
@@ -254,6 +256,13 @@ const MainApp = observer(() => {
       <Stack.Screen
         name="SubCategoryList"
         component={SubCategoryList}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Exclusive"
+        component={Exclusive}
         options={{
           headerShown: false,
         }}

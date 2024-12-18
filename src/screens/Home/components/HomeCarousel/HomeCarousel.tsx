@@ -24,7 +24,7 @@ const HomeCarousel = ({data}: any) => {
         itemWidth={width}
         itemHeight={220}
         data={data}
-        autoplay={true}
+        // autoplay={true}
         loop={true}
         autoplayDelay={4000}
         onSnapToItem={onSnapToItem}

@@ -1,19 +1,12 @@
 //import liraries
-import React, {Component, useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  SafeAreaView,
-  RefreshControl,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, ScrollView, RefreshControl} from 'react-native';
 import {styles} from './Cart.styles';
 import {observer} from 'mobx-react';
 import RootStore from '../../../stores/RootStore';
 import LoadingComponent from '../../../components/LoadingComponent/LoadingComponent';
 import CartWishlistItem from '../components/CartWishlistItem/CartWishlistItem';
 import NoDataFoundComponent from '../../../components/NoDataFoundComponent/NoDataFoundComponent';
-import TopTab from '../components/Tabs/Tabs';
 import PressableComponent, {
   PRESSABLE_BTN_TYPE,
 } from '../../../components/PressableComponent/PressableComponent';
@@ -21,7 +14,6 @@ import {strings} from '../../../utils/strings';
 import CartWeightModal from '../components/CartWeightModal/CartWeightModal';
 import PlaceOrderModal from '../components/PlaceOrderModal/PlaceOrderModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import HeaderComponent from '../../../components/Header/HeaderComponent';
 
 const Cart = observer((props: any) => {
   const userId = RootStore.appStore.userId;
@@ -67,63 +59,58 @@ const Cart = observer((props: any) => {
   const handleScroll = (value: boolean) => hideButtonsOnScroll(value);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <>
-        <HeaderComponent showAppIcon={true} isBack={false} />
-        <ScrollView
-          // onMomentumScrollBegin={() => handleScroll(true)}
-          // onMomentumScrollEnd={() => handleScroll(false)}
-          showsVerticalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl refreshing={false} onRefresh={onRefresh} />
-          }
-          style={styles.scrollStyle}
-          contentContainerStyle={styles.contentContainerStyle}>
-          <>
-            {/* <TopTab /> */}
+    <>
+      <ScrollView
+        // onMomentumScrollBegin={() => handleScroll(true)}
+        // onMomentumScrollEnd={() => handleScroll(false)}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onRefresh} />
+        }
+        style={styles.scrollStyle}
+        contentContainerStyle={styles.contentContainerStyle}>
+        <>
+          {RootStore.cartStore.isCartApiLoading ? (
+            <LoadingComponent />
+          ) : cartData.length > 0 ? (
+            <>
+              {cartData.map((item, index) => {
+                return (
+                  <CartWishlistItem
+                    key={`cart-${index}`}
+                    item={item}
+                    onPressEdit={() => null}
+                    onPressMoveTo={() => null}
+                    onPressDelete={() => null}
+                  />
+                );
+              })}
+            </>
+          ) : (
+            <NoDataFoundComponent />
+          )}
+        </>
+      </ScrollView>
 
-            {RootStore.cartStore.isCartApiLoading ? (
-              <LoadingComponent />
-            ) : cartData.length > 0 ? (
-              <>
-                {cartData.map((item, index) => {
-                  return (
-                    <CartWishlistItem
-                      key={`cart-${index}`}
-                      item={item}
-                      onPressEdit={() => null}
-                      onPressMoveTo={() => null}
-                      onPressDelete={() => null}
-                    />
-                  );
-                })}
-              </>
-            ) : (
-              <NoDataFoundComponent />
-            )}
-          </>
-        </ScrollView>
-
-        {cartData.length > 0 && !hideButtons && (
-          <View style={styles.btnContainer}>
-            <PressableComponent
-              btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-              text={strings.cartSummary}
-              containerStyle={styles.btn}
-              pressableStyle={styles.btn}
-              onPress={onPressCartWeight}
-              isLoading={RootStore.cartStore.isCartWeightApiLoading}
-            />
-            <PressableComponent
-              btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-              text={strings.placeOrder}
-              containerStyle={styles.btn}
-              pressableStyle={styles.btn}
-              onPress={onPressPlaceOrder}
-            />
-          </View>
-        )}
-      </>
+      {cartData.length > 0 && !hideButtons && (
+        <View style={styles.btnContainer}>
+          <PressableComponent
+            btnType={PRESSABLE_BTN_TYPE.PRIMARY}
+            text={strings.cartSummary}
+            containerStyle={styles.btn}
+            pressableStyle={styles.btn}
+            onPress={onPressCartWeight}
+            isLoading={RootStore.cartStore.isCartWeightApiLoading}
+          />
+          <PressableComponent
+            btnType={PRESSABLE_BTN_TYPE.PRIMARY}
+            text={strings.placeOrder}
+            containerStyle={styles.btn}
+            pressableStyle={styles.btn}
+            onPress={onPressPlaceOrder}
+          />
+        </View>
+      )}
 
       <CartWeightModal
         isModalVisible={RootStore.cartStore.showCartWeightModal}
@@ -138,9 +125,9 @@ const Cart = observer((props: any) => {
         setModalVisible={() => {
           RootStore.cartStore.setFields('showPlaceOrderModal', false);
         }}
-        userData={userData}
+        userDetails={userData}
       />
-    </SafeAreaView>
+    </>
   );
 });
 

@@ -4,7 +4,7 @@ import { fontFamilyMedium, fontFamilySemiBold } from "../../../../utils/constant
 
 export const styles = EStyleSheet.create({
     container: {
-        marginBottom: '30rem',
+        marginBottom: '20rem',
     },
     flexRow: {
         flexDirection: 'row',
@@ -72,4 +72,7 @@ export const styles = EStyleSheet.create({
         fontSize: '14rem',
         fontFamily: fontFamilySemiBold
     },
+    divider: {
+        marginTop: '20rem',
+    }
 })

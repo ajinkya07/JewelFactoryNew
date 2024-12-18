@@ -58,6 +58,9 @@ const Menu = () => {
   const onPressMenuOption = (id: string) => {
     switch (id) {
       case strings.exclusive:
+        // @ts-ignore
+        navigation.navigate('Exclusive');
+        break;
       case strings.deleteAccount:
         // @ts-ignore
         RootStore.appStore.setFields('isComingSoonVisible', true);

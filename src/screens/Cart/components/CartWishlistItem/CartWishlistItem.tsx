@@ -115,7 +115,7 @@ const CartWishlistItem = ({
           </View>
         </>
       ) : null}
-      <Divider style={styles.marginTop} />
+      <Divider style={styles.divider} />
     </View>
   );
 };

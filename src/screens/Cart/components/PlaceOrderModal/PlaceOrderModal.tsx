@@ -13,26 +13,21 @@ import {showToast, validateMobNum} from '../../../../utils/helper';
 import RootStore from '../../../../stores/RootStore';
 import moment from 'moment';
 import Toast from 'react-native-toast-message';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type PlaceOrderModalType = {
   isModalVisible: boolean;
   setModalVisible: (value: boolean) => void;
-  userData?: {
-    fullName: '';
-    mobileNo: '';
-    email: '';
-  };
+  userDetails: any;
 };
 
 const PlaceOrderModal = observer(
-  ({isModalVisible, setModalVisible, userData}: PlaceOrderModalType) => {
-    console.log('userData', userData);
+  ({isModalVisible, setModalVisible, userDetails}: PlaceOrderModalType) => {
+    console.log('userDetails', userDetails);
 
     const [inputs, setLoginInputs] = useState({
-      fullName: userData?.fullName,
-      mobileNo: userData?.mobileNo,
-      email: userData?.email,
+      fullName: userDetails?.fullName,
+      mobileNo: userDetails?.mobileNo,
+      email: userDetails?.email,
       comments: '',
       date: '30-12-2024',
     });
