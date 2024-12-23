@@ -25,8 +25,7 @@ const NoDataFoundComponent = observer(
           <>
             <View style={[styles.container, containerStyle]}>
               <Text style={styles.noDataText}>
-                {/* {msg || strings.noDataFound} */}
-                ok
+                {msg || strings.noDataFound}
               </Text>
             </View>
           </>

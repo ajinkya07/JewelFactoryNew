@@ -25,6 +25,13 @@ export class ProductStore {
   isProductUpdated = false;
   isAddProductToCartApiLoading = false;
   isAddRemoveToCartByOneCartApiLoading = false;
+  minGrossWeight = '';
+  maxGrossWeight = '';
+  minNetWeight = '';
+  maxNetWeight = '';
+  minPrice = '';
+  maxPrice = '';
+  isApplyFilterApiLoading = false;
 
   setFields(eName, data) {
     this[eName] = data;
@@ -40,7 +47,14 @@ export class ProductStore {
     this.isAddProductToWishlistApiLoading = false;
     this.isProductUpdated = false;
     this.isAddProductToCartApiLoading = false;
-    rhis.isAddRemoveToCartByOneCartApiLoading = false;
+    this.isAddRemoveToCartByOneCartApiLoading = false;
+    this.minGrossWeight = '';
+    this.maxGrossWeight = '';
+    this.minNetWeight = '';
+    this.maxNetWeight = '';
+    this.minPrice = '';
+    this.maxPrice = '';
+    this.isApplyFilterApiLoading = false;
   }
 
   // product list api
@@ -206,6 +220,37 @@ export class ProductStore {
         showToast({title: res.data?.msg});
         this.setFields('isProductUpdated', false);
         this.setFields('isAddRemoveToCartByOneCartApiLoading', false);
+      });
+  };
+
+  // add to cart by one  api
+  applyFilterProducts = data => {
+    console.log('applyFilterProducts', data);
+
+    if (this.isApplyFilterApiLoading) {
+      return true;
+    }
+    this.setFields('isApplyFilterApiLoading', true);
+    this.setFields('isProductUpdated', false);
+
+    axios
+      .post(urls.addToCartGridAdd.url, data, header)
+      .then(res => {
+        console.log('applyFilterProducts res', res.data);
+
+        if (res.data.ack === '1') {
+          this.setFields('isProductUpdated', true);
+          showToast({type: 'success', title: res.data?.msg});
+        } else {
+          showToast({title: res.data?.msg});
+          this.setFields('isProductUpdated', false);
+        }
+        this.setFields('isApplyFilterApiLoading', false);
+      })
+      .catch(function (error) {
+        showToast({title: res.data?.msg});
+        this.setFields('isProductUpdated', false);
+        this.setFields('isApplyFilterApiLoading', false);
       });
   };
 }

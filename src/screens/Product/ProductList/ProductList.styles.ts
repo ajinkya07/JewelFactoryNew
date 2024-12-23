@@ -37,7 +37,7 @@ export const styles = EStyleSheet.create({
     filterTextView: {
         alignItems: 'center',
         width: width / 3,
-        height: '80rem',
+        height: '55rem',
         justifyContent: 'center'
     },
     filterTextStyle: {
@@ -53,19 +53,19 @@ export const styles = EStyleSheet.create({
         flex: 1,
     },
     bottomViewContainer: {
-        height: '80rem',
+        height: '55rem',
         justifyContent: 'flex-end',
         borderTopWidth: "1rem",
-        borderTopColor: colors.lightGray,
-        backgroundColor: colors.lightBlue
+        borderTopColor: colors.pressedColorOpacity,
+        backgroundColor: colors.pressedColorOpacity
     },
     flex: {
         flex: 1,
         alignSelf: 'center',
     },
     filterImageStyle: {
-        height: '24rem',
-        width: '24rem',
+        height: '20rem',
+        width: '20rem',
         tintColor: colors.black
     }
 });

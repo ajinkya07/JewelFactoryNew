@@ -18,15 +18,15 @@ import RootStore from '../../../stores/RootStore';
 import NoDataFoundComponent from '../../../components/NoDataFoundComponent/NoDataFoundComponent';
 import IconPack from '../../../utils/IconPack';
 import {useNavigation} from '@react-navigation/native';
+import SortModal from './components/SortModal/SortModal';
+import FilterModal from './components/FilterModal/FilterModal';
 
 const ProductList = (props: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sortModalVisible, setSortModalVisible] = useState(false);
-  const [selectedPriceIndex, setSelectedPrice] = useState(0);
-  const [selectedPriceId, setSelectedPriceId] = useState('0');
   const [selectedSortById, setSortById] = useState('6');
+  const [selectedPriceId, setSelectedPriceId] = useState('0');
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
-  const [isImageNotFound, setNoImageFound] = useState(false);
   const [productInventoryId, setProductInventoryId] = useState(false);
   const [netWeight, setNetWeight] = useState({
     minNetWeight: '',
@@ -217,10 +217,74 @@ const ProductList = (props: any) => {
   };
 
   const onPressBottomItem = (id: number) => {
-    RootStore.appStore.setFields('isComingSoonVisible', true);
+    switch (id) {
+      case 1:
+        setSortModalVisible(true);
+        break;
+      case 2:
+        setFilterModalVisible(true);
+        break;
+
+      default:
+        RootStore.appStore.setFields('isComingSoonVisible', true);
+        break;
+    }
+  };
+
+  const applySortBy = (item: any) => {
+    const isFromfilter = true;
+    if (isFromfilter) {
+      const params = new FormData();
+      params.append('table', 'product_master');
+      params.append('mode_type', 'filter_data');
+      params.append('collection_id', categoryData.id);
+      params.append('user_id', isDefined(userId) ? userId : '');
+      params.append('record', 10);
+      params.append('page_no', 0);
+      params.append('sort_by', item.value);
+      params.append('min_gross_weight', grossWeight.minGrossWeight);
+      params.append('max_gross_weight', grossWeight.maxGrossWeight);
+      params.append('min_net_weight', netWeight.minNetWeight);
+      params.append('max_net_weight', netWeight.maxNetWeight);
+
+      RootStore.productStore.applyFilterProducts(params);
+    } else if (!isFromfilter) {
+      const data = new FormData();
+      data.append('table', 'product_master');
+      data.append('mode_type', 'normal');
+      data.append('collection_id', categoryData.id);
+      data.append('user_id', userId);
+      data.append('record', 10);
+      data.append('page_no', 0);
+      data.append('sort_by', item.value);
+
+      RootStore.productStore.getProductListApi(data);
+    }
+  };
+
+  // Apply filter
+  const applyFilter = async () => {
+    const params = new FormData();
+    params.append('collection_id', categoryData.id);
+    params.append('table', 'product_master');
+    params.append('user_id', isDefined(userId) ? userId : '');
+    params.append('mode_type', 'filter_data');
+    params.append('record', 10);
+    params.append('sort_by', selectedSortById);
+    params.append('page_no', 0);
+    params.append('min_gross_weight', RootStore.productStore.minGrossWeight);
+    params.append('max_gross_weight', RootStore.productStore.maxGrossWeight);
+    params.append('min_net_weight', RootStore.productStore.minNetWeight);
+    params.append('max_net_weight', RootStore.productStore.maxNetWeight);
+    params.append('min_price', RootStore.productStore.minPrice);
+    params.append('max_price', RootStore.productStore.maxPrice);
+    params.append('price_type', selectedPriceId);
+
+    RootStore.productStore.getProductListApi(params);
   };
 
   const data = RootStore.productStore.productListData;
+  const sortByData = RootStore.productStore.sortByParamsData;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -262,31 +326,51 @@ const ProductList = (props: any) => {
                 )}
               />
             </View>
-            {/*   Sort + Filters + View as CTA */}
-            <View style={styles.bottomViewContainer}>
-              <View style={styles.filterRowContainer}>
-                {BOTTOM_FOOTER_OPTIONS.map((item: any, index: number) => {
-                  return (
-                    <BottomComponent
-                      key={index}
-                      id={item.id}
-                      title={item.title}
-                      onPress={(value: number) => onPressBottomItem(value)}
-                      style={styles.filterTextView}
-                      source={styles.imageSource}
-                      imageStyle={styles.filterImageStyle}
-                    />
-                  );
-                })}
-              </View>
-            </View>
           </View>
         ) : RootStore.productStore.productListData.length === 0 ? (
           <NoDataFoundComponent />
         ) : (
           <></>
         )}
+
+        {/*   Sort + Filters + View as CTA */}
+        {!RootStore.productStore.isProductListApiLoading && (
+          <View style={styles.bottomViewContainer}>
+            <View style={styles.filterRowContainer}>
+              {BOTTOM_FOOTER_OPTIONS.map((item: any, index: number) => {
+                return (
+                  <BottomComponent
+                    key={index}
+                    id={item.id}
+                    title={item.title}
+                    onPress={(value: number) => onPressBottomItem(value)}
+                    style={styles.filterTextView}
+                    source={styles.imageSource}
+                    imageStyle={styles.filterImageStyle}
+                  />
+                );
+              })}
+            </View>
+          </View>
+        )}
       </View>
+      {sortModalVisible && (
+        <SortModal
+          isModalVisible={sortModalVisible}
+          setModalVisible={() => setSortModalVisible(false)}
+          data={sortByData}
+          sortById={selectedSortById}
+          setSortById={(id: string) => setSortById(id)}
+          applySort={(item: any) => applySortBy(item)}
+        />
+      )}
+      {isFilterModalVisible && (
+        <FilterModal
+          isModalVisible={isFilterModalVisible}
+          setModalVisible={() => setFilterModalVisible(false)}
+          applyFilter={(item: any) => applyFilter(item)}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -317,7 +401,7 @@ const BottomComponent = ({
       pressableStyle={style}
       textStyle={styles.filterTextStyle}
       colorConfig={{
-        pressedBgColor: colors.hyperlinkPressed,
+        pressedBgColor: colors.pressedColorOpacity,
       }}
       imageConfig={{
         imageSource: getSource,

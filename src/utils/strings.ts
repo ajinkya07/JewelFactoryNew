@@ -50,6 +50,7 @@ export const strings = {
   rateApp: 'Rate app',
   categories: "Categories",
   filter: 'Filter',
+  filterDesc: 'Filter products by Gross weight, Net weight etc',
   sort: 'Sort',
   viewAs: 'View as',
   productsFound: 'products found',
@@ -98,8 +99,10 @@ export const strings = {
   quantity: 'Quantity',
   designNo: 'Design No',
   comments: 'Comments',
-  deliveryDateMsg: 'Please select delivery date next to 12 days'
-
+  deliveryDateMsg: 'Please select delivery date next to 12 days',
+  sortBy: "Sort by",
+  sortByDesc: "See products here by ascending or descending order",
+  apply: 'Apply'
   ////
   ///
 };

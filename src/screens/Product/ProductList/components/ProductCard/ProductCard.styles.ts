@@ -13,11 +13,11 @@ const CARD_MARGIN_LEFT = '5rem'
 export const styles = EStyleSheet.create({
     imageContainer: {
         width: CARD_WIDTH,
-        borderRadius: '12rem',
+        borderRadius: '14rem',
         backgroundColor: colors.white,
         paddingBottom: '10rem',
         marginLeft: CARD_MARGIN_LEFT,
-        marginTop: '20rem',
+        marginTop: '10rem',
         shadowColor: '#000',
         shadowOffset: { width: 0.5, height: 0.5 },
         shadowOpacity: 0.25,
@@ -27,9 +27,9 @@ export const styles = EStyleSheet.create({
     imageStyle: {
         width: '100%',
         height: '170rem',
-        borderTopLeftRadius: '12rem',
-        borderTopRightRadius: '12rem',
-        backgroundColor: colors.brandColorOpacity,
+        borderTopLeftRadius: '14rem',
+        borderTopRightRadius: '14rem',
+        backgroundColor: colors.pressedColorOpacity,
     },
     hitSlop10: {
         right: 20,

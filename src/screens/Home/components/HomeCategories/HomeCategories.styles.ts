@@ -21,14 +21,14 @@ export const styles = EStyleSheet.create({
         alignSelf: 'center',
         borderRadius: '10rem',
         borderWidth: '1rem',
-        borderColor: colors.brandColorOpacity,
-        backgroundColor: colors.brandColorOpacity,
+        borderColor: colors.pressedColorOpacity,
+        backgroundColor: colors.pressedColorOpacity,
     },
     categoryImage: {
         height: '130rem',
         width: width - 5,
         borderRadius: '10rem',
-        backgroundColor: colors.brandColorOpacity,
+        backgroundColor: colors.pressedColorOpacity,
         marginBottom: '5rem'
     },
 })

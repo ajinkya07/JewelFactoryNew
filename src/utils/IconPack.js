@@ -60,4 +60,5 @@ export default {
   SORT: require('../assets/image/sort.png'),
   FILTER: require('../assets/image/filter.png'),
   VIEW_AS: require('../assets/image/view_as.png'),
+  DOWN_ARROW_LIGHT: require('../assets/image/down_arrow_light.png'),
 };
