@@ -20,6 +20,9 @@ import IconPack from '../../../utils/IconPack';
 import {useNavigation} from '@react-navigation/native';
 import SortModal from './components/SortModal/SortModal';
 import FilterModal from './components/FilterModal/FilterModal';
+import ViewAsModal from './components/ViewAsModal/ViewAsModal';
+import ProductCardTwo from './components/ProductCardTwo/ProductCardTwo';
+import ProductCardThree from './components/ProductCardThree/ProductCardThree';
 
 const ProductList = (props: any) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,6 +31,9 @@ const ProductList = (props: any) => {
   const [selectedPriceId, setSelectedPriceId] = useState('0');
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
   const [productInventoryId, setProductInventoryId] = useState(false);
+  const [isViewAsModalVisible, setViewAsModalVisible] = useState(false);
+  const [selectedViewStyleId, setSelectedViewStyleId] = useState('1');
+
   const [netWeight, setNetWeight] = useState({
     minNetWeight: '',
     maxNetWeight: '',
@@ -224,7 +230,9 @@ const ProductList = (props: any) => {
       case 2:
         setFilterModalVisible(true);
         break;
-
+      case 3:
+        setViewAsModalVisible(true);
+        break;
       default:
         RootStore.appStore.setFields('isComingSoonVisible', true);
         break;
@@ -283,6 +291,10 @@ const ProductList = (props: any) => {
     RootStore.productStore.getProductListApi(params);
   };
 
+  const applyViewAsStyle = () => {
+    //
+  };
+
   const data = RootStore.productStore.productListData;
   const sortByData = RootStore.productStore.sortByParamsData;
 
@@ -297,23 +309,48 @@ const ProductList = (props: any) => {
           <View style={styles.container}>
             <View style={styles.flex}>
               <FlatList
+                key={selectedViewStyleId == '3' ? '_' : '#'}
+                extraData={selectedViewStyleId}
                 contentContainerStyle={styles.columnWrapperStyle}
                 showsVerticalScrollIndicator={false}
                 data={data}
-                horizontal={false}
+                horizontal={selectedViewStyleId == '3'}
                 showsHorizontalScrollIndicator={false}
-                keyExtractor={(item, index) => `products-${index.toString()}`}
-                numColumns={2}
-                renderItem={({item, index}) => (
-                  <ProductCard
-                    key={`product-card-${index.toString()}`}
-                    item={item}
-                    index={index}
-                    addToWishlist={addToWishlist}
-                    addToCart={addToCart}
-                    addRemoveByPlusOne={addRemoveByPlusOne}
-                  />
-                )}
+                keyExtractor={(item, index) =>
+                  selectedViewStyleId == '3'
+                    ? `products-view-three${index.toString()}`
+                    : `products-${index.toString()}`
+                }
+                numColumns={selectedViewStyleId == '3' ? 0 : 2}
+                renderItem={({item, index}) =>
+                  selectedViewStyleId == '1' ? (
+                    <ProductCard
+                      key={`product-card-${index.toString()}`}
+                      item={item}
+                      addToWishlist={addToWishlist}
+                      addToCart={addToCart}
+                      addRemoveByPlusOne={addRemoveByPlusOne}
+                    />
+                  ) : selectedViewStyleId == '2' ? (
+                    <ProductCardTwo
+                      key={`product-card-two-${index.toString()}`}
+                      item={item}
+                      addToWishlist={addToWishlist}
+                      addToCart={addToCart}
+                      addRemoveByPlusOne={addRemoveByPlusOne}
+                    />
+                  ) : selectedViewStyleId == '3' ? (
+                    <ProductCardThree
+                      key={`product-card-three-${index.toString()}`}
+                      item={item}
+                      addToWishlist={addToWishlist}
+                      addToCart={addToCart}
+                      addRemoveByPlusOne={addRemoveByPlusOne}
+                    />
+                  ) : (
+                    <></>
+                  )
+                }
                 ListHeaderComponent={() => (
                   <>
                     <Text style={styles.categoryTextStyle}>{title || ''}</Text>
@@ -369,6 +406,16 @@ const ProductList = (props: any) => {
           isModalVisible={isFilterModalVisible}
           setModalVisible={() => setFilterModalVisible(false)}
           applyFilter={(item: any) => applyFilter(item)}
+        />
+      )}
+      {isViewAsModalVisible && (
+        <ViewAsModal
+          isModalVisible={isViewAsModalVisible}
+          setModalVisible={() => setViewAsModalVisible(false)}
+          setSelectedViewStyleId={(value: string) => {
+            setSelectedViewStyleId(value);
+            setViewAsModalVisible(false);
+          }}
         />
       )}
     </SafeAreaView>

@@ -53,6 +53,7 @@ export const strings = {
   filterDesc: 'Filter products by Gross weight, Net weight etc',
   sort: 'Sort',
   viewAs: 'View as',
+  viewAsDesc: 'View products in different mode like grid,single etc\n(arrow indicates scroll direction)',
   productsFound: 'products found',
   enterMobileNo: 'Please enter mobile number',
   enterValidMobileNo: 'Please enter valid mobile number',

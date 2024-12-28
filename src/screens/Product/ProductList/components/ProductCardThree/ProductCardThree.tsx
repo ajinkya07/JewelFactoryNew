@@ -1,14 +1,13 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
+import React from 'react';
+import {View, Text, Pressable, Image} from 'react-native';
 import IconPack from '../../../../../utils/IconPack';
-import {styles} from './ProductCard.styles';
+import {styles} from './ProductCardThree.styles';
 import {Observer} from 'mobx-react';
 import {useNavigation} from '@react-navigation/native';
-import {urls} from '../../../../../network/urls';
 import {constatnts} from '../../../../../utils/constants';
 import {colors} from '../../../../../utils/colors';
 
-const ProductCard = ({
+const ProductCardThree = ({
   item,
   addToWishlist,
   addToCart,
@@ -31,17 +30,16 @@ const ProductCard = ({
     <Observer>
       {() => (
         <View
-          key={`card-${item.collection_sku_code}`}
+          key={`card-three${item.collection_sku_code}`}
           style={styles.imageContainer}>
           <Pressable onPress={() => onPress()}>
             <Image
               style={styles.imageStyle}
               source={
                 item.image_name != ''
-                  ? {uri: constatnts.THUMB_URL + item.image_name}
+                  ? {uri: constatnts.ZOOM_URL + item.image_name}
                   : IconPack.APP_LOGO
               }
-              // resizeMode="contain"
             />
 
             <View style={styles.productInfo}>
@@ -147,4 +145,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default ProductCardThree;
