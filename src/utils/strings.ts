@@ -103,7 +103,12 @@ export const strings = {
   deliveryDateMsg: 'Please select delivery date next to 12 days',
   sortBy: "Sort by",
   sortByDesc: "See products here by ascending or descending order",
-  apply: 'Apply'
+  apply: 'Apply',
+  addToCart: 'Add to Cart',
+  addToWishlist: 'Add to Wishlist',
+  remark: 'Remark',
+  productDesc: 'Product Description',
+  customizableDetails: 'Customizable Details'
   ////
   ///
 };

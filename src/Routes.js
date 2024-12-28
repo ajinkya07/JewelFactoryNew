@@ -26,6 +26,7 @@ import Categories from './screens/Categories/Categories';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartWishlist from './screens/Cart';
 import Exclusive from './screens/Menu/Exclusive/Exclusive';
+import ProductDetails from './screens/Product/ProductDetails/ProductDetails';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -247,6 +248,13 @@ const MainApp = observer(() => {
         }}
       />
       <Stack.Screen
+        name="ProductDetails"
+        component={ProductDetails}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="Categories"
         component={Categories}
         options={{
@@ -263,6 +271,13 @@ const MainApp = observer(() => {
       <Stack.Screen
         name="Exclusive"
         component={Exclusive}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Cart"
+        component={Cart}
         options={{
           headerShown: false,
         }}

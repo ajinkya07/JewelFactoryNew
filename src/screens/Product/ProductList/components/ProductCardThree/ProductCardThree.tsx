@@ -12,17 +12,8 @@ const ProductCardThree = ({
   addToWishlist,
   addToCart,
   addRemoveByPlusOne,
+  onPress,
 }: any) => {
-  const navigation = useNavigation();
-
-  const onPress = () => {
-    // @ts-ignore
-    navigation.navigate('ProductDetails', {
-      collectionId: item.collection_id,
-      productId: item.product_inventory_id,
-    });
-  };
-
   const KEYS = item.key;
   const VALUES = item.value;
 
@@ -32,7 +23,7 @@ const ProductCardThree = ({
         <View
           key={`card-three${item.collection_sku_code}`}
           style={styles.imageContainer}>
-          <Pressable onPress={() => onPress()}>
+          <Pressable onPress={() => onPress(item)}>
             <Image
               style={styles.imageStyle}
               source={

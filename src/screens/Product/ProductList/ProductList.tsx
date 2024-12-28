@@ -291,8 +291,13 @@ const ProductList = (props: any) => {
     RootStore.productStore.getProductListApi(params);
   };
 
-  const applyViewAsStyle = () => {
-    //
+  const onPressProduct = (item: any) => {
+    // @ts-ignore
+    navigation.navigate('ProductDetails', {
+      collectionId: item.collection_id,
+      productId: item.product_inventory_id,
+      productItem: item,
+    });
   };
 
   const data = RootStore.productStore.productListData;
@@ -300,7 +305,7 @@ const ProductList = (props: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderComponent rightIcon4={true} />
+      <HeaderComponent />
 
       <View style={styles.container}>
         {RootStore.productStore.isProductListApiLoading ? (
@@ -330,6 +335,7 @@ const ProductList = (props: any) => {
                       addToWishlist={addToWishlist}
                       addToCart={addToCart}
                       addRemoveByPlusOne={addRemoveByPlusOne}
+                      onPress={(item: any) => onPressProduct(item)}
                     />
                   ) : selectedViewStyleId == '2' ? (
                     <ProductCardTwo
@@ -338,6 +344,7 @@ const ProductList = (props: any) => {
                       addToWishlist={addToWishlist}
                       addToCart={addToCart}
                       addRemoveByPlusOne={addRemoveByPlusOne}
+                      onPress={(item: any) => onPressProduct(item)}
                     />
                   ) : selectedViewStyleId == '3' ? (
                     <ProductCardThree
@@ -346,6 +353,7 @@ const ProductList = (props: any) => {
                       addToWishlist={addToWishlist}
                       addToCart={addToCart}
                       addRemoveByPlusOne={addRemoveByPlusOne}
+                      onPress={(item: any) => onPressProduct(item)}
                     />
                   ) : (
                     <></>

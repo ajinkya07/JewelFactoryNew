@@ -32,6 +32,10 @@ export class ProductStore {
   minPrice = '';
   maxPrice = '';
   isApplyFilterApiLoading = false;
+  isProductDetailsApiLoading = false;
+  productDetailsData = {};
+  isAddToCartFromDetailsLoading = false;
+  isAddToWishlistFromDetailsLoading = false;
 
   setFields(eName, data) {
     this[eName] = data;
@@ -55,6 +59,10 @@ export class ProductStore {
     this.minPrice = '';
     this.maxPrice = '';
     this.isApplyFilterApiLoading = false;
+    this.isProductDetailsApiLoading = false;
+    this.productDetailsData = {};
+    this.isAddToCartFromDetailsLoading = false;
+    this.isAddToWishlistFromDetailsLoading = false;
   }
 
   // product list api
@@ -251,6 +259,78 @@ export class ProductStore {
         showToast({title: res.data?.msg});
         this.setFields('isProductUpdated', false);
         this.setFields('isApplyFilterApiLoading', false);
+      });
+  };
+
+  // product Details Api  api
+  productDetailsApi = data => {
+    console.log('productDetailsApi', data);
+
+    if (this.isProductDetailsApiLoading) {
+      return true;
+    }
+    this.setFields('isProductDetailsApiLoading', true);
+
+    axios
+      .post(urls.ProductDetails.url, data, header)
+      .then(res => {
+        console.log('productDetailsApi res', res.data);
+
+        if (res.data.ack === '1') {
+          this.setFields('productDetailsData', res.data?.data[0]);
+        } else {
+          showToast({title: res.data?.msg});
+        }
+        this.setFields('isProductDetailsApiLoading', false);
+      })
+      .catch(function (error) {
+        showToast({title: res.data?.msg});
+        this.setFields('isProductDetailsApiLoading', false);
+      });
+  };
+
+  // add to cart from details api
+  addToCartFromDetailsApi = (data, isAddToCart) => {
+    console.log('addToCartFromDetailsApi', data);
+
+    if (
+      this.isAddToCartFromDetailsLoading ||
+      this.isAddToWishlistFromDetailsLoading
+    ) {
+      return true;
+    }
+    this.setFields(
+      isAddToCart
+        ? 'isAddToCartFromDetailsLoading'
+        : 'isAddToWishlistFromDetailsLoading',
+      true,
+    );
+
+    axios
+      .post(urls.AddToCartFromDetails.url, data, header)
+      .then(res => {
+        console.log('addToCartFromDetailsApi res', res.data);
+
+        if (res.data.ack === '1') {
+          showToast({type: 'success', title: res.data?.msg});
+        } else {
+          showToast({title: res.data?.msg});
+        }
+        this.setFields(
+          isAddToCart
+            ? 'isAddToCartFromDetailsLoading'
+            : 'isAddToWishlistFromDetailsLoading',
+          false,
+        );
+      })
+      .catch(function (error) {
+        showToast({title: res.data?.msg});
+        this.setFields(
+          isAddToCart
+            ? 'isAddToCartFromDetailsLoading'
+            : 'isAddToWishlistFromDetailsLoading',
+          false,
+        );
       });
   };
 }

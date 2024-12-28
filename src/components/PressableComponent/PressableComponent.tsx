@@ -55,7 +55,7 @@ type PressableComponentProps = {
   btnType?: PRESSABLE_BTN_TYPE;
   disabled?: boolean;
   text?: string;
-  onPress: () => void;
+  onPress: (data?: any) => void;
   onLongPress?: () => void;
   containerStyle?: StyleProp<ViewStyle>;
   colorConfig?: ColorConfigProp | any;

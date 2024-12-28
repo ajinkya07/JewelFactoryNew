@@ -12,20 +12,10 @@ const ProductCardTwo = ({
   addToWishlist,
   addToCart,
   addRemoveByPlusOne,
+  onPress,
 }: any) => {
-  const navigation = useNavigation();
-
-  const onPress = () => {
-    // @ts-ignore
-    navigation.navigate('ProductDetails', {
-      collectionId: item.collection_id,
-      productId: item.product_inventory_id,
-    });
-  };
-
   const KEYS = item.key;
   const VALUES = item.value;
-  console.log('item', item);
 
   return (
     <Observer>
@@ -33,7 +23,7 @@ const ProductCardTwo = ({
         <View
           key={`card-two${item.collection_sku_code}`}
           style={styles.imageContainer}>
-          <Pressable onPress={() => onPress()}>
+          <Pressable onPress={() => onPress(item)}>
             <Image
               style={styles.imageStyle}
               source={

@@ -19,6 +19,7 @@ export const styles = EStyleSheet.create({
     headerText: {
         fontSize: '16rem',
         fontFamily: fontFamilyBold,
+        color: colors.black
     },
     rightText: {
         marginRight: '10rem',

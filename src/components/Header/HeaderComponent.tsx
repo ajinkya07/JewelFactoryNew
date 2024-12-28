@@ -105,7 +105,7 @@ const HeaderComponent = ({
                   </View>
                 </TouchableOpacity>
               )}
-              {rightIcon4 && (
+              {/* {rightIcon4 && (
                 <TouchableOpacity
                   onPress={() => navigateToCart()}
                   style={{marginHorizontal: 12}}>
@@ -114,11 +114,9 @@ const HeaderComponent = ({
                     resizeMode="contain"
                     source={IconPack.CART}
                   />
-                  {/* <View style={styles.wishlistCount}>
-                    <Text style={styles.wishlistCountText}>2</Text>
-                  </View> */}
+                 
                 </TouchableOpacity>
-              )}
+              )} */}
             </View>
           </View>
           {showDivider && <Divider style={styles.divider} />}
