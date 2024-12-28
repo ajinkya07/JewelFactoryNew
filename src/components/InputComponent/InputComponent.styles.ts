@@ -6,7 +6,6 @@ import { fontFamilyMedium } from "../../utils/constants";
 const { height, width } = Dimensions.get('window')
 
 export const styles = EStyleSheet.create({
-
     input: {
         height: '50rem',
         width: width - 40,

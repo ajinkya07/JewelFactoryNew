@@ -13,7 +13,8 @@ export const styles = EStyleSheet.create({
         borderTopRightRadius: '14rem',
         backgroundColor: colors.white,
         paddingBottom: '40rem',
-        paddingHorizontal: '20rem'
+        paddingHorizontal: '20rem',
+        maxHeight: '80%'
     },
     titleText: {
         color: colors.black,

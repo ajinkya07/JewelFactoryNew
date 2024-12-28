@@ -1,6 +1,9 @@
 import EStyleSheet from "react-native-extended-stylesheet";
 import { fontFamilyBold, fontFamilyMedium, fontFamilyRegular, fontFamilySemiBold } from "../../../../utils/constants";
 import { colors } from "../../../../utils/colors";
+import { Dimensions } from "react-native";
+
+const { height, width } = Dimensions.get('window')
 
 export const styles = EStyleSheet.create({
     modalView: {
@@ -81,5 +84,18 @@ export const styles = EStyleSheet.create({
         borderBottomWidth: '1rem',
         borderColor: colors.lightGray,
     },
-
+    dateInput: {
+        height: '50rem',
+        width: width - 40,
+        borderColor: colors.lightGray,
+        borderWidth: '0.5rem',
+        borderRadius: "8rem",
+        paddingHorizontal: '10rem',
+        justifyContent: 'center',
+        marginTop: '10rem',
+    },
+    dateText: {
+        fontSize: '16rem',
+        fontFamily: fontFamilyMedium
+    }
 });

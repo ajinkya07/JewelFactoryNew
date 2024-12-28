@@ -107,6 +107,7 @@ export const showToast = ({ type = 'error', title = '', subtitle = '', position 
     text1: title,
     text2: subtitle,
     position: position,
+    visibilityTime: 2000
   });
 }
 

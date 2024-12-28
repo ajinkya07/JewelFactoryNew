@@ -14,6 +14,7 @@ import {strings} from '../../../utils/strings';
 import CartWeightModal from '../components/CartWeightModal/CartWeightModal';
 import PlaceOrderModal from '../components/PlaceOrderModal/PlaceOrderModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DatePickerComponent from '../components/DatePickerComponent/DatePickerComponent';
 
 const Cart = observer((props: any) => {
   const userId = RootStore.appStore.userId;
@@ -56,6 +57,30 @@ const Cart = observer((props: any) => {
     RootStore.cartStore.setFields('showPlaceOrderModal', true);
   };
 
+  const moveFromWishlist = (item: any) => {
+    console.log('moveFromWishlist', item);
+
+    const moveToData = new FormData();
+    moveToData.append('user_id', userId);
+    moveToData.append('to_table', 'cart');
+    moveToData.append('from_table', 'wishlist');
+    moveToData.append('id', item.cart_wish_id);
+
+    RootStore.cartStore.moveProductToCartWishlist(moveToData);
+  };
+
+  const moveFromCart = async (item: any) => {
+    console.log('moveFromCart', item);
+
+    const moveToData1 = new FormData();
+    moveToData1.append('user_id', userId);
+    moveToData1.append('to_table', 'wishlist');
+    moveToData1.append('from_table', 'cart');
+    moveToData1.append('id', item.cart_wish_id);
+
+    RootStore.cartStore.moveProductToCartWishlist(moveToData1);
+  };
+
   const handleScroll = (value: boolean) => hideButtonsOnScroll(value);
 
   return (
@@ -80,7 +105,11 @@ const Cart = observer((props: any) => {
                     key={`cart-${index}`}
                     item={item}
                     onPressEdit={() => null}
-                    onPressMoveTo={() => null}
+                    onPressMoveTo={(item: string, index: number) =>
+                      RootStore.cartStore.selectedCartWishlistTabIndex == 0
+                        ? moveFromCart(item)
+                        : moveFromWishlist(item)
+                    }
                     onPressDelete={() => null}
                   />
                 );
@@ -112,21 +141,25 @@ const Cart = observer((props: any) => {
         </View>
       )}
 
-      <CartWeightModal
-        isModalVisible={RootStore.cartStore.showCartWeightModal}
-        setModalVisible={() => {
-          RootStore.cartStore.setFields('showCartWeightModal', false);
-        }}
-        data={RootStore.cartStore.cartWeightData}
-      />
+      {RootStore.cartStore.showCartWeightModal && (
+        <CartWeightModal
+          isModalVisible={RootStore.cartStore.showCartWeightModal}
+          setModalVisible={() => {
+            RootStore.cartStore.setFields('showCartWeightModal', false);
+          }}
+          data={RootStore.cartStore.cartWeightData}
+        />
+      )}
 
-      <PlaceOrderModal
-        isModalVisible={RootStore.cartStore.showPlaceOrderModal}
-        setModalVisible={() => {
-          RootStore.cartStore.setFields('showPlaceOrderModal', false);
-        }}
-        userDetails={userData}
-      />
+      {RootStore.cartStore.showPlaceOrderModal && (
+        <PlaceOrderModal
+          isModalVisible={RootStore.cartStore.showPlaceOrderModal}
+          setModalVisible={() => {
+            RootStore.cartStore.setFields('showPlaceOrderModal', false);
+          }}
+          userDetails={userData}
+        />
+      )}
     </>
   );
 });

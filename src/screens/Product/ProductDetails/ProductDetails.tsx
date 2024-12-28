@@ -141,7 +141,7 @@ const ProductDetails = observer((props: any) => {
     ]);
 
     addCartData.append('Add_To_Cart', adData);
-    RootStore.productStore.addToCartFromDetailsApi(addCartData);
+    RootStore.productStore.addToCartFromDetailsApi(addCartData, true);
   };
 
   const onPressAddToWishList = () => {
@@ -166,7 +166,7 @@ const ProductDetails = observer((props: any) => {
       },
     ]);
     params.append('Add_To_Cart', wshData);
-    RootStore.productStore.addToCartFromDetailsApi(params);
+    RootStore.productStore.addToCartFromDetailsApi(params, false);
   };
 
   const onChangeText = (key: string, value: string) => {

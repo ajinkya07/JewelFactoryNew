@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import {observer} from 'mobx-react';
 import Modal from 'react-native-modal';
 import {styles} from './CartWeightModal.styles';
@@ -29,15 +29,12 @@ const CartWeightModal = observer(
           swipeDirection="down"
           propagateSwipe>
           <View style={styles.modalViewContainer}>
-            <Divider style={styles.divider} />
+            {/* <Divider style={styles.divider} /> */}
             <Text style={styles.titleText}>{strings.cartSummary}</Text>
             <Text style={styles.subtitleText}>{strings.cartWeightDesc}</Text>
 
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item, index) => String(index)}
-              data={data?.cart_data}
-              renderItem={({item}) => (
+            <ScrollView>
+              {data?.cart_data.map((item: any) => (
                 <View style={styles.content}>
                   <Text style={styles.categoryTitle}>{item.key}</Text>
 
@@ -56,8 +53,9 @@ const CartWeightModal = observer(
 
                   <Divider style={styles.itemDivider} />
                 </View>
-              )}
-            />
+              ))}
+            </ScrollView>
+
             <View style={styles.buttonContainer}>
               <Text style={styles.categoryTitle}>
                 {strings.totalWeight}: {totalWT}

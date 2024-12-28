@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet, TextInput} from 'react-native';
+import React from 'react';
+import {View, TextInput} from 'react-native';
 import {styles} from './InputComponent.styles';
 import {colors} from '../../utils/colors';
 
@@ -15,6 +15,7 @@ const InputComponent = (props: any) => {
     style,
     onChangeText,
     lightGray = colors.lightGray,
+    editable = true,
   } = props;
   return (
     <View style={styles.container}>
@@ -29,6 +30,7 @@ const InputComponent = (props: any) => {
         placeholderTextColor={lightGray}
         autoCapitalize={'none'}
         maxLength={maxLength}
+        editable={editable}
       />
     </View>
   );

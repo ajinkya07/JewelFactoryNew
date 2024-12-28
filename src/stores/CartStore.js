@@ -26,6 +26,8 @@ export class CartStore {
   showCartWeightModal = false;
   isPlaceOrderFromCartApiLoading = false;
   showPlaceOrderModal = false;
+  isMoveProductApiLoading = false;
+  selectedCartWishlistTabIndex = 0;
 
   setFields(eName, data) {
     this[eName] = data;
@@ -43,6 +45,8 @@ export class CartStore {
     this.showCartWeightModal = false;
     this.isPlaceOrderFromCartApiLoading = false;
     this.showPlaceOrderModal = false;
+    this.isMoveProductApiLoading = false;
+    this.selectedCartWishlistTabIndex = 0;
   }
 
   // cart api
@@ -154,11 +158,38 @@ export class CartStore {
         this.setFields('isPlaceOrderFromCartApiLoading', false);
         this.setFields('showPlaceOrderModal', false);
         this.callCartWishlistApis();
-        this.callCartSumaryApi();
       })
       .catch(function (error) {
         showToast({title: error});
         this.setFields('isPlaceOrderFromCartApiLoading', false);
+      });
+  };
+
+  // move Product To Cart Wishlist api
+  moveProductToCartWishlist = data => {
+    console.log('moveProductToCartWishlist', data);
+
+    if (this.isMoveProductApiLoading) {
+      return true;
+    }
+    this.setFields('isMoveProductApiLoading', true);
+
+    axios
+      .post(urls.MoveProduct.url, data, header)
+      .then(res => {
+        console.log('moveProductToCartWishlist', res.data);
+
+        if (res.data.ack === '1') {
+          showToast({title: res?.data?.msg, type: 'success'});
+        } else {
+          showToast({title: res?.data?.msg});
+        }
+        this.setFields('isMoveProductApiLoading', false);
+        this.callCartWishlistApis();
+      })
+      .catch(function (error) {
+        showToast({title: error});
+        this.setFields('isMoveProductApiLoading', false);
       });
   };
 

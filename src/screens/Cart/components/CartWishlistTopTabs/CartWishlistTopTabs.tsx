@@ -6,6 +6,7 @@ import {getCartWishlistTabs} from './TabsData';
 import {styles} from './CartWishlistTopTabs.styles';
 import {colors} from '../../../../utils/colors';
 import {isDefined} from '../../../../utils/helper';
+import RootStore from '../../../../stores/RootStore';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -50,6 +51,7 @@ const CustomTabBar = observer(({state, navigation}: any) => {
 
       if (!isFocused && !event.defaultPrevented) {
         navigation.navigate(item.name, item.params);
+        RootStore.cartStore.setFields('selectedCartWishlistTabIndex', index);
       }
     };
 

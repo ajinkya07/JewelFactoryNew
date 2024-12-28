@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Keyboard} from 'react-native';
+import {View, Text, Keyboard, Pressable} from 'react-native';
 import {observer} from 'mobx-react';
 import Modal from 'react-native-modal';
 import {styles} from './PlaceOrderModal.styles';
@@ -13,6 +13,8 @@ import {showToast, validateMobNum} from '../../../../utils/helper';
 import RootStore from '../../../../stores/RootStore';
 import moment from 'moment';
 import Toast from 'react-native-toast-message';
+import DatePickerComponent from '../DatePickerComponent/DatePickerComponent';
+import {colors} from '../../../../utils/colors';
 
 type PlaceOrderModalType = {
   isModalVisible: boolean;
@@ -29,9 +31,10 @@ const PlaceOrderModal = observer(
       mobileNo: userDetails?.mobileNo,
       email: userDetails?.email,
       comments: '',
-      date: '30-12-2024',
+      date: '',
     });
     const [keyboardShowing, setKeyboardShowing] = useState(false);
+    const [isDateModalVisible, setDateModalVisible] = useState(false);
 
     useEffect(() => {
       const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -158,13 +161,20 @@ const PlaceOrderModal = observer(
                 returnKeyType="done"
               />
 
-              <InputComponent
-                value={inputs.date}
-                onChangeText={(value: string) => onChangeText('date', value)}
-                style={styles.marginTop10}
-                placeholder={strings.date}
-                returnKeyType="done"
-              />
+              <Pressable
+                style={styles.dateInput}
+                onPress={() => setDateModalVisible(true)}>
+                <Text
+                  style={
+                    (styles.dateText,
+                    {
+                      color:
+                        inputs.date == '' ? colors.lightGray : colors.black,
+                    })
+                  }>
+                  {inputs.date == '' ? strings.deliveryDate : inputs.date}
+                </Text>
+              </Pressable>
             </View>
 
             {!keyboardShowing && (
@@ -178,6 +188,14 @@ const PlaceOrderModal = observer(
             )}
           </View>
           <Toast />
+
+          <DatePickerComponent
+            isModalVisible={isDateModalVisible}
+            setModalVisible={() => {
+              setDateModalVisible(false);
+            }}
+            setDateInput={(date: string) => onChangeText('date', date)}
+          />
         </Modal>
       </>
     );

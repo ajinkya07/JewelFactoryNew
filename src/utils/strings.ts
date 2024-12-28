@@ -81,6 +81,7 @@ export const strings = {
   collection: 'Collection',
   moreDetails: 'More Details',
   moveToWishlist: 'Move to wishlist',
+  moveToCart: 'Move to cart',
   delete: 'Delete',
   cart: 'cart',
   wishlist: 'wishlist',
@@ -108,7 +109,8 @@ export const strings = {
   addToWishlist: 'Add to Wishlist',
   remark: 'Remark',
   productDesc: 'Product Description',
-  customizableDetails: 'Customizable Details'
+  customizableDetails: 'Customizable Details',
+  deliveryDate: 'Delivery date'
   ////
   ///
 };
