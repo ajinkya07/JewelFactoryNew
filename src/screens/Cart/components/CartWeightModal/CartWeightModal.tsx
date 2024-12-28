@@ -25,17 +25,17 @@ const CartWeightModal = observer(
           style={styles.modalView}
           onBackdropPress={() => setModalVisible(false)}
           onBackButtonPress={() => setModalVisible(false)}
-          onSwipeComplete={() => setModalVisible(false)}
-          swipeDirection="down"
-          propagateSwipe>
+          // onSwipeComplete={() => setModalVisible(false)}
+          // swipeDirection="down"
+          propagateSwipe={true}>
           <View style={styles.modalViewContainer}>
             {/* <Divider style={styles.divider} /> */}
             <Text style={styles.titleText}>{strings.cartSummary}</Text>
             <Text style={styles.subtitleText}>{strings.cartWeightDesc}</Text>
 
             <ScrollView>
-              {data?.cart_data.map((item: any) => (
-                <View style={styles.content}>
+              {data?.cart_data.map((item: any, index: number) => (
+                <View key={index} style={styles.content}>
                   <Text style={styles.categoryTitle}>{item.key}</Text>
 
                   {item.cat_data.map((item: any, index: number) => {
