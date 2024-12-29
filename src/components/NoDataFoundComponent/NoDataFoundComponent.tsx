@@ -47,9 +47,9 @@ const styles = EStyleSheet.create({
     alignItems: 'center',
   },
   noDataText: {
-    fontSize: '14rem',
+    fontSize: '16rem',
     fontFamily: fontFamilySemiBold,
-    color: colors.black,
+    color: colors.smokeGray,
   },
 });
 

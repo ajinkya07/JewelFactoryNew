@@ -14,14 +14,14 @@ export const styles = EStyleSheet.create({
     alignItems: 'center',
     height: '3rem',
     borderRadius: '10rem',
-    backgroundColor: colors.brandColor,
+    backgroundColor: colors.black,
   },
   titleText: {
     paddingHorizontal: '8rem',
     color: colors.black,
     fontSize: '16rem',
     fontFamily: fontFamilyBold,
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   },
   tabIcon: {
     height: '16rem',

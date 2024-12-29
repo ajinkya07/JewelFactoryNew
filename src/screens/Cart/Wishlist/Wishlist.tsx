@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, RefreshControl} from 'react-native';
 import {styles} from './Wishlist.styles';
 import {observer} from 'mobx-react';
@@ -12,7 +12,7 @@ const Wishlist = observer((props: any) => {
   const wishlistData = RootStore.cartStore.wishlistData;
 
   useEffect(() => {
-    wishlistData.length === 0 ? callApis() : null;
+    callApis();
   }, []);
 
   const callApis = () => {
@@ -21,6 +21,25 @@ const Wishlist = observer((props: any) => {
 
   const onRefresh = () => {
     callApis();
+  };
+
+  const moveFromWishlist = (item: any) => {
+    const moveToData = new FormData();
+    moveToData.append('user_id', userId);
+    moveToData.append('to_table', 'cart');
+    moveToData.append('from_table', 'wishlist');
+    moveToData.append('id', item.cart_wish_id);
+
+    RootStore.cartStore.moveProductToCartWishlist(moveToData);
+  };
+
+  const deleteCartWishlistItem = (item: any) => {
+    const deleteData = new FormData();
+    deleteData.append('user_id', userId);
+    deleteData.append('table', 'wishlist');
+    deleteData.append('id', item.cart_wish_id);
+
+    RootStore.cartStore.deleteCartWishListProduct(deleteData);
   };
 
   return (
@@ -33,18 +52,19 @@ const Wishlist = observer((props: any) => {
         style={styles.scrollStyle}
         contentContainerStyle={styles.contentContainerStyle}>
         <>
-          {RootStore.cartStore.isCartApiLoading ? (
+          {RootStore.cartStore.isWishlistApiLoading ? (
             <LoadingComponent />
           ) : wishlistData.length > 0 ? (
             <>
               {wishlistData.map((item, index) => {
                 return (
                   <CartWishlistItem
-                    key={`cart-${index}`}
+                    key={`wishlist-${index}`}
                     item={item}
                     onPressEdit={() => null}
-                    onPressMoveTo={() => null}
-                    onPressDelete={() => null}
+                    onPressMoveTo={() => moveFromWishlist(item)}
+                    onPressDelete={() => deleteCartWishlistItem(item)}
+                    isFromCart={false}
                   />
                 );
               })}

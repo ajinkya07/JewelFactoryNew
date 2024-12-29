@@ -115,7 +115,7 @@ const FilterModal = observer(
         onBackdropPress={() => setModalVisible(false)}
         onBackButtonPress={() => setModalVisible(false)}
         onSwipeComplete={() => setModalVisible(false)}
-        animationInTiming={600}
+        animationInTiming={500}
         animationOutTiming={500}
         swipeDirection="down"
         propagateSwipe>

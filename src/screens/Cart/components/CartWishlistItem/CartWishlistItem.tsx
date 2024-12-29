@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Pressable, Image} from 'react-native';
 import {styles} from './CartWishlistItem.styles';
 import IconPack from '../../../../utils/IconPack';
@@ -7,19 +7,15 @@ import {strings} from '../../../../utils/strings';
 import Divider from '../../../../components/Divider';
 import RootStore from '../../../../stores/RootStore';
 import LoadingComponent from '../../../../components/LoadingComponent/LoadingComponent';
+import {observer} from 'mobx-react';
 
 const CartWishlistItem = ({
   item,
   onPressMoveTo,
   onPressEdit,
   onPressDelete,
+  isFromCart,
 }: any) => {
-  let baseurl2 = urls.imageUrl + item.zoom_image;
-
-  const isToogleTwo = true;
-  const openMoreDetailsIdCart = true;
-  const index = RootStore.cartStore.selectedCartWishlistTabIndex;
-
   const UPDATE_CART_OPTIONS = [
     {
       id: 1,
@@ -30,7 +26,7 @@ const CartWishlistItem = ({
     },
     {
       id: 2,
-      title: index == 0 ? strings.moveToWishlist : strings.moveToCart,
+      title: isFromCart ? strings.moveToWishlist : strings.moveToCart,
       onPress: (data: any) => onPressMoveTo(data),
       source: IconPack.SWAP,
       isLoading: RootStore.cartStore.isMoveProductApiLoading,
@@ -40,9 +36,25 @@ const CartWishlistItem = ({
       title: strings.delete,
       onPress: (data: any) => onPressDelete(data),
       source: IconPack.DELETE,
-      isLoading: false,
+      isLoading: RootStore.cartStore.isDeleteCartWishlistItemApiLoading,
     },
   ];
+
+  const [clickedItemIndex, setClickedItemIndex] = useState(0);
+  const [updateOptionsData, setUpdateOptionsData] =
+    useState(UPDATE_CART_OPTIONS);
+
+  let baseurl2 = urls.imageUrl + item.zoom_image;
+
+  const isToogleTwo = true;
+  const openMoreDetailsIdCart = true;
+
+  useEffect(() => {
+    if (!isFromCart) {
+      const data = updateOptionsData.filter(item => item.id !== 1);
+      setUpdateOptionsData(data);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -86,9 +98,7 @@ const CartWishlistItem = ({
             <View>
               {item?.keys.map((key: string, index: string) => {
                 return (
-                  <Text
-                    key={`cart-item-key-${index}`}
-                    style={styles.keyValueText}>
+                  <Text key={`item-key-${index}`} style={styles.keyValueText}>
                     {key.replace('_', ' ')}
                   </Text>
                 );
@@ -97,9 +107,7 @@ const CartWishlistItem = ({
             <View>
               {item?.values.map((value: string, index: string) => {
                 return (
-                  <Text
-                    key={`cart-item-value-${index}`}
-                    style={styles.keyValueText}>
+                  <Text key={`item-value-${index}`} style={styles.keyValueText}>
                     {value ? value : '-'}
                   </Text>
                 );
@@ -108,15 +116,22 @@ const CartWishlistItem = ({
           </View>
 
           <View style={[styles.flexRowJustify, styles.marginTop]}>
-            {UPDATE_CART_OPTIONS.map((i, index) => {
+            {updateOptionsData.map((i, index) => {
               return (
-                <>
-                  {i.isLoading ? (
+                <View key={index}>
+                  {i.isLoading && index === clickedItemIndex ? (
                     <LoadingComponent />
                   ) : (
                     <Pressable
-                      key={`update-cart-options-${index}`}
-                      onPress={() => i.onPress(item)}
+                      key={
+                        isFromCart
+                          ? `update-cart-options-${index}`
+                          : `update-wishlist-options-${index}`
+                      }
+                      onPress={() => {
+                        i.onPress(item);
+                        setClickedItemIndex(index);
+                      }}
                       style={styles.bottomImgView}>
                       <Image
                         style={styles.tabCartBottomImg}
@@ -125,7 +140,7 @@ const CartWishlistItem = ({
                       <Text style={styles.updateItemText}>{i.title}</Text>
                     </Pressable>
                   )}
-                </>
+                </View>
               );
             })}
           </View>
@@ -136,4 +151,4 @@ const CartWishlistItem = ({
   );
 };
 
-export default CartWishlistItem;
+export default observer(CartWishlistItem);

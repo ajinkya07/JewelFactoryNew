@@ -51,7 +51,6 @@ const CustomTabBar = observer(({state, navigation}: any) => {
 
       if (!isFocused && !event.defaultPrevented) {
         navigation.navigate(item.name, item.params);
-        RootStore.cartStore.setFields('selectedCartWishlistTabIndex', index);
       }
     };
 

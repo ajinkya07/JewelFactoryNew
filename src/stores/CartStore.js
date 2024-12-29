@@ -28,6 +28,7 @@ export class CartStore {
   showPlaceOrderModal = false;
   isMoveProductApiLoading = false;
   selectedCartWishlistTabIndex = 0;
+  isDeleteCartWishlistItemApiLoading = false;
 
   setFields(eName, data) {
     this[eName] = data;
@@ -47,6 +48,7 @@ export class CartStore {
     this.showPlaceOrderModal = false;
     this.isMoveProductApiLoading = false;
     this.selectedCartWishlistTabIndex = 0;
+    this.isDeleteCartWishlistItemApiLoading = false;
   }
 
   // cart api
@@ -66,17 +68,12 @@ export class CartStore {
 
         if (res.data.ack === '1') {
           this.setFields('cartData', res.data.data);
-        } else {
-          this.setFields('cartData', []);
         }
         this.setFields('isCartApiLoading', false);
       })
       .catch(function (error) {
         this.setFields('isCartApiLoading', false);
-        this.setFields('cartData', []);
-
         console.log('error', error);
-        showToast({title: error});
       });
   };
 
@@ -88,6 +85,7 @@ export class CartStore {
       return true;
     }
     this.setFields('isWishlistApiLoading', true);
+    this.setFields('wishlistData', []);
 
     axios
       .post(urls.CartData.url, data, header)
@@ -96,14 +94,11 @@ export class CartStore {
 
         if (res.data.ack === '1') {
           this.setFields('wishlistData', res.data.data);
-        } else {
-          showToast({title: res?.data?.msg});
         }
         this.setFields('isWishlistApiLoading', false);
       })
       .catch(function (error) {
         console.log('error', error);
-        showToast({title: error});
         this.setFields('isWishlistApiLoading', false);
       });
   };
@@ -190,6 +185,34 @@ export class CartStore {
       .catch(function (error) {
         showToast({title: error});
         this.setFields('isMoveProductApiLoading', false);
+      });
+  };
+
+  // move Product To Cart Wishlist api
+  deleteCartWishListProduct = data => {
+    console.log('deleteCartWishListProduct', data);
+
+    if (this.isDeleteCartWishlistItemApiLoading) {
+      return true;
+    }
+    this.setFields('isDeleteCartWishlistItemApiLoading', true);
+
+    axios
+      .post(urls.DeleteFromCartWishList.url, data, header)
+      .then(res => {
+        console.log('deleteCartWishListProduct', res.data);
+
+        if (res.data.ack === '1') {
+          showToast({title: res?.data?.msg, type: 'success'});
+        } else {
+          showToast({title: res?.data?.msg});
+        }
+        this.setFields('isDeleteCartWishlistItemApiLoading', false);
+        this.callCartWishlistApis();
+      })
+      .catch(function (error) {
+        showToast({title: error});
+        this.setFields('isDeleteCartWishlistItemApiLoading', false);
       });
   };
 

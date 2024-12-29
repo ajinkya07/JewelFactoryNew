@@ -31,7 +31,7 @@ const SortModal = observer(
       <Modal
         isVisible={isModalVisible}
         style={styles.modalView}
-        animationInTiming={600}
+        animationInTiming={500}
         animationOutTiming={500}
         onBackdropPress={() => setModalVisible(false)}
         onBackButtonPress={() => setModalVisible(false)}
