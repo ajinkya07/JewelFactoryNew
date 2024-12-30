@@ -80,6 +80,10 @@ const ProductList = (props: any) => {
 
   useEffect(() => {
     getProducts();
+
+    return () => {
+      RootStore.productStore.resetFields();
+    };
   }, []);
 
   useEffect(() => {
@@ -230,6 +234,8 @@ const ProductList = (props: any) => {
         break;
       case 2:
         setFilterModalVisible(true);
+        setFilterData();
+
         break;
       case 3:
         setViewAsModalVisible(true);
@@ -240,8 +246,50 @@ const ProductList = (props: any) => {
     }
   };
 
-  const applySortBy = (item: any) => {
-    const isFromfilter = true;
+  const resetGrossWt = () => {
+    const grossWeightData =
+      RootStore.productStore.filterByParamsData?.gross_weight;
+
+    RootStore.productStore.setFields(
+      'minGrossWeight',
+      grossWeightData[0].min_gross_weight,
+    );
+    RootStore.productStore.setFields(
+      'maxGrossWeight',
+      grossWeightData[0].max_gross_weight,
+    );
+  };
+
+  const resetNetWt = () => {
+    const netWeightData = RootStore.productStore.filterByParamsData?.net_weight;
+
+    RootStore.productStore.setFields(
+      'minNetWeight',
+      netWeightData[0].min_net_weight,
+    );
+    RootStore.productStore.setFields(
+      'maxNetWeight',
+      netWeightData[0].max_net_weight,
+    );
+  };
+
+  const setFilterData = () => {
+    if (RootStore.productStore.minGrossWeight == '') {
+      resetGrossWt();
+    }
+
+    if (RootStore.productStore.minNetWeight == '') {
+      resetNetWt();
+    }
+  };
+
+  const onPressReset = () => {
+    resetGrossWt();
+    resetNetWt();
+  };
+
+  const applySortBy = () => {
+    const isFromfilter = false;
     if (isFromfilter) {
       const params = new FormData();
       params.append('table', 'product_master');
@@ -250,11 +298,11 @@ const ProductList = (props: any) => {
       params.append('user_id', isDefined(userId) ? userId : '');
       params.append('record', 10);
       params.append('page_no', 0);
-      params.append('sort_by', item.value);
-      params.append('min_gross_weight', grossWeight.minGrossWeight);
-      params.append('max_gross_weight', grossWeight.maxGrossWeight);
-      params.append('min_net_weight', netWeight.minNetWeight);
-      params.append('max_net_weight', netWeight.maxNetWeight);
+      params.append('sort_by', selectedSortById);
+      params.append('min_gross_weight', RootStore.productStore.minGrossWeight);
+      params.append('max_gross_weight', RootStore.productStore.maxGrossWeight);
+      params.append('min_net_weight', RootStore.productStore.minNetWeight);
+      params.append('max_net_weight', RootStore.productStore.maxNetWeight);
 
       RootStore.productStore.applyFilterProducts(params);
     } else if (!isFromfilter) {
@@ -265,7 +313,7 @@ const ProductList = (props: any) => {
       data.append('user_id', userId);
       data.append('record', 10);
       data.append('page_no', 0);
-      data.append('sort_by', item.value);
+      data.append('sort_by', selectedSortById);
 
       RootStore.productStore.getProductListApi(data);
     }
@@ -438,14 +486,15 @@ const ProductList = (props: any) => {
           data={sortByData}
           sortById={selectedSortById}
           setSortById={(id: string) => setSortById(id)}
-          applySort={(item: any) => applySortBy(item)}
+          applySort={() => applySortBy()}
         />
       )}
       {isFilterModalVisible && (
         <FilterModal
           isModalVisible={isFilterModalVisible}
           setModalVisible={() => setFilterModalVisible(false)}
-          applyFilter={(item: any) => applyFilter(item)}
+          applyFilter={() => applyFilter()}
+          onPressReset={() => onPressReset()}
         />
       )}
       {isViewAsModalVisible && (

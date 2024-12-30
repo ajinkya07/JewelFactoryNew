@@ -50,7 +50,7 @@ export const strings = {
   rateApp: 'Rate app',
   categories: "Categories",
   filter: 'Filter',
-  filterDesc: 'Filter products by Gross weight, Net weight etc',
+  filterDesc: 'Filter products by Gross weight,\nNet weight etc',
   sort: 'Sort',
   viewAs: 'View as',
   viewAsDesc: 'View products in different mode like grid,single etc\n(arrow indicates scroll direction)',
@@ -110,7 +110,8 @@ export const strings = {
   remark: 'Remark',
   productDesc: 'Product Description',
   customizableDetails: 'Customizable Details',
-  deliveryDate: 'Delivery date'
+  deliveryDate: 'Delivery date',
+  reset: 'Reset'
   ////
   ///
 };

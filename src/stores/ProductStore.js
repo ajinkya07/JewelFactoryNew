@@ -1,7 +1,8 @@
-import {makeAutoObservable} from 'mobx';
+import {makeAutoObservable, runInAction} from 'mobx';
 import axios from 'axios';
 import {urls} from '../network/urls';
 import {isDefined, showToast} from '../utils/helper';
+import {strings} from '../utils/strings';
 
 const header = {
   headers: {
@@ -39,7 +40,6 @@ export class ProductStore {
 
   setFields(eName, data) {
     this[eName] = data;
-    console.log(eName, data);
   }
 
   resetFields() {
@@ -90,9 +90,11 @@ export class ProductStore {
       })
       .catch(function (error) {
         console.log('error', error);
-        this.setFields('productListData', []);
-        this.setFields('isProductListApiLoading', false);
-        showToast({title: error});
+        runInAction(() => {
+          this.productListData = [];
+          this.isProductListApiLoading = false;
+        });
+        showToast({title: strings.globalErrorMsg});
       });
   };
 

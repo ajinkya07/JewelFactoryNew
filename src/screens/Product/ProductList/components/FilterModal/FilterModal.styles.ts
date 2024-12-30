@@ -15,19 +15,22 @@ export const styles = EStyleSheet.create({
         backgroundColor: colors.white,
         paddingBottom: '20rem',
     },
+    flexRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: '20rem',
+        marginHorizontal: '14rem',
+    },
     titleText: {
         color: colors.black,
         fontFamily: fontFamilyBold,
         fontSize: '20rem',
-        marginLeft: '14rem',
-        marginTop: '20rem',
     },
     subtitleText: {
         color: colors.black,
         fontFamily: fontFamilyRegular,
         fontSize: '14rem',
         marginLeft: '14rem',
-        marginTop: '5rem',
         marginBottom: '30rem'
     },
     divider: {
@@ -86,5 +89,15 @@ export const styles = EStyleSheet.create({
     },
     markerHeight: {
         height: '2rem'
+    },
+    resetPressed: {
+        alignSelf: 'flex-start',
+        borderRadius: '8rem',
+        padding: '6rem'
+    },
+    reset: {
+        fontSize: '16rem',
+        fontFamily: fontFamilyBold,
+        color: colors.hyperlinkColor,
     },
 })

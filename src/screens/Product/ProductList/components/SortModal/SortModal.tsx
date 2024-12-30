@@ -87,7 +87,7 @@ const SortModal = observer(
               containerStyle={styles.btnContainer}
               onPress={() => {
                 setModalVisible(false);
-                applySort(data);
+                applySort();
               }}
               isLoading={false}
             />
