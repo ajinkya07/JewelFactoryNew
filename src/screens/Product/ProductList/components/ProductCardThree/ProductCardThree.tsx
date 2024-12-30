@@ -3,7 +3,6 @@ import {View, Text, Pressable, Image} from 'react-native';
 import IconPack from '../../../../../utils/IconPack';
 import {styles} from './ProductCardThree.styles';
 import {Observer} from 'mobx-react';
-import {useNavigation} from '@react-navigation/native';
 import {constatnts} from '../../../../../utils/constants';
 import {colors} from '../../../../../utils/colors';
 
@@ -22,7 +21,7 @@ const ProductCardThree = ({
       {() => (
         <View
           key={`card-three${item.collection_sku_code}`}
-          style={styles.imageContainer}>
+          style={styles.container}>
           <Pressable onPress={() => onPress(item)}>
             <Image
               style={styles.imageStyle}
@@ -31,6 +30,7 @@ const ProductCardThree = ({
                   ? {uri: constatnts.ZOOM_URL + item.image_name}
                   : IconPack.APP_LOGO
               }
+              resizeMode="contain"
             />
 
             <View style={styles.productInfo}>

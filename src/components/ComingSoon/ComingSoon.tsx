@@ -12,7 +12,7 @@ const ComingSoon = ({isModalVisible, setModalVisible}: any) => {
       isVisible={isModalVisible}
       backdropTransitionOutTiming={0}
       style={styles.modalStyle}
-      animationInTiming={800}
+      animationInTiming={500}
       animationOutTiming={500}
       onBackButtonPress={() => setModalVisible(false)}
       onSwipeComplete={() => setModalVisible(false)}

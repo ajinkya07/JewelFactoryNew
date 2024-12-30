@@ -42,6 +42,10 @@ const Wishlist = observer((props: any) => {
     RootStore.cartStore.deleteCartWishListProduct(deleteData);
   };
 
+  const onPressEdit = () => {
+    RootStore.appStore.setFields('isComingSoonVisible', true);
+  };
+
   return (
     <>
       <ScrollView
@@ -61,7 +65,7 @@ const Wishlist = observer((props: any) => {
                   <CartWishlistItem
                     key={`wishlist-${index}`}
                     item={item}
-                    onPressEdit={() => null}
+                    onPressEdit={() => onPressEdit()}
                     onPressMoveTo={() => moveFromWishlist(item)}
                     onPressDelete={() => deleteCartWishlistItem(item)}
                     isFromCart={false}

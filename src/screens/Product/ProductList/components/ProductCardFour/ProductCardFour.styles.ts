@@ -6,9 +6,9 @@ import { fontFamilyBold, fontFamilyMedium } from "../../../../../utils/constants
 const { width, height } = Dimensions.get('window')
 
 const CARD_WIDTH = width - 50
-const CARD_HEIGHT = height * 0.76
+const CARD_HEIGHT = height * 0.6
 const CARD_MARGIN_LEFT = '5rem'
-const IMAGE_HEIGHT = height * 0.55
+const IMAGE_HEIGHT = height * 0.43
 
 export const styles = EStyleSheet.create({
     container: {
@@ -47,7 +47,7 @@ export const styles = EStyleSheet.create({
     },
     flexRow2: {
         flexDirection: 'row',
-        marginTop: '30rem',
+        marginTop: '10rem',
         alignItems: 'center',
         justifyContent: 'space-between',
     },

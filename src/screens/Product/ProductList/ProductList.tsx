@@ -23,6 +23,7 @@ import FilterModal from './components/FilterModal/FilterModal';
 import ViewAsModal from './components/ViewAsModal/ViewAsModal';
 import ProductCardTwo from './components/ProductCardTwo/ProductCardTwo';
 import ProductCardThree from './components/ProductCardThree/ProductCardThree';
+import ProductCardFour from './components/ProductCardFour/ProductCardFour';
 
 const ProductList = (props: any) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -314,7 +315,15 @@ const ProductList = (props: any) => {
           <View style={styles.container}>
             <View style={styles.flex}>
               <FlatList
-                key={selectedViewStyleId == '3' ? '_' : '#'}
+                key={
+                  selectedViewStyleId == '2'
+                    ? '&'
+                    : selectedViewStyleId == '3'
+                    ? '_'
+                    : selectedViewStyleId == '4'
+                    ? '@'
+                    : '#'
+                }
                 extraData={selectedViewStyleId}
                 contentContainerStyle={styles.columnWrapperStyle}
                 showsVerticalScrollIndicator={false}
@@ -322,15 +331,25 @@ const ProductList = (props: any) => {
                 horizontal={selectedViewStyleId == '3'}
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item, index) =>
-                  selectedViewStyleId == '3'
-                    ? `products-view-three${index.toString()}`
-                    : `products-${index.toString()}`
+                  selectedViewStyleId == '2'
+                    ? `products-view-two${index}`
+                    : selectedViewStyleId == '3'
+                    ? `products-view-three${index}`
+                    : selectedViewStyleId == '4'
+                    ? `products-view-four${index}`
+                    : `products-${index}`
                 }
-                numColumns={selectedViewStyleId == '3' ? 0 : 2}
+                numColumns={
+                  selectedViewStyleId == '2' ||
+                  selectedViewStyleId == '3' ||
+                  selectedViewStyleId == '4'
+                    ? 0
+                    : 2
+                }
                 renderItem={({item, index}) =>
                   selectedViewStyleId == '1' ? (
                     <ProductCard
-                      key={`product-card-${index.toString()}`}
+                      key={`product-card-${index}`}
                       item={item}
                       addToWishlist={addToWishlist}
                       addToCart={addToCart}
@@ -339,7 +358,7 @@ const ProductList = (props: any) => {
                     />
                   ) : selectedViewStyleId == '2' ? (
                     <ProductCardTwo
-                      key={`product-card-two-${index.toString()}`}
+                      key={`product-card-two-${index}`}
                       item={item}
                       addToWishlist={addToWishlist}
                       addToCart={addToCart}
@@ -348,7 +367,16 @@ const ProductList = (props: any) => {
                     />
                   ) : selectedViewStyleId == '3' ? (
                     <ProductCardThree
-                      key={`product-card-three-${index.toString()}`}
+                      key={`product-card-three-${index}`}
+                      item={item}
+                      addToWishlist={addToWishlist}
+                      addToCart={addToCart}
+                      addRemoveByPlusOne={addRemoveByPlusOne}
+                      onPress={(item: any) => onPressProduct(item)}
+                    />
+                  ) : selectedViewStyleId == '4' ? (
+                    <ProductCardFour
+                      key={`product-card-four-${index}`}
                       item={item}
                       addToWishlist={addToWishlist}
                       addToCart={addToCart}
@@ -359,16 +387,20 @@ const ProductList = (props: any) => {
                     <></>
                   )
                 }
-                ListHeaderComponent={() => (
-                  <>
-                    <Text style={styles.categoryTextStyle}>{title || ''}</Text>
-                    {data.length > 0 && (
-                      <Text style={styles.productsCountText}>
-                        {data.length} {strings.productsFound}
+                ListHeaderComponent={() =>
+                  selectedViewStyleId !== '3' && (
+                    <>
+                      <Text style={styles.categoryTextStyle}>
+                        {title || ''}
                       </Text>
-                    )}
-                  </>
-                )}
+                      {data.length > 0 && (
+                        <Text style={styles.productsCountText}>
+                          {data.length} {strings.productsFound}
+                        </Text>
+                      )}
+                    </>
+                  )
+                }
               />
             </View>
           </View>
