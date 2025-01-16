@@ -22,9 +22,9 @@ const HeaderComponent = ({
   headerOuterContentStyle,
   showAppIcon = false,
   onFirstIconPress,
-  onSecondIconPress,
   onThirdIconPress,
   onFourthIconPress,
+  onBellIconPress,
   showDivider = true,
 }: any) => {
   const navigation = useNavigation();
@@ -33,6 +33,9 @@ const HeaderComponent = ({
     onFirstIconPress
       ? onFirstIconPress()
       : RootStore.appStore.setFields('isContactUsModalVisible', true);
+  };
+  const onSearchIconPress = () => {
+    RootStore.homeStore.setFields('isSearchModalVisible', true);
   };
 
   const navigateToCart = () => {
@@ -48,7 +51,7 @@ const HeaderComponent = ({
           <View style={styles.headerStyle}>
             {isBack && (
               // @ts-ignore
-              <BackHeader />
+              <BackHeader onPress={onBackPress} />
             )}
             {showAppIcon && !isBack && (
               <View style={styles.flexRow}>
@@ -69,23 +72,12 @@ const HeaderComponent = ({
             </View>
 
             <View style={styles.flexRow}>
-              {rightIcon1 && (
-                <TouchableOpacity
-                  onPress={onPressContactUs}
-                  style={{marginHorizontal: 12}}>
-                  <Image
-                    style={styles.imageIconStyle}
-                    resizeMode="contain"
-                    source={IconPack.HEADPHONE}
-                  />
-                </TouchableOpacity>
-              )}
               {rightIcon2 && (
                 <TouchableOpacity
-                  onPress={() => onSecondIconPress()}
-                  style={{marginHorizontal: 12}}>
+                  onPress={onSearchIconPress}
+                  style={{marginHorizontal: 8}}>
                   <Image
-                    style={styles.imageIconStyle}
+                    style={styles.iconStyle}
                     resizeMode="contain"
                     source={IconPack.SEARCH}
                   />
@@ -94,7 +86,7 @@ const HeaderComponent = ({
               {rightIcon3 && (
                 <TouchableOpacity
                   onPress={() => onThirdIconPress()}
-                  style={{marginHorizontal: 12}}>
+                  style={{marginHorizontal: 8}}>
                   <Image
                     style={styles.imageIconStyle}
                     resizeMode="contain"
@@ -105,18 +97,28 @@ const HeaderComponent = ({
                   </View>
                 </TouchableOpacity>
               )}
-              {/* {rightIcon4 && (
+              {rightIcon4 && (
                 <TouchableOpacity
-                  onPress={() => navigateToCart()}
-                  style={{marginHorizontal: 12}}>
+                  onPress={() => onBellIconPress()}
+                  style={{marginHorizontal: 8}}>
                   <Image
                     style={styles.imageIconStyle}
                     resizeMode="contain"
-                    source={IconPack.CART}
+                    source={IconPack.BELL}
                   />
-                 
                 </TouchableOpacity>
-              )} */}
+              )}
+              {rightIcon1 && (
+                <TouchableOpacity
+                  onPress={onPressContactUs}
+                  style={{marginHorizontal: 8}}>
+                  <Image
+                    style={styles.imageIconStyle}
+                    resizeMode="contain"
+                    source={IconPack.HEADPHONE}
+                  />
+                </TouchableOpacity>
+              )}
             </View>
           </View>
           {showDivider && <Divider style={styles.divider} />}

@@ -10,11 +10,9 @@ import {
 import {styles} from './Categories.styles';
 import IconPack from '../../utils/IconPack';
 import {colors} from '../../utils/colors';
-import {strings} from '../../utils/strings';
 import {observer} from 'mobx-react';
 import RootStore from '../../stores/RootStore';
 import {constatnts} from '../../utils/constants';
-import {useNavigation} from '@react-navigation/native';
 import {navigateToCategoryOrSubCategory} from '../Home/Home.utils';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 
