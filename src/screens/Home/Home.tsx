@@ -46,7 +46,13 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderComponent showAppIcon={true} isBack={false} />
+      <HeaderComponent
+        showAppIcon={true}
+        isBack={false}
+        rightIcon4={true}
+        rightIcon2={true}
+        rightIcon5={true}
+      />
 
       <ScrollView
         showsVerticalScrollIndicator={false}

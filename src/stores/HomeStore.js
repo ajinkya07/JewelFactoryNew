@@ -32,6 +32,14 @@ export class HomeStore {
 
   isAllParametersApiLoading = false;
   allParameterData = {};
+  isSearchModalVisible = false;
+  isSearchByCodeModalVisible = false;
+  isMeltingOptionsModalVisible = false;
+  isAccordionModalVisible = false;
+  isProductStatusModalVisible = false;
+  productCategories = [];
+  productStatus = '1';
+  meltingOptions = [];
 
   setFields(eName, data) {
     this[eName] = data;
@@ -55,6 +63,14 @@ export class HomeStore {
 
     isAllParametersApiLoading = false;
     allParameterData = {};
+    this.isSearchModalVisible = false;
+    this.isSearchByCodeModalVisible = false;
+    this.isMeltingOptionsModalVisible = false;
+    this.isAccordionModalVisible = false;
+    this.isProductStatusModalVisible = false;
+    this.productCategories = [];
+    this.productStatus = '1';
+    this.meltingOptions = [];
   }
 
   getHomeDataApi = data => {

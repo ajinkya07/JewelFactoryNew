@@ -55,6 +55,7 @@ const ProductList = (props: any) => {
     title,
     fromExclusive,
     collectionName,
+    isFromSearch,
   } = props.route.params;
 
   const BOTTOM_FOOTER_OPTIONS = [
@@ -93,7 +94,9 @@ const ProductList = (props: any) => {
   }, [RootStore.productStore.isProductUpdated]);
 
   const getProducts = () => {
-    if (
+    if (isFromSearch && isDefined(categoryData)) {
+      return true;
+    } else if (
       isDefined(categoryData) &&
       !fromExclusive &&
       categoryData?.subcategory.length === 0
@@ -341,6 +344,8 @@ const ProductList = (props: any) => {
   };
 
   const onPressProduct = (item: any) => {
+    console.log('item.collection_id', item.collection_id);
+
     // @ts-ignore
     navigation.navigate('ProductDetails', {
       collectionId: item.collection_id,
@@ -349,7 +354,9 @@ const ProductList = (props: any) => {
     });
   };
 
-  const data = RootStore.productStore.productListData;
+  const data = isFromSearch
+    ? categoryData
+    : RootStore.productStore.productListData;
   const sortByData = RootStore.productStore.sortByParamsData;
 
   return (
@@ -459,7 +466,7 @@ const ProductList = (props: any) => {
         )}
 
         {/*   Sort + Filters + View as CTA */}
-        {!RootStore.productStore.isProductListApiLoading && (
+        {!RootStore.productStore.isProductListApiLoading && !isFromSearch && (
           <View style={styles.bottomViewContainer}>
             <View style={styles.filterRowContainer}>
               {BOTTOM_FOOTER_OPTIONS.map((item: any, index: number) => {

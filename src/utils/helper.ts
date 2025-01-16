@@ -1,16 +1,16 @@
-import { Linking, Share } from "react-native";
-import Toast from "react-native-toast-message";
-import { strings } from "./strings";
-import DeviceInfo from "react-native-device-info";
-import { constatnts } from "./constants";
-import RootStore from "../stores/RootStore";
+import {Linking, Share} from 'react-native';
+import Toast from 'react-native-toast-message';
+import {strings} from './strings';
+import DeviceInfo from 'react-native-device-info';
+import {constatnts} from './constants';
+import RootStore from '../stores/RootStore';
 
 type showToastPropType = {
-  type?: string,
-  title?: string,
-  subtitle?: string,
-  position?: any
-}
+  type?: string;
+  title?: string;
+  subtitle?: string;
+  position?: any;
+};
 
 export const isDefined = <T>(value: T): value is NonNullable<T> => {
   return value !== null && value !== '' && value !== undefined;
@@ -19,24 +19,20 @@ export const isDefined = <T>(value: T): value is NonNullable<T> => {
 export const getDeviceId = async () => {
   const deviceId = await DeviceInfo.getUniqueId();
 
-  return deviceId
-}
-
+  return deviceId;
+};
 
 export const openLink = (url: string) => {
-  isDefined(url) ? Linking.openURL(url) : ''
-}
-
+  isDefined(url) ? Linking.openURL(url) : '';
+};
 
 export const toUpperCase = (value: string) => {
   return isDefined(value) ? value.charAt(0).toUpperCase() + value.slice(1) : '';
 };
 
-
 export const validateEmail = (emailId: string) => {
-
   if (!isDefined(emailId)) {
-    return true
+    return true;
   }
 
   const regex = /^[A-Za-z]([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -44,9 +40,12 @@ export const validateEmail = (emailId: string) => {
   if (!pattern.test(emailId)) {
     return false;
   } else {
-    const strEmail = emailId.substring(emailId.indexOf("@") + 1, emailId.length);
-    const reversed = strEmail.split("").join("");
-    const str = reversed.split(".");
+    const strEmail = emailId.substring(
+      emailId.indexOf('@') + 1,
+      emailId.length,
+    );
+    const reversed = strEmail.split('').join('');
+    const str = reversed.split('.');
     if (str.length !== undefined && str.length > 1 && str.length < 4) {
       if (str.length === 2) {
         //gmail.com
@@ -54,7 +53,6 @@ export const validateEmail = (emailId: string) => {
           return true;
         }
         return false;
-
       } else if (str.length === 3) {
         //gmail.com.com
         if (
@@ -69,29 +67,24 @@ export const validateEmail = (emailId: string) => {
           return true;
         }
         return false;
-
       }
     } else {
       return false;
     }
   }
   return false;
-}
-
+};
 
 export const validatePassword = (password: string) => {
-  return !(password.length < 4 || password.length > 20)
-
-}
+  return !(password.length < 4 || password.length > 20);
+};
 
 export const validateMobNum = (number: string) => {
   if (!isDefined(number)) {
-    return true
-  }
-  else if (Number(number) < constatnts.MOBILE_NUMBER_MAX_LENGTH) {
-    return true
-  }
-  else {
+    return true;
+  } else if (Number(number) < constatnts.MOBILE_NUMBER_MAX_LENGTH) {
+    return true;
+  } else {
     const re = /^[0][5-9]\d{9}$|^[5-9]\d{9}$/;
     const mFormat = /([0-9]).*?\1{9,}/; // duplicate digit check || 9 duplicate digits are allowed to enter
     const whiteSpace = /^\s+$/; // Avoid space
@@ -101,33 +94,36 @@ export const validateMobNum = (number: string) => {
   }
 };
 
-export const showToast = ({ type = 'error', title = '', subtitle = '', position = 'bottom' }: showToastPropType) => {
+export const showToast = ({
+  type = 'error',
+  title = '',
+  subtitle = '',
+  position = 'bottom',
+}: showToastPropType) => {
   return Toast.show({
     type: type,
     text1: title,
     text2: subtitle,
     position: position,
-    visibilityTime: 2000
+    visibilityTime: 2000,
   });
-}
-
+};
 
 export const openURL = (url: string) => {
   if (!isDefined(url)) {
-    showToast({ title: strings.defaultToastText2 })
-    return true
+    showToast({title: strings.defaultToastText2});
+    return true;
   }
   Linking.openURL(url);
-}
-
+};
 
 export const openNativeShare = async () => {
-  const data = RootStore.homeStore.allParameterData
+  const data = RootStore.homeStore.allParameterData;
   let type = RootStore.appStore.isiOS ? 'ios' : 'android';
 
-  let androidLink = (data as any)?.android_app_link || constatnts.muskseedPlayStoreUrl;
+  let androidLink =
+    (data as any)?.android_app_link || constatnts.muskseedPlayStoreUrl;
   let iosLink = (data as any)?.ios_app_link || constatnts.muskseedAppStoreUrl;
-
 
   const shareOptions = {
     message: type == 'ios' ? iosLink : androidLink,
@@ -136,7 +132,7 @@ export const openNativeShare = async () => {
   try {
     await Share.share(shareOptions);
   } catch (error) {
-    showToast({ title: strings.defaultToastText2 })
+    showToast({title: strings.defaultToastText2});
     console.log('Error =>', error);
   }
 };

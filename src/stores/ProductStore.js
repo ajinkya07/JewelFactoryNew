@@ -1,8 +1,9 @@
 import {makeAutoObservable, runInAction} from 'mobx';
 import axios from 'axios';
 import {urls} from '../network/urls';
-import {isDefined, showToast} from '../utils/helper';
+import {showToast} from '../utils/helper';
 import {strings} from '../utils/strings';
+import RootStore from './RootStore';
 
 const header = {
   headers: {
@@ -37,6 +38,9 @@ export class ProductStore {
   productDetailsData = {};
   isAddToCartFromDetailsLoading = false;
   isAddToWishlistFromDetailsLoading = false;
+  isSearchByCodeApiLoading = false;
+  SearchByCodeData = [];
+  isProductSearchApiLoading = false;
 
   setFields(eName, data) {
     this[eName] = data;
@@ -63,6 +67,9 @@ export class ProductStore {
     this.productDetailsData = {};
     this.isAddToCartFromDetailsLoading = false;
     this.isAddToWishlistFromDetailsLoading = false;
+    this.isSearchByCodeApiLoading = false;
+    this.SearchByCodeData = [];
+    this.isProductSearchApiLoading = false;
   }
 
   // product list api
@@ -333,6 +340,84 @@ export class ProductStore {
             : 'isAddToWishlistFromDetailsLoading',
           false,
         );
+      });
+  };
+
+  // Search by code api
+  getSearchByCodeApi = data => {
+    console.log('getSearchByCodeApi', data);
+
+    if (this.isSearchByCodeApiLoading) {
+      return true;
+    }
+    this.setFields('isSearchByCodeApiLoading', true);
+
+    axios
+      .post(urls.SearchByCodeGrid.url, data, header)
+      .then(res => {
+        console.log('getSearchByCode', res.data);
+
+        if (res.data.ack === '1') {
+          const {products} = res.data?.data;
+          this.setFields('SearchByCodeData', products);
+          this.setFields('productListData', products);
+          RootStore.homeStore.setFields('isSearchByCodeModalVisible', false);
+          RootStore.homeStore.setFields('isSearchModalVisible', false);
+          RootStore.appStore.handleScreenNavigation('ProductList', {
+            gridData: products,
+            title: products?.col_name || '',
+            isFromSearch: true,
+          });
+        } else {
+          this.setFields('SearchByCodeData', []);
+          showToast({title: res?.data?.msg});
+        }
+        this.setFields('isSearchByCodeApiLoading', false);
+      })
+      .catch(function (error) {
+        console.log('error', error);
+        runInAction(() => {
+          this.SearchByCodeData = [];
+          this.isSearchByCodeApiLoading = false;
+        });
+        showToast({title: strings.globalErrorMsg});
+      });
+  };
+
+  getProductSearchApi = data => {
+    console.log('getProductSearchApi', data);
+
+    if (this.isProductSearchApiLoading) {
+      return true;
+    }
+    this.setFields('isProductSearchApiLoading', true);
+
+    axios
+      .post(urls.SearchGrid.url, data, header)
+      .then(res => {
+        console.log('getSearchByCode', res.data);
+
+        if (res.data.ack === '1') {
+          const {products} = res.data?.data;
+          this.setFields('productListData', products);
+
+          RootStore.homeStore.setFields('isSearchModalVisible', false);
+          RootStore.appStore.handleScreenNavigation('ProductList', {
+            gridData: products,
+            title: products?.col_name || '',
+            isFromSearch: true,
+          });
+        } else {
+          showToast({title: res?.data?.msg});
+        }
+        this.setFields('isProductSearchApiLoading', false);
+      })
+      .catch(function (error) {
+        console.log('error', error);
+        runInAction(() => {
+          this.isProductSearchApiLoading = false;
+        });
+        showToast({title: strings.globalErrorMsg});
       });
   };
 }
