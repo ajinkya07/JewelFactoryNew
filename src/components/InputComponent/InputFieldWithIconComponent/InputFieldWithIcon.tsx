@@ -1,10 +1,9 @@
-import {View, Dimensions} from 'react-native';
 import React from 'react';
-import InputComponent from '../InputComponent';
-import {Image} from 'react-native';
+import {View, Dimensions, TouchableOpacity, Text, Image} from 'react-native';
 import {colors} from '../../../utils/colors';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {fontFamilyMedium} from '../../../utils/constants';
+import InputComponent from '../InputComponent';
 
 const InputFieldWithIcon = ({
   iconSource,
@@ -12,17 +11,35 @@ const InputFieldWithIcon = ({
   value,
   onChangeText,
   keyboardType = 'default',
-}: any) => (
+  readOnly = false,
+  onPress,
+}: {
+  iconSource: any;
+  placeholder: string;
+  value: string;
+  onChangeText?: (text: string) => void;
+  keyboardType?: string;
+  readOnly?: boolean;
+  onPress?: () => void;
+}) => (
   <View style={styles.inputContainer}>
     <Image source={iconSource} style={styles.iconStyle} />
-    <InputComponent
-      style={styles.input}
-      placeholder={placeholder}
-      placeholderTextColor={colors.gray}
-      value={value}
-      onChangeText={onChangeText}
-      keyboardType={keyboardType}
-    />
+    {readOnly ? (
+      <TouchableOpacity style={styles.input} onPress={onPress}>
+        <Text style={[styles.textStyle, !value && {color: colors.gray}]}>
+          {value || placeholder}
+        </Text>
+      </TouchableOpacity>
+    ) : (
+      <InputComponent
+        style={styles.input}
+        placeholder={placeholder}
+        placeholderTextColor={colors.gray}
+        value={value}
+        onChangeText={onChangeText}
+        keyboardType={keyboardType}
+      />
+    )}
   </View>
 );
 
@@ -37,6 +54,7 @@ const styles = EStyleSheet.create({
     fontFamily: fontFamilyMedium,
     marginTop: '15rem',
     width: width - 80,
+    paddingVertical: '10rem',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -50,5 +68,10 @@ const styles = EStyleSheet.create({
     width: '24rem',
     height: '24rem',
     marginTop: '15rem',
+  },
+  textStyle: {
+    fontFamily: fontFamilyMedium,
+    fontSize: '16rem',
+    color: colors.black,
   },
 });

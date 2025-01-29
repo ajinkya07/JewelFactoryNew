@@ -25,9 +25,9 @@ const DatePickerComponent = ({
     : colors.bg6;
 
   const handleDatePicked = (date: string) => {
-    let dateSelected = moment(new Date(date).toISOString().slice(0, 10)).format(
-      'DD-MM-YYYY',
-    );
+    const dateSelected = moment(
+      new Date(date).toISOString().slice(0, 10),
+    ).format('DD-MM-YYYY');
     setDateInput(dateSelected);
     setModalVisible(false);
   };
@@ -60,6 +60,7 @@ const DatePickerComponent = ({
                 scrollable={true}
                 headerWrapperStyle={{marginVertical: 30}}
                 selectedStartDate={date}
+                initialDate={date || new Date()}
               />
             </View>
 

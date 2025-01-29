@@ -21,7 +21,6 @@ export class HomeStore {
   carouselData = [];
   collectionData = [];
   finalCollectionData = [];
-  finalCollectionData = [];
   imagePath = {
     large_image: '',
     small_image: '',
@@ -40,7 +39,8 @@ export class HomeStore {
   productCategories = [];
   productStatus = '1';
   meltingOptions = [];
-
+  isGetProfileApiLoading = false;
+  getProfileData = [];
   setFields(eName, data) {
     this[eName] = data;
   }
@@ -61,8 +61,8 @@ export class HomeStore {
     };
     this.searchCollectionData = [];
 
-    isAllParametersApiLoading = false;
-    allParameterData = {};
+    this.isAllParametersApiLoading = false;
+    this.allParameterData = {};
     this.isSearchModalVisible = false;
     this.isSearchByCodeModalVisible = false;
     this.isMeltingOptionsModalVisible = false;
@@ -71,6 +71,8 @@ export class HomeStore {
     this.productCategories = [];
     this.productStatus = '1';
     this.meltingOptions = [];
+    this.isGetProfileApiLoading = false;
+    this.getProfileData = [];
   }
 
   getHomeDataApi = data => {
@@ -135,6 +137,30 @@ export class HomeStore {
         console.log('error', error);
         showToast({title: error});
         this.setFields('isAllParametersApiLoading', false);
+      });
+  };
+
+  getProfilApi = data => {
+    console.log('getProfilApi', data);
+    if (this.isGetProfileApiLoading) {
+      return true;
+    }
+    this.setFields('isGetProfileApiLoading', true);
+
+    axios
+      .post(urls.GetProfile.url, data, header)
+      .then(res => {
+        if (isDefined(res?.data)) {
+          this.setFields('getProfileData', res.data?.data);
+        } else {
+          showToast({title: res?.data?.msg});
+        }
+        this.setFields('isGetProfileApiLoading', false);
+      })
+      .catch(function (error) {
+        console.log('error', error);
+        showToast({title: error});
+        this.setFields('isGetProfileApiLoading', false);
       });
   };
 }
