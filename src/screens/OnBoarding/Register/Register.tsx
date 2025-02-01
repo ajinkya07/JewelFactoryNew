@@ -15,7 +15,7 @@ import {
   validatePassword,
 } from '../../../utils/helper';
 import RootStore from '../../../stores/RootStore';
-import {constatnts} from '../../../utils/constants';
+import {constants} from '../../../utils/constants';
 import {Section} from '../../../utils/types';
 import HeaderComponent from '../../../components/Header/HeaderComponent';
 
@@ -109,7 +109,7 @@ const Register = () => {
             onChangeText={(value: string) => onChangeText('mobileNo', value)}
             style={styles.inputTop}
             placeholder={strings.mobileNo}
-            maxLength={constatnts.MOBILE_NUMBER_MAX_LENGTH}
+            maxLength={constants.MOBILE_NUMBER_MAX_LENGTH}
             returnKeyType="next"
             keyboardType="number-pad"
           />

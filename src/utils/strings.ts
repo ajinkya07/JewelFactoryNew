@@ -117,7 +117,7 @@ export const strings = {
   deliveryDate: 'Delivery date',
   reset: 'Reset',
   SelectCategories: 'Select Categories',
-  Contine: 'Contine',
+  Continue: 'Continue',
   Available: 'Available',
   Sold: 'Sold',
   Search: 'Search',

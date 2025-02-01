@@ -260,7 +260,7 @@ const ResidentialModalComponent = ({
             </View>
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-              text={strings.Contine}
+              text={strings.Continue}
               colorConfig={{
                 pressedBgColor: colors.hyperlinkPressed,
               }}

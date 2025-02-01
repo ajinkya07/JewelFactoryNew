@@ -1,8 +1,8 @@
-import {Linking, Share} from 'react-native';
+import { Linking, Share } from 'react-native';
 import Toast from 'react-native-toast-message';
-import {strings} from './strings';
+import { strings } from './strings';
 import DeviceInfo from 'react-native-device-info';
-import {constatnts} from './constants';
+import { constants } from './constants';
 import RootStore from '../stores/RootStore';
 
 type showToastPropType = {
@@ -82,7 +82,7 @@ export const validatePassword = (password: string) => {
 export const validateMobNum = (number: string) => {
   if (!isDefined(number)) {
     return true;
-  } else if (Number(number) < constatnts.MOBILE_NUMBER_MAX_LENGTH) {
+  } else if (Number(number) < constants.MOBILE_NUMBER_MAX_LENGTH) {
     return true;
   } else {
     const re = /^[0][5-9]\d{9}$|^[5-9]\d{9}$/;
@@ -111,7 +111,7 @@ export const showToast = ({
 
 export const openURL = (url: string) => {
   if (!isDefined(url)) {
-    showToast({title: strings.defaultToastText2});
+    showToast({ title: strings.defaultToastText2 });
     return true;
   }
   Linking.openURL(url);
@@ -122,8 +122,8 @@ export const openNativeShare = async () => {
   let type = RootStore.appStore.isiOS ? 'ios' : 'android';
 
   let androidLink =
-    (data as any)?.android_app_link || constatnts.muskseedPlayStoreUrl;
-  let iosLink = (data as any)?.ios_app_link || constatnts.muskseedAppStoreUrl;
+    (data as any)?.android_app_link || constants.muskseedPlayStoreUrl;
+  let iosLink = (data as any)?.ios_app_link || constants.muskseedAppStoreUrl;
 
   const shareOptions = {
     message: type == 'ios' ? iosLink : androidLink,
@@ -132,7 +132,7 @@ export const openNativeShare = async () => {
   try {
     await Share.share(shareOptions);
   } catch (error) {
-    showToast({title: strings.defaultToastText2});
+    showToast({ title: strings.defaultToastText2 });
     console.log('Error =>', error);
   }
 };

@@ -11,7 +11,7 @@ import PressableComponent, {
   PRESSABLE_ALIGN,
   PRESSABLE_BTN_TYPE,
 } from '../../components/PressableComponent/PressableComponent';
-import {constatnts} from '../../utils/constants';
+import {constants} from '../../utils/constants';
 import {openLink, openNativeShare} from '../../utils/helper';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -57,7 +57,7 @@ const Menu = () => {
   };
 
   const onPressMuskseed = () => {
-    openLink(constatnts.muskseedWebUrl);
+    openLink(constants.muskseedWebUrl);
   };
 
   const onPressMenuOption = (id: string) => {

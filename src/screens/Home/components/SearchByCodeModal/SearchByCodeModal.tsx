@@ -66,7 +66,7 @@ const SearchByCodeModal = ({isModalVisible, setModalVisible}: any) => {
           <View style={styles.section}>
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-              text={strings.Contine}
+              text={strings.Continue}
               containerStyle={styles.btn}
               pressableStyle={styles.btn}
               onPress={() => {

@@ -12,7 +12,7 @@ import IconPack from '../../utils/IconPack';
 import {colors} from '../../utils/colors';
 import {observer} from 'mobx-react';
 import RootStore from '../../stores/RootStore';
-import {constatnts} from '../../utils/constants';
+import {constants} from '../../utils/constants';
 import {navigateToCategoryOrSubCategory} from '../Home/Home.utils';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 
@@ -95,7 +95,7 @@ const Categories = (props: any) => {
                 <Image
                   source={
                     item.image_name != ''
-                      ? {uri: constatnts.IMAGE_URL + item.image_name}
+                      ? {uri: constants.IMAGE_URL + item.image_name}
                       : IconPack.APP_LOGO
                   }
                   style={styles.categoryImage}
