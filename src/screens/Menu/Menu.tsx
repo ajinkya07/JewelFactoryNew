@@ -9,15 +9,14 @@ import {strings} from '../../utils/strings';
 import ListItemComponent from '../../components/ListItemComponent/ListItemComponent';
 import PressableComponent, {
   PRESSABLE_ALIGN,
-  PRESSABLE_ALIGN_CONFIG,
   PRESSABLE_BTN_TYPE,
 } from '../../components/PressableComponent/PressableComponent';
 import {constatnts} from '../../utils/constants';
 import {openLink, openNativeShare} from '../../utils/helper';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import HeaderComponent from '../../components/Header/HeaderComponent';
 import {urls} from '../../network/urls';
+import EditProfileModal from './EditProfileModal/EditProfileModal';
 
 const Menu = () => {
   const navigation = useNavigation();
@@ -39,6 +38,12 @@ const Menu = () => {
   useEffect(() => {
     setDetails();
   }, []);
+
+  useEffect(() => {
+    const params = new FormData();
+    params.append('user_id', userId);
+    RootStore.homeStore.getProfilApi(params);
+  }, [userId]);
 
   const setDetails = async () => {
     let value = await AsyncStorage.getItem('fullName');
@@ -111,7 +116,7 @@ const Menu = () => {
   };
 
   const onPressEdit = () => {
-    RootStore.appStore.setFields('isComingSoonVisible', true);
+    RootStore.menuStore.setFields('isEditModalVisible', true);
   };
 
   return (
@@ -189,6 +194,14 @@ const Menu = () => {
               </Text>
             </Text>
           </View>
+
+          {/* Edit Profile modal */}
+          <EditProfileModal
+            isModalVisible={RootStore.menuStore.isEditModalVisible}
+            setModalVisible={(toggleValue: boolean) => {
+              RootStore.menuStore.setFields('isEditModalVisible', toggleValue);
+            }}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

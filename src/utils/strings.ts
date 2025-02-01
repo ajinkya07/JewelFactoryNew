@@ -134,6 +134,8 @@ export const strings = {
   SelectStatus: 'Select Status',
   Melting: 'Melting',
   Selectmelting: 'Select melting',
+  UpdateProfile: 'Update Profile',
+  SelectResidential: 'Select Residential',
   ////
   ///
 };
