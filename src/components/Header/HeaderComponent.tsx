@@ -99,7 +99,7 @@ const HeaderComponent = ({
               )}
               {rightIcon4 && (
                 <TouchableOpacity
-                  onPress={() => onBellIconPress()}
+                  // onPress={() => onBellIconPress()}
                   style={{marginHorizontal: 8}}>
                   <Image
                     style={styles.imageIconStyle}
