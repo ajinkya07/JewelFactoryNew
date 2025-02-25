@@ -65,6 +65,8 @@ type PressableComponentProps = {
   renderCustomChild?: () => ReactNode;
   align?: PRESSABLE_ALIGN;
   isLoading?: boolean;
+  isPairButton?: boolean;
+  isRightButton?: boolean;
 };
 
 /**
@@ -87,11 +89,13 @@ const PressableComponent = observer(
     renderCustomChild,
     align,
     isLoading = false,
+    isPairButton = false,
+    isRightButton = false,
   }: PressableComponentProps) => {
     const getAlign = useMemo(() => {
       return align
         ? PRESSABLE_ALIGN_CONFIG[align]
-        : PRESSABLE_ALIGN_CONFIG[PRESSABLE_ALIGN_CONFIG.TOP];
+        : PRESSABLE_ALIGN_CONFIG[PRESSABLE_ALIGN.TOP];
     }, [align]);
 
     const getStyleBasedOnType = useMemo(() => {
@@ -101,6 +105,8 @@ const PressableComponent = observer(
             styles.primaryBtnContainer,
             containerStyle,
             disabled && styles.primaryBtnDisabled,
+            isPairButton && styles.pairButtonContainer,
+            isPairButton && isRightButton && styles.rightPairButtonContainer,
           ];
         case PRESSABLE_BTN_TYPE.SECONDARY:
           return [
@@ -108,18 +114,17 @@ const PressableComponent = observer(
             containerStyle,
             disabled && styles.primaryBtnDisabled,
             styles.secBtnContainer,
+            isPairButton && styles.pairButtonContainer,
+            isPairButton && isRightButton && styles.rightPairButtonContainer,
           ];
         default:
-          return containerStyle;
+          return [
+            containerStyle,
+            isPairButton && styles.pairButtonContainer,
+            isPairButton && isRightButton && styles.rightPairButtonContainer,
+          ];
       }
-    }, [
-      btnType,
-      containerStyle,
-      disabled,
-      styles.primaryBtnContainer,
-      styles.primaryBtnDisabled,
-      styles.secBtnContainer,
-    ]);
+    }, [btnType, containerStyle, disabled, isPairButton, isRightButton]);
 
     const getPressableStyleBasedOnType = (pressed: boolean) => {
       switch (btnType) {
@@ -133,6 +138,7 @@ const PressableComponent = observer(
                 : styles.primaryBtnContainer.backgroundColor,
               flexDirection: getAlign,
             },
+            isPairButton && styles.pairButtonPressable,
           ];
         case PRESSABLE_BTN_TYPE.SECONDARY:
           return [
@@ -144,6 +150,7 @@ const PressableComponent = observer(
                 : styles.secBtnContainer.backgroundColor,
               flexDirection: getAlign,
             },
+            isPairButton && styles.pairButtonPressable,
           ];
 
         default:
@@ -155,6 +162,7 @@ const PressableComponent = observer(
                 : colorConfig.bgColor,
               flexDirection: getAlign,
             },
+            isPairButton && styles.pairButtonPressable,
           ];
       }
     };
@@ -185,8 +193,10 @@ const PressableComponent = observer(
         case PRESSABLE_BTN_TYPE.SECONDARY:
         case PRESSABLE_BTN_TYPE.TEXT:
           return colors.gray;
+        default:
+          return colors.white;
       }
-    }, [btnType, colors]);
+    }, [btnType]);
 
     return (
       <View style={getStyleBasedOnType}>

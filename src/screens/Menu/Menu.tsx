@@ -17,6 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {urls} from '../../network/urls';
 import EditProfileModal from './EditProfileModal/EditProfileModal';
+import DeleteAccountModal from './DeleteAccountModal/DeleteAccountModal';
 
 const Menu = () => {
   const navigation = useNavigation();
@@ -68,7 +69,7 @@ const Menu = () => {
         break;
       case strings.deleteAccount:
         // @ts-ignore
-        RootStore.appStore.setFields('isComingSoonVisible', true);
+        RootStore.menuStore.setFields('isDeleteAccountModalVisible', true);
         break;
       case strings.orderHistory:
         // @ts-ignore
@@ -201,6 +202,17 @@ const Menu = () => {
             setModalVisible={(toggleValue: boolean) => {
               RootStore.menuStore.setFields('isEditModalVisible', toggleValue);
             }}
+          />
+
+          {/* Delete Account Modal */}
+          <DeleteAccountModal
+            isModalVisible={RootStore.menuStore.isDeleteAccountModalVisible}
+            setModalVisible={() =>
+              RootStore.menuStore.setFields(
+                'isDeleteAccountModalVisible',
+                false,
+              )
+            }
           />
         </View>
       </ScrollView>

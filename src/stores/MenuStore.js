@@ -24,6 +24,7 @@ export class MenuStore {
   isUpdateProfileApiLoading = false;
   updateProfileData = {};
   residentialData = null;
+  isDeleteAccountModalVisible = false;
 
   setFields(eName, data) {
     this[eName] = data;
@@ -39,6 +40,7 @@ export class MenuStore {
     this.isUpdateProfileApiLoading = false;
     this.updateProfileData = {};
     this.residentialData = null;
+    this.isDeleteAccountModalVisible = false;
   }
 
   exclusiveDataApi = data => {
