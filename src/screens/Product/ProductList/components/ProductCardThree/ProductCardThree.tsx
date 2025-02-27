@@ -3,7 +3,7 @@ import {View, Text, Pressable, Image} from 'react-native';
 import IconPack from '../../../../../utils/IconPack';
 import {styles} from './ProductCardThree.styles';
 import {Observer} from 'mobx-react';
-import {constatnts} from '../../../../../utils/constants';
+import {constants} from '../../../../../utils/constants';
 import {colors} from '../../../../../utils/colors';
 
 const ProductCardThree = ({
@@ -27,7 +27,7 @@ const ProductCardThree = ({
               style={styles.imageStyle}
               source={
                 item.image_name != ''
-                  ? {uri: constatnts.ZOOM_URL + item.image_name}
+                  ? {uri: constants.ZOOM_URL + item.image_name}
                   : IconPack.APP_LOGO
               }
               resizeMode="contain"

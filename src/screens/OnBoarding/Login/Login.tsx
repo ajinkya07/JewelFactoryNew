@@ -10,7 +10,7 @@ import PressableComponent, {
 } from '../../../components/PressableComponent/PressableComponent';
 import InputComponent from '../../../components/InputComponent/InputComponent';
 import {getDeviceId, showToast, validateMobNum} from '../../../utils/helper';
-import {constatnts} from '../../../utils/constants';
+import {constants} from '../../../utils/constants';
 import {colors} from '../../../utils/colors';
 
 const Login = () => {
@@ -80,7 +80,7 @@ const Login = () => {
             value={inputs.mobileNo}
             onChangeText={(value: string) => onChangeText('mobileNo', value)}
             placeholder={strings.mobileNo}
-            maxLength={constatnts.MOBILE_NUMBER_MAX_LENGTH}
+            maxLength={constants.MOBILE_NUMBER_MAX_LENGTH}
             returnKeyType="next"
             keyboardType="number-pad"
           />

@@ -77,7 +77,7 @@ const ProductStatusModal = ({isModalVisible, setModalVisible}: any) => {
           <View style={styles.section}>
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-              text={strings.Contine}
+              text={strings.Continue}
               colorConfig={{
                 pressedBgColor: colors.hyperlinkPressed,
               }}

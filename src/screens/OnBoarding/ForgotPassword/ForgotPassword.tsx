@@ -15,7 +15,7 @@ import {
   validatePassword,
 } from '../../../utils/helper';
 import {Section} from '../../../utils/types';
-import {constatnts} from '../../../utils/constants';
+import {constants} from '../../../utils/constants';
 import HeaderComponent from '../../../components/Header/HeaderComponent';
 
 const ForgotPassword = () => {
@@ -84,7 +84,7 @@ const ForgotPassword = () => {
               value={inputs.mobileNo}
               onChangeText={(value: string) => onChangeText('mobileNo', value)}
               placeholder={strings.mobileNo}
-              maxLength={constatnts.MOBILE_NUMBER_MAX_LENGTH}
+              maxLength={constants.MOBILE_NUMBER_MAX_LENGTH}
               returnKeyType="next"
               keyboardType="number-pad"
             />

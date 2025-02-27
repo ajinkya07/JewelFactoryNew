@@ -6,7 +6,7 @@ import IconPack from '../../../../utils/IconPack';
 import {strings} from '../../../../utils/strings';
 import {isDefined} from '../../../../utils/helper';
 import {useNavigation} from '@react-navigation/native';
-import {constatnts} from '../../../../utils/constants';
+import {constants} from '../../../../utils/constants';
 import {navigateToCategoryOrSubCategory} from '../../Home.utils';
 
 const HomeCategories = ({data}: any) => {
@@ -33,7 +33,7 @@ const HomeCategories = ({data}: any) => {
               <Image
                 source={
                   item.image_name != ''
-                    ? {uri: constatnts.IMAGE_URL + item.image_name}
+                    ? {uri: constants.IMAGE_URL + item.image_name}
                     : IconPack.APP_LOGO
                 }
                 style={styles.categoryImage}

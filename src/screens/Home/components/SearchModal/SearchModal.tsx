@@ -15,7 +15,7 @@ import {observer} from 'mobx-react';
 import {styles} from './SearchModal.styles';
 import {colors} from '../../../../utils/colors';
 import {isDefined, showToast} from '../../../../utils/helper';
-import {constatnts, ERROR_MESSAGES} from '../../../../utils/constants';
+import {constants, ERROR_MESSAGES} from '../../../../utils/constants';
 import PressableComponent, {
   PRESSABLE_BTN_TYPE,
 } from '../../../../components/PressableComponent/PressableComponent';
@@ -281,7 +281,7 @@ const SearchModal = ({isModalVisible, setModalVisible}: any) => {
                   </Pressable>
                   <Text style={styles.dropdownText}>
                     {RootStore.homeStore.productStatus === '1'
-                      ? constatnts.AVAILABLE
+                      ? constants.AVAILABLE
                       : 'Sold'}
                   </Text>
                 </View>

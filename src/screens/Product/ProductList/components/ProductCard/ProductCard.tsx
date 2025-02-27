@@ -5,7 +5,7 @@ import {styles} from './ProductCard.styles';
 import {Observer} from 'mobx-react';
 import {useNavigation} from '@react-navigation/native';
 import {urls} from '../../../../../network/urls';
-import {constatnts} from '../../../../../utils/constants';
+import {constants} from '../../../../../utils/constants';
 import {colors} from '../../../../../utils/colors';
 
 const ProductCard = ({
@@ -29,7 +29,7 @@ const ProductCard = ({
               style={styles.imageStyle}
               source={
                 item.image_name != ''
-                  ? {uri: constatnts.THUMB_URL + item.image_name}
+                  ? {uri: constants.THUMB_URL + item.image_name}
                   : IconPack.APP_LOGO
               }
               resizeMode="contain"

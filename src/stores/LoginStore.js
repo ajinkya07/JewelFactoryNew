@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {urls} from '../network/urls';
 import {Platform} from 'react-native';
 import {showToast} from '../utils/helper';
-import {constatnts} from '../utils/constants';
+import {constants} from '../utils/constants';
 
 const header = {
   headers: {
@@ -83,7 +83,7 @@ export class LoginStore {
 
         if (res.data.ack === '1') {
           const {user_status} = res.data.data;
-          if (user_status === constatnts.AVAILABLE) {
+          if (user_status === constants.AVAILABLE) {
             this.sendFcmToken();
 
             this.setLoginData(res.data);

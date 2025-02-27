@@ -1,6 +1,6 @@
-import {urls} from '../network/urls';
+import { urls } from '../network/urls';
 
-export const constatnts = {
+export const constants = {
   muskseedWebUrl: 'https://muskseeds.com/',
   MOBILE_NUMBER_MAX_LENGTH: 10,
   IMAGE_URL: urls.imageUrl + 'public/backend/collection/',

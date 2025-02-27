@@ -4,7 +4,7 @@ import IconPack from '../../../../../utils/IconPack';
 import {styles} from './ProductCardTwo.styles';
 import {Observer} from 'mobx-react';
 import {useNavigation} from '@react-navigation/native';
-import {constatnts} from '../../../../../utils/constants';
+import {constants} from '../../../../../utils/constants';
 import {colors} from '../../../../../utils/colors';
 
 const ProductCardTwo = ({
@@ -28,7 +28,7 @@ const ProductCardTwo = ({
               style={styles.imageStyle}
               source={
                 item.image_name != ''
-                  ? {uri: constatnts.ZOOM_URL + item.image_name}
+                  ? {uri: constants.ZOOM_URL + item.image_name}
                   : IconPack.APP_LOGO
               }
               resizeMode="contain"
