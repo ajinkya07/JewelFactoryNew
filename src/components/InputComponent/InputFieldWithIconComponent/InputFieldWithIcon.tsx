@@ -4,44 +4,105 @@ import {colors} from '../../../utils/colors';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {fontFamilyMedium} from '../../../utils/constants';
 import InputComponent from '../InputComponent';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const InputFieldWithIcon = ({
   iconSource,
+  vectorIcon,
   placeholder,
   value,
   onChangeText,
   keyboardType = 'default',
   readOnly = false,
   onPress,
+  editable,
 }: {
-  iconSource: any;
+  iconSource?: any;
+  vectorIcon?: {
+    library?: string;
+    name: string;
+    size?: number;
+    color?: string;
+  };
   placeholder: string;
   value: string;
   onChangeText?: (text: string) => void;
   keyboardType?: string;
   readOnly?: boolean;
   onPress?: () => void;
-}) => (
-  <View style={styles.inputContainer}>
-    <Image source={iconSource} style={styles.iconStyle} />
-    {readOnly ? (
-      <TouchableOpacity style={styles.input} onPress={onPress}>
-        <Text style={[styles.textStyle, !value && {color: colors.gray}]}>
-          {value || placeholder}
-        </Text>
-      </TouchableOpacity>
-    ) : (
-      <InputComponent
-        style={styles.input}
-        placeholder={placeholder}
-        placeholderTextColor={colors.gray}
-        value={value}
-        onChangeText={onChangeText}
-        keyboardType={keyboardType}
-      />
-    )}
-  </View>
-);
+}) => {
+  const renderVectorIcon = () => {
+    if (!vectorIcon) return null;
+
+    const {
+      library,
+      name,
+      size = 24,
+      color = colors.iconsTintColor,
+    } = vectorIcon;
+
+    switch (library) {
+      case 'MaterialCommunityIcons':
+        return (
+          <MaterialCommunityIcons
+            name={name}
+            size={size}
+            color={color}
+            style={styles.iconStyle}
+          />
+        );
+      case 'FontAwesome5':
+        return (
+          <FontAwesome5
+            name={name}
+            size={size}
+            color={color}
+            style={styles.iconStyle}
+          />
+        );
+      case 'Ionicons':
+      default:
+        return (
+          <Ionicons
+            name={name}
+            size={size}
+            color={color}
+            style={styles.iconStyle}
+          />
+        );
+    }
+  };
+
+  return (
+    <View style={styles.inputContainer}>
+      {iconSource ? (
+        <Image source={iconSource} style={styles.iconStyle} />
+      ) : vectorIcon ? (
+        renderVectorIcon()
+      ) : null}
+
+      {readOnly ? (
+        <TouchableOpacity style={styles.input} onPress={onPress}>
+          <Text style={[styles.textStyle, !value && {color: colors.gray}]}>
+            {value || placeholder}
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <InputComponent
+          style={styles.input}
+          placeholder={placeholder}
+          placeholderTextColor={colors.gray}
+          value={value}
+          onChangeText={onChangeText}
+          keyboardType={keyboardType}
+          editable={editable}
+        />
+      )}
+    </View>
+  );
+};
 
 export default InputFieldWithIcon;
 

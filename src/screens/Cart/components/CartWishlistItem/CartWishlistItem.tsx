@@ -20,21 +20,21 @@ const CartWishlistItem = ({
     {
       id: 1,
       title: strings.edit,
-      onPress: (data: any) => onPressEdit(data),
+      onPress: () => onPressEdit(item),
       source: IconPack.EDIT,
       isLoading: false,
     },
     {
       id: 2,
       title: isFromCart ? strings.moveToWishlist : strings.moveToCart,
-      onPress: (data: any) => onPressMoveTo(data),
+      onPress: () => onPressMoveTo(item),
       source: IconPack.SWAP,
       isLoading: RootStore.cartStore.isMoveProductApiLoading,
     },
     {
       id: 3,
       title: strings.delete,
-      onPress: (data: any) => onPressDelete(data),
+      onPress: () => onPressDelete(item),
       source: IconPack.DELETE,
       isLoading: RootStore.cartStore.isDeleteCartWishlistItemApiLoading,
     },
@@ -129,7 +129,7 @@ const CartWishlistItem = ({
                           : `update-wishlist-options-${index}`
                       }
                       onPress={() => {
-                        i.onPress(item);
+                        i.onPress();
                         setClickedItemIndex(index);
                       }}
                       style={styles.bottomImgView}>

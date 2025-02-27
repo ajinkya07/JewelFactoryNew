@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, ScrollView, RefreshControl} from 'react-native';
 import {styles} from './Cart.styles';
 import {observer} from 'mobx-react';
@@ -13,16 +13,22 @@ import {strings} from '../../../utils/strings';
 import CartWeightModal from '../components/CartWeightModal/CartWeightModal';
 import PlaceOrderModal from '../components/PlaceOrderModal/PlaceOrderModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
+import CartEditModal from '../components/CartEditModal/CartEditModal';
 
 const Cart = observer((props: any) => {
   const userId = RootStore.appStore.userId;
   const cartData = RootStore.cartStore.cartData;
+  // Add state to store the product being edited
+  const [productToEdit, setProductToEdit] = useState(null);
 
   var userData = {fullName: '', mobileNo: '', email: ''};
 
-  useEffect(() => {
-    callApis();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      callApis();
+    }, []),
+  );
 
   const callApis = () => {
     RootStore.cartStore.callCartWishlistApis(userId);
@@ -73,8 +79,14 @@ const Cart = observer((props: any) => {
     RootStore.cartStore.deleteCartWishListProduct(deleteData);
   };
 
-  const onPressEdit = () => {
-    RootStore.appStore.setFields('isComingSoonVisible', true);
+  const onPressEdit = item => {
+    setProductToEdit(item);
+    RootStore.cartStore.setFields('isEditCartModalVisible', true);
+  };
+
+  const closeEditModal = () => {
+    RootStore.cartStore.setFields('isEditCartModalVisible', false);
+    setProductToEdit(null);
   };
 
   return (
@@ -95,7 +107,7 @@ const Cart = observer((props: any) => {
                 <CartWishlistItem
                   key={`cart-${index}`}
                   item={item}
-                  onPressEdit={() => onPressEdit()}
+                  onPressEdit={() => onPressEdit(item)}
                   onPressMoveTo={() => moveFromCart(item)}
                   onPressDelete={() => deleteCartWishlistItem(item)}
                   isFromCart={true}
@@ -147,6 +159,13 @@ const Cart = observer((props: any) => {
           userDetails={userData}
         />
       )}
+
+      <CartEditModal
+        isModalVisible={RootStore.cartStore.isEditCartModalVisible}
+        setModalVisible={closeEditModal}
+        userDetails={userData}
+        productData={productToEdit}
+      />
     </>
   );
 });

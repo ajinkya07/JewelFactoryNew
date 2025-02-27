@@ -61,4 +61,7 @@ export default {
   FILTER: require('../assets/image/filter.png'),
   VIEW_AS: require('../assets/image/view_as.png'),
   DOWN_ARROW_LIGHT: require('../assets/image/down_arrow_light.png'),
+  CODE: require('../assets/image/code.png'),
+  ABC: require('../assets/image/abc.png'),
+  QUANTITY: require('../assets/image/quantity.png'),
 };

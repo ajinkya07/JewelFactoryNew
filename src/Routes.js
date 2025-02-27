@@ -27,6 +27,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CartWishlist from './screens/Cart';
 import Exclusive from './screens/Menu/Exclusive/Exclusive';
 import ProductDetails from './screens/Product/ProductDetails/ProductDetails';
+import Notification from './screens/Notification/Notification';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -278,6 +279,13 @@ const MainApp = observer(() => {
       <Stack.Screen
         name="Cart"
         component={Cart}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Notification"
+        component={Notification}
         options={{
           headerShown: false,
         }}

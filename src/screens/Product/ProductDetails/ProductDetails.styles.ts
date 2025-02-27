@@ -1,13 +1,17 @@
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { colors } from '../../../utils/colors';
-import { fontFamilyBold, fontFamilyMedium, fontFamilyRegular, fontFamilySemiBold } from '../../../utils/constants';
+import {colors} from '../../../utils/colors';
+import {
+  fontFamilyMedium,
+  fontFamilyRegular,
+  fontFamilySemiBold,
+} from '../../../utils/constants';
 
-const { width, height } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 export const styles = EStyleSheet.create({
   flex: {
-    flex: 1
+    flex: 1,
   },
   container: {
     backgroundColor: colors.white,
@@ -19,7 +23,7 @@ export const styles = EStyleSheet.create({
   },
   categoryName: {
     fontSize: '18rem',
-    fontFamily: fontFamilySemiBold
+    fontFamily: fontFamilySemiBold,
   },
   title: {
     fontSize: '16rem',
@@ -147,7 +151,6 @@ export const styles = EStyleSheet.create({
   },
   flexRow: {
     flexDirection: 'row',
-
   },
   quantityView: {
     width: '28rem',
@@ -164,7 +167,7 @@ export const styles = EStyleSheet.create({
     marginTop: '10rem',
   },
   customInput: {
-    marginTop: '10rem'
+    marginTop: '10rem',
   },
   addToCartBtnContainer: {
     alignItems: 'center',
@@ -173,9 +176,9 @@ export const styles = EStyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: '10rem',
-    paddingVertical: '10rem'
+    paddingVertical: '10rem',
   },
   btn: {
-    width: width / 2 - 30
+    width: width / 2 - 30,
   },
 });

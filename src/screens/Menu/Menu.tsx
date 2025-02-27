@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, ScrollView, SafeAreaView} from 'react-native';
 import RootStore from '../../stores/RootStore';
 import {styles} from './Menu.styles';
