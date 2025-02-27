@@ -29,6 +29,9 @@ export class CartStore {
   isMoveProductApiLoading = false;
   selectedCartWishlistTabIndex = 0;
   isDeleteCartWishlistItemApiLoading = false;
+  isEditCartModalVisible = false;
+  isUpdateCardProductApiLoading = false;
+  updateCardProductData = {};
 
   setFields(eName, data) {
     this[eName] = data;
@@ -49,6 +52,9 @@ export class CartStore {
     this.isMoveProductApiLoading = false;
     this.selectedCartWishlistTabIndex = 0;
     this.isDeleteCartWishlistItemApiLoading = false;
+    this.isEditCartModalVisible = false;
+    this.isUpdateCardProductApiLoading = false;
+    this.updateCardProductData = {};
   }
 
   // cart api
@@ -213,6 +219,38 @@ export class CartStore {
       .catch(function (error) {
         showToast({title: error});
         this.setFields('isDeleteCartWishlistItemApiLoading', false);
+      });
+  };
+
+  updateCardProduct = data => {
+    console.log('updateCardProduct', data);
+
+    if (this.isUpdateCardProductApiLoading) {
+      return true;
+    }
+    this.setFields('isUpdateCardProductApiLoading', true);
+
+    axios
+      .post(urls.EditCartProduct.url, data, header)
+      .then(res => {
+        console.log('updateCardProductRes', res?.data);
+
+        if (res.data.ack === '1') {
+          this.setFields('updateCardProductData', res?.data);
+          const cartParams = new FormData();
+          cartParams.append('user_id', this.rootStore.appStore.userId);
+          cartParams.append('table', 'cart');
+
+          this.getCartDataApi(cartParams);
+          showToast({title: res?.data.msg});
+        }
+
+        this.setFields('isUpdateCardProductApiLoading', false);
+      })
+      .catch(error => {
+        console.log('error', error);
+        showToast({title: error});
+        this.setFields('isUpdateCardProductApiLoading', false);
       });
   };
 

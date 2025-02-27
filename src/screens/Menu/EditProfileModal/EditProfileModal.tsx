@@ -29,13 +29,11 @@ const EditProfileModal = ({isModalVisible, setModalVisible}: any) => {
   const [pincode, setPincode] = useState('');
   const [dob, setDob] = useState('');
   const [anniversaryDate, setAnniversaryDate] = useState('');
-  console.log('🚀 ~ EditProfileModal ~ anniversaryDate:', anniversaryDate);
   const [isDateModalVisible, setDateModalVisible] = useState(false);
-  const [dateType, setDateType] = useState(''); // State to track which date field is being edited
+  const [dateType, setDateType] = useState('');
 
   const profileData = RootStore.homeStore?.getProfileData;
   const residentialData = RootStore.menuStore?.residentialData;
-  console.log('🚀 ~ EditProfileModal ~ profileData:', profileData);
 
   useEffect(() => {
     if (isModalVisible && profileData) {

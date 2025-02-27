@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, KeyboardAvoidingView} from 'react-native';
+import {View, Text} from 'react-native';
 import Modal from 'react-native-modal';
 import {observer} from 'mobx-react';
 import RootStore from '../../../../stores/RootStore';
@@ -41,41 +41,42 @@ const SearchByCodeModal = ({isModalVisible, setModalVisible}: any) => {
       onBackButtonPress={() => onCloseModal()}
       onSwipeComplete={() => onCloseModal()}
       swipeDirection="down"
-      propagateSwipe>
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <View style={styles.modalContent}>
-          <Divider style={styles.upperDivider} />
-          <Text style={styles.sectionTitle}>Search By Code</Text>
-          <View
-            style={[
-              styles.searchContainer,
-              isInputFocused && styles.searchContainerFocused,
-            ]}>
-            {isInputFocused && <Text style={styles.searchLabel}>Search</Text>}
-            <View style={styles.inputRow}>
-              <InputComponent
-                style={styles.input}
-                placeholder={!isInputFocused ? strings.Search : ''}
-                onFocus={() => setInputFocused(true)}
-                onBlur={() => setInputFocused(false)}
-                onChangeText={text => setInputText(text)}
-                keyboardType="default"
-              />
-            </View>
-          </View>
-          <View style={styles.section}>
-            <PressableComponent
-              btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-              text={strings.Continue}
-              containerStyle={styles.btn}
-              pressableStyle={styles.btn}
-              onPress={() => {
-                onContinuePress();
-              }}
+      propagateSwipe
+      avoidKeyboard>
+      <View style={styles.modalContent}>
+        <Divider style={styles.upperDivider} />
+        <Text style={styles.sectionTitle}>Search By Code</Text>
+        <View
+          style={[
+            styles.searchContainer,
+            isInputFocused && styles.searchContainerFocused,
+          ]}>
+          {isInputFocused && (
+            <Text style={styles.searchLabel}>{strings.Search}</Text>
+          )}
+          <View style={styles.inputRow}>
+            <InputComponent
+              style={styles.input}
+              placeholder={!isInputFocused ? strings.Search : ''}
+              onFocus={() => setInputFocused(true)}
+              onBlur={() => setInputFocused(false)}
+              onChangeText={text => setInputText(text)}
+              keyboardType="default"
             />
           </View>
         </View>
-      </KeyboardAvoidingView>
+        <View style={styles.section}>
+          <PressableComponent
+            btnType={PRESSABLE_BTN_TYPE.PRIMARY}
+            text={strings.Contine}
+            containerStyle={styles.btn}
+            pressableStyle={styles.btn}
+            onPress={() => {
+              onContinuePress();
+            }}
+          />
+        </View>
+      </View>
     </Modal>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, Linking, Pressable} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 import {observer} from 'mobx-react';
 import Modal from 'react-native-modal';
 import RootStore from '../../stores/RootStore';

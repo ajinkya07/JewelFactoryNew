@@ -24,10 +24,9 @@ const HeaderComponent = ({
   onFirstIconPress,
   onThirdIconPress,
   onFourthIconPress,
-  onBellIconPress,
   showDivider = true,
 }: any) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const onPressContactUs = () => {
     onFirstIconPress
@@ -42,6 +41,10 @@ const HeaderComponent = ({
     // @ts-ignore
     onFourthIconPress ? onFourthIconPress() : navigation.navigate('Cart');
     RootStore.cartStore.callCartWishlistApis();
+  };
+
+  const onBellIconPress = () => {
+    navigation.navigate('Notification');
   };
 
   return (
@@ -99,7 +102,7 @@ const HeaderComponent = ({
               )}
               {rightIcon4 && (
                 <TouchableOpacity
-                  onPress={() => onBellIconPress()}
+                  onPress={onBellIconPress}
                   style={{marginHorizontal: 8}}>
                   <Image
                     style={styles.imageIconStyle}

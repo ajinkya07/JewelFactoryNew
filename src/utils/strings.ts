@@ -136,6 +136,8 @@ export const strings = {
   Selectmelting: 'Select melting',
   UpdateProfile: 'Update Profile',
   SelectResidential: 'Select Residential',
+  DeleteAccountPara: `Can you please share to us what was not working? We are fixing bugs as soon as we spot them. If something slipped through our fingers, we,d be so grateful to be aware of it and fix it. We are happy to hear from you.`,
+  Update: 'Update',
   ////
   ///
 };
