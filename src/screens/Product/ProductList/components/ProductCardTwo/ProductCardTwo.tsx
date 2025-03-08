@@ -62,7 +62,7 @@ const ProductCardTwo = ({
                                 : colors.black,
                           },
                         ]}>
-                        {value.replace('_', ' ')}
+                        {String(value)?.replace('_', ' ')}
                       </Text>
                     );
                   })}

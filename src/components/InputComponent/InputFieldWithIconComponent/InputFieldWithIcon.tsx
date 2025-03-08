@@ -32,6 +32,7 @@ const InputFieldWithIcon = ({
   keyboardType?: string;
   readOnly?: boolean;
   onPress?: () => void;
+  editable?: boolean;
 }) => {
   const renderVectorIcon = () => {
     if (!vectorIcon) return null;
