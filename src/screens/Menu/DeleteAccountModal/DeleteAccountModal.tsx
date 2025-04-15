@@ -21,14 +21,12 @@ const DeleteAccountModal = ({isModalVisible, setModalVisible}: any) => {
   };
 
   const handleDeleteAccount = () => {
-    //Todo API call commented for testing purpose
-    // const params = new FormData();
-    // params.append('user_id', RootStore.appStore.userId);
-    // params.append('feedback', inputText);
+    const params = new FormData();
+    params.append('user_id', RootStore.appStore.userId);
+    params.append('feedback', inputText);
 
-    // RootStore.loginStore.deleteAccountApi(params);
+    RootStore.loginStore.deleteAccountApi(params);
     setInputText('');
-    RootStore.appStore.resetStoreOnLogout();
     setModalVisible(false);
     setConfirmationVisible(false);
   };

@@ -217,6 +217,7 @@ export class LoginStore {
             subtitle: `${res.data?.msg} `,
             position: 'bottom',
           });
+          this.rootStore.appStore.resetStoreOnLogout();
         } else {
           this.deleteAccountApiState = 'error';
         }
