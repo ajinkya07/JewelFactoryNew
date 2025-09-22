@@ -1,17 +1,19 @@
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import {colors} from '../../../utils/colors';
+import { colors } from '../../../utils/colors';
 import {
   fontFamilyMedium,
   fontFamilyRegular,
   fontFamilySemiBold,
 } from '../../../utils/constants';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export const styles = EStyleSheet.create({
   flex: {
     flex: 1,
+    backgroundColor: colors.white,
+
   },
   container: {
     backgroundColor: colors.white,

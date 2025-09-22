@@ -6,6 +6,7 @@ import {urls} from '../network/urls';
 import {Platform} from 'react-native';
 import {showToast} from '../utils/helper';
 import {constants} from '../utils/constants';
+import {strings} from '../utils/strings';
 
 const header = {
   headers: {
@@ -91,15 +92,19 @@ export class LoginStore {
             this.rootStore.appStore.setFields('showPreLogin', false);
             this.rootStore.appStore.setFields('isLoggedIn', true);
           } else {
-            showToast({title: res?.data?.msg});
+            showToast({
+              title: res?.data?.msg,
+            });
           }
         } else {
-          showToast({title: res?.data?.msg});
+          showToast({
+            title: res?.data?.msg,
+          });
         }
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('error', error);
-        showToast({title: error});
+        showToast({title: strings.defaultToastText1, subtitle: error});
         this.setFields('isLoginApiLoading', false);
       });
   };
@@ -131,10 +136,10 @@ export class LoginStore {
           showToast({title: res?.data?.msg});
         }
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('otpApi', error);
         this.setFields('isOtpApiLoading', false);
-        showToast({title: error});
+        showToast({title: JSON.stringify(error)});
       });
   };
 
@@ -164,9 +169,9 @@ export class LoginStore {
           this.setFields('isVerifyOtpRegisterApiLoading', false);
         }
       })
-      .catch(function (error) {
+      .catch(error => {
         this.setFields('isVerifyOtpRegisterApiLoading', false);
-        showToast({title: error});
+        showToast({title: JSON.stringify(error)});
       });
   };
 
@@ -192,8 +197,8 @@ export class LoginStore {
           this.setFields('isForgotPasswordApiLoading', false);
         }
       })
-      .catch(function (error) {
-        showToast({title: error});
+      .catch(error => {
+        showToast({title: JSON.stringify(error)});
         this.setFields('isForgotPasswordApiLoading', false);
       });
   };
@@ -213,21 +218,27 @@ export class LoginStore {
           this.deleteAccountApiState = 'done';
           Toast.show({
             type: 'success',
-            title: 'Done',
-            subtitle: `${res.data?.msg} `,
+            text1: 'Done',
+            text2: `${res.data?.msg} `,
             position: 'bottom',
           });
           this.rootStore.appStore.resetStoreOnLogout();
         } else {
           this.deleteAccountApiState = 'error';
+          Toast.show({
+            type: 'error',
+            text1: 'Oops',
+            text2: 'Something went wrong',
+            position: 'bottom',
+          });
         }
       })
-      .catch(function (error) {
+      .catch(error => {
         this.deleteAccountApiState = 'error';
         Toast.show({
           type: 'error',
-          title: 'Oops',
-          subtitle: 'Something went wrong',
+          text1: 'Oops',
+          text2: 'Something went wrong',
           position: 'bottom',
         });
       });
@@ -252,7 +263,7 @@ export class LoginStore {
     axios
       .post(urls.sendFCMToken.url, data, header)
       .then(res => {})
-      .catch(function (error) {
+      .catch(error => {
         // error
       });
   }

@@ -22,6 +22,10 @@ const Categories = (props: any) => {
     ? props.route.params?.categoryData
     : RootStore.homeStore.collectionData;
 
+  let categoryImageBaseUrl =
+    RootStore.homeStore.allParameterData?.base_url +
+    'public/backend/collection/';
+
   const categoryDataSource = [
     {
       id: '1',
@@ -95,7 +99,7 @@ const Categories = (props: any) => {
                 <Image
                   source={
                     item.image_name != ''
-                      ? {uri: constants.IMAGE_URL + item.image_name}
+                      ? {uri: categoryImageBaseUrl + item.image_name}
                       : IconPack.APP_LOGO
                   }
                   style={styles.categoryImage}

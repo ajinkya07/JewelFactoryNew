@@ -8,6 +8,7 @@ import Divider from '../../../../components/Divider';
 import RootStore from '../../../../stores/RootStore';
 import LoadingComponent from '../../../../components/LoadingComponent/LoadingComponent';
 import {observer} from 'mobx-react';
+import {isDefined} from '../../../../utils/helper';
 
 const CartWishlistItem = ({
   item,
@@ -44,7 +45,8 @@ const CartWishlistItem = ({
   const [updateOptionsData, setUpdateOptionsData] =
     useState(UPDATE_CART_OPTIONS);
 
-  let baseurl2 = urls.imageUrl + item.zoom_image;
+  let baseurl2 =
+    RootStore.homeStore.allParameterData?.base_url + item.zoom_image;
 
   const isToogleTwo = true;
   const openMoreDetailsIdCart = true;

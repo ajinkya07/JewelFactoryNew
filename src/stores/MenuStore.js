@@ -63,9 +63,9 @@ export class MenuStore {
         this.setFields('isExclusiveDataApiLoading', false);
         this.rootStore.appStore.handleScreenNavigationGoBack();
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('error', error);
-        showToast({title: error});
+        showToast({title: JSON.stringify(error)});
         this.setFields('isExclusiveDataApiLoading', false);
         this.rootStore.appStore.handleScreenNavigationGoBack();
       });
@@ -88,9 +88,9 @@ export class MenuStore {
         }
         this.setFields('isStateListApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('error', error);
-        showToast({title: error});
+        showToast({title: JSON.stringify(error)});
         this.setFields('isStateListApiLoading', false);
       });
   };
@@ -112,9 +112,9 @@ export class MenuStore {
         }
         this.setFields('isCityListApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('error', error);
-        showToast({title: error});
+        showToast({title: JSON.stringify(error)});
         this.setFields('isCityListApiLoading', false);
       });
   };
@@ -141,7 +141,7 @@ export class MenuStore {
       })
       .catch(error => {
         console.log('error', error);
-        showToast({title: error});
+        showToast({title: JSON.stringify(error)});
         this.setFields('isUpdateProfileApiLoading', false);
       });
   };

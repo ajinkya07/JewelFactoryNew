@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, FlatList, Pressable, Alert} from 'react-native';
 import Modal from 'react-native-modal';
 import RootStore from '../../../../../stores/RootStore';
 import PressableComponent, {
@@ -16,6 +16,12 @@ import {colors} from '../../../../../utils/colors';
 
 const FilterModal = observer(
   ({isModalVisible, setModalVisible, data, applyFilter, onPressReset}: any) => {
+    const [selectedProductName, setSelectedProductName] = useState('');
+
+    const setProductName = (name: string) => {
+      RootStore.productStore.setFields('selectedProductName', name);
+    };
+
     // For gross filter
     const GrossWeightComponent = ({data}: any) => {
       const grossWeight = data[0];
@@ -110,9 +116,49 @@ const FilterModal = observer(
       );
     };
 
+    const ProductNameComponent = ({data}) => {
+      return (
+        <Observer>
+          {() => (
+            <Pressable
+              onPress={() => setProductName(data?.product_name)}
+              style={({pressed}) => [
+                {
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginVertical: 7,
+                  marginHorizontal: 10,
+                },
+              ]}>
+              {RootStore.productStore.selectedProductName ===
+              data?.product_name ? (
+                <View style={styles.radioCircle}>
+                  <View style={styles.selectedRb} />
+                </View>
+              ) : (
+                <View style={styles.radioCircle} />
+              )}
+              <Text
+                style={{
+                  fontSize: 16,
+                  marginLeft: 10,
+                  flex: 1,
+                  textTransform: 'capitalize',
+                }}>
+                {data?.product_name}
+              </Text>
+            </Pressable>
+          )}
+        </Observer>
+      );
+    };
+
     const grossWeightData =
-      RootStore.productStore.filterByParamsData?.gross_weight;
-    const netWeightData = RootStore.productStore.filterByParamsData?.net_weight;
+      RootStore.productStore?.filterByParamsData?.gross_weight;
+    const netWeightData =
+      RootStore.productStore?.filterByParamsData?.net_weight;
+    const productNameData =
+      RootStore.productStore?.filterByParamsData?.product_name;
 
     return (
       <Observer>
@@ -122,11 +168,12 @@ const FilterModal = observer(
             style={styles.modalView}
             onBackdropPress={() => setModalVisible(false)}
             onBackButtonPress={() => setModalVisible(false)}
-            onSwipeComplete={() => setModalVisible(false)}
+            // onSwipeComplete={() => setModalVisible(false)}
             animationInTiming={500}
             animationOutTiming={500}
-            swipeDirection="down"
-            propagateSwipe>
+            // swipeDirection="down"
+            // propagateSwipe
+          >
             <View style={styles.modalViewContainer}>
               <Divider style={styles.divider} />
               <View style={styles.flexRow}>
@@ -159,6 +206,29 @@ const FilterModal = observer(
                   </View>
                 )}
               </View>
+
+              {isDefined(productNameData) && (
+                <View style={[styles.itemContainer2, styles.marginTop]}>
+                  <Text style={[styles.weightText, styles.productName]}>
+                    Product Name
+                  </Text>
+                  <FlatList
+                    style={{
+                      height: 250,
+                    }}
+                    scrollEventThrottle={16}
+                    contentContainerStyle={{
+                      overflow: 'hidden',
+                      paddingVertical: 20,
+                    }}
+                    data={productNameData}
+                    renderItem={({item}) => (
+                      <ProductNameComponent data={item} />
+                    )}
+                    keyExtractor={(item, index) => index.toString()}
+                  />
+                </View>
+              )}
 
               <View style={styles.btnContainer}>
                 <PressableComponent

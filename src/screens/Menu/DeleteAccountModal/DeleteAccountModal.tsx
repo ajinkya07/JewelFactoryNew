@@ -56,8 +56,8 @@ const DeleteAccountModal = ({isModalVisible, setModalVisible}: any) => {
           <View style={styles.inputRow}>
             <InputComponent
               style={styles.input}
-              placeholder={strings.Search}
-              onChangeText={text => setInputText(text)}
+              placeholder={strings.EnterYourMessageHere}
+              onChangeText={(text: string) => setInputText(text)}
               keyboardType="default"
               multiline={true}
               numberOfLines={10}
@@ -67,7 +67,7 @@ const DeleteAccountModal = ({isModalVisible, setModalVisible}: any) => {
           <View style={styles.section}>
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-              text={strings.Contine}
+              text={strings.continue}
               containerStyle={styles.btn}
               pressableStyle={styles.btn}
               onPress={onContinuePress}

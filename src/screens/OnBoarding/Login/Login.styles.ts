@@ -19,7 +19,7 @@ export const styles = EStyleSheet.create({
         fontFamily: fontFamilyBold,
         textAlign: 'left',
         marginTop: '-5rem',
-        color: colors.brandColor
+        color: colors.brandColor,
     },
     title: {
         fontSize: '26rem',
@@ -54,19 +54,30 @@ export const styles = EStyleSheet.create({
         textAlign: 'left'
     },
     dontHaveAcc: {
-        marginTop: height * 0.2,
         fontSize: '16rem',
         fontFamily: fontFamilySemiBold,
         textAlign: 'center',
         color: colors.black,
+        marginTop: '6rem'
     },
     register: {
-        marginTop: height * 0.2,
         fontSize: '16rem',
         fontFamily: fontFamilyBold,
         textAlign: 'center',
-        color: colors.brandColor
+        color: colors.hyperlinkColor,
     },
-
+    flexRow: {
+        marginTop: height * 0.2,
+        flexDirection: 'row',
+        alignSelf: 'center'
+    },
+    registerBtn: {
+        alignItems: 'center',
+    },
+    registerBtnTouchable: {
+        alignItems: 'center',
+        borderRadius: '8rem',
+        padding: '6rem'
+    }
 
 })

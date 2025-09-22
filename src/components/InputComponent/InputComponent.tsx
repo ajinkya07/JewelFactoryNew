@@ -1,7 +1,9 @@
 import React from 'react';
-import {View, TextInput} from 'react-native';
+import {View, TextInput, Image} from 'react-native';
 import {styles} from './InputComponent.styles';
 import {colors} from '../../utils/colors';
+import {Pressable} from 'react-native';
+import {isDefined} from '../../utils/helper';
 
 const InputComponent = (props: any) => {
   const {
@@ -14,8 +16,10 @@ const InputComponent = (props: any) => {
     onInputFocus = () => {},
     style,
     onChangeText,
-    lightGray = colors.lightGray,
+    lightGray = colors.gray,
     editable = true,
+    iconSource,
+    onPressIconSource,
   } = props;
   return (
     <View style={styles.container}>
@@ -31,7 +35,22 @@ const InputComponent = (props: any) => {
         autoCapitalize={'none'}
         maxLength={maxLength}
         editable={editable}
+        secureTextEntry={secureTextEntry || false}
       />
+      {isDefined(iconSource) && (
+        <Pressable
+          onPress={() => onPressIconSource()}
+          style={{
+            position: 'absolute',
+            right: 15,
+            top: 35,
+          }}>
+          <Image
+            source={iconSource}
+            style={{height: 20, width: 20, tintColor: colors.black}}
+          />
+        </Pressable>
+      )}
     </View>
   );
 };

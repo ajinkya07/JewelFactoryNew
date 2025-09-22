@@ -5,7 +5,7 @@ import { fontFamilyBold, fontFamilyMedium, } from "../../../utils/constants";
 export const styles = EStyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.bgColor,
+        backgroundColor: colors.white,
     },
     verifyMobileNoView: {
         marginTop: '80rem'

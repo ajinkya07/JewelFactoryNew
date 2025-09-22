@@ -32,13 +32,15 @@ const WebviewComponent = (props: any) => {
     //
   };
 
+  console.log('props?.route?.params?.url,', props?.route?.params?.url);
+
   return (
     <Observer>
       {() => (
         <View style={styles.container}>
           <WebView
             source={{
-              uri: props.route.params.url,
+              uri: props?.route?.params?.url,
             }}
             javaScriptEnabled={true}
             domStorageEnabled={true}

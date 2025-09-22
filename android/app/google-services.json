@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "406048133395",
+    "project_id": "musk-08",
+    "storage_bucket": "musk-08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406048133395:android:85ceacadbd487c886ecae6",
+        "android_client_info": {
+          "package_name": "com.muskseed.jewelfactory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406048133395-9bl58onfospl0k6tbfubne2jho0vcf18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm7E2CEnzsSQxF8iAuMRTMKXN1d4EkgX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406048133395-9bl58onfospl0k6tbfubne2jho0vcf18.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "406048133395-6s0q8rsn5huc2fj910cmtj5u0lrqd9jc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.muskseed.swagatAdmin.ios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406048133395:android:e99d94e19f8e7e816ecae6",
+        "android_client_info": {
+          "package_name": "com.muskseed.nanesh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406048133395-9bl58onfospl0k6tbfubne2jho0vcf18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm7E2CEnzsSQxF8iAuMRTMKXN1d4EkgX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406048133395-9bl58onfospl0k6tbfubne2jho0vcf18.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "406048133395-6s0q8rsn5huc2fj910cmtj5u0lrqd9jc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.muskseed.swagatAdmin.ios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406048133395:android:d7cc6e95d89db1186ecae6",
+        "android_client_info": {
+          "package_name": "com.muskseed.ssplatinum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406048133395-9bl58onfospl0k6tbfubne2jho0vcf18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm7E2CEnzsSQxF8iAuMRTMKXN1d4EkgX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406048133395-9bl58onfospl0k6tbfubne2jho0vcf18.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "406048133395-6s0q8rsn5huc2fj910cmtj5u0lrqd9jc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.muskseed.swagatAdmin.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

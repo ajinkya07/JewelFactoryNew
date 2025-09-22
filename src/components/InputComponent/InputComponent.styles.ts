@@ -1,9 +1,9 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
-import {Dimensions} from 'react-native';
-import {colors} from '../../utils/colors';
-import {fontFamilyMedium} from '../../utils/constants';
+import { Dimensions } from 'react-native';
+import { colors } from '../../utils/colors';
+import { fontFamilyMedium } from '../../utils/constants';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export const styles = EStyleSheet.create({
   input: {

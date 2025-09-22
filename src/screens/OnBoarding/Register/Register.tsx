@@ -18,6 +18,7 @@ import RootStore from '../../../stores/RootStore';
 import {constants} from '../../../utils/constants';
 import {Section} from '../../../utils/types';
 import HeaderComponent from '../../../components/Header/HeaderComponent';
+import IconPack from '../../../utils/IconPack';
 
 const Register = () => {
   const [inputs, setLoginInputs] = useState({
@@ -26,6 +27,7 @@ const Register = () => {
     mobileNo: '',
     password: '',
   });
+  const [isPasswordVisible, setPasswordVisible] = useState(false);
 
   const onChangeText = (key: string, value: string) => {
     setLoginInputs({
@@ -54,10 +56,6 @@ const Register = () => {
         error = strings.enterEmail;
         throw new Error();
       }
-      if (!validateEmail(email)) {
-        error = strings.enterValidEmail;
-        throw new Error();
-      }
       if (password == '') {
         error = strings.enterPassword;
         throw new Error();
@@ -81,8 +79,12 @@ const Register = () => {
       }
     } catch (err) {
       console.log('error', error);
-      showToast({title: error});
+      showToast({title: JSON.stringify(error)});
     }
+  };
+
+  const onPressPasswordIcon = () => {
+    setPasswordVisible(!isPasswordVisible);
   };
 
   return (
@@ -92,7 +94,8 @@ const Register = () => {
       <ScrollView
         bounces={false}
         showsVerticalScrollIndicator={false}
-        style={styles.scrollContainer}>
+        style={styles.scrollContainer}
+        keyboardShouldPersistTaps={'handled'}>
         <View style={styles.nameView}>
           <Text style={styles.title}>{strings.welcome}</Text>
           <Text style={styles.appName}>{strings.appName}</Text>
@@ -127,6 +130,15 @@ const Register = () => {
             style={styles.inputTop}
             placeholder={strings.password}
             returnKeyType="done"
+            secureTextEntry={!isPasswordVisible}
+            iconSource={
+              inputs?.password
+                ? isPasswordVisible
+                  ? IconPack.HIDE
+                  : IconPack.UNHIDE
+                : null
+            }
+            onPressIconSource={onPressPasswordIcon}
           />
         </View>
         <PressableComponent

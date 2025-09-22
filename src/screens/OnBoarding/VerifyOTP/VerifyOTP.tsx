@@ -20,8 +20,8 @@ const VerifyOTP = (props: any) => {
   const [finalOtp, finalEnteredOtp] = useState('');
 
   const inputData = props.route.params?.inputs;
-  const receivedOtp = props.route.params.otp;
-  const section = props.route.params.section;
+  const receivedOtp = props.route.params?.otp;
+  const section = props.route.params?.section;
   const isRegisterSection = section == Section.REGISTER;
   const {name, mobileNo, email, password, newPassword} = inputData;
 

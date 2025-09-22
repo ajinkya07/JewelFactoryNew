@@ -16,6 +16,7 @@ export class HomeStore {
   }
 
   isHomeApiLoading = false;
+  isHomeApiError = false;
   homepageData = [];
   basePath = '';
   carouselData = [];
@@ -47,6 +48,7 @@ export class HomeStore {
 
   resetFields() {
     this.isHomeApiLoading = false;
+    this.isHomeApiError = false;
     this.homepageData = [];
     this.basePath = '';
     this.carouselData = [];
@@ -109,10 +111,11 @@ export class HomeStore {
         }
         this.setFields('isHomeApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('error', error);
-        showToast({title: error});
+        showToast({title: JSON.stringify(error)});
         this.setFields('isHomeApiLoading', false);
+        this.setFields('isHomeApiError', true);
       });
   };
 
@@ -126,6 +129,8 @@ export class HomeStore {
     axios
       .post(urls.AllParameter.url, data, header)
       .then(res => {
+        console.log('getAllParameterApi', res?.data);
+
         if (isDefined(res?.data)) {
           this.setFields('allParameterData', res.data);
         } else {
@@ -133,9 +138,9 @@ export class HomeStore {
         }
         this.setFields('isAllParametersApiLoading', false);
       })
-      .catch(function (error) {
-        console.log('error', error);
-        showToast({title: error});
+      .catch(error => {
+        console.log('AllParameter error', error);
+        showToast({title: JSON.stringify(error)});
         this.setFields('isAllParametersApiLoading', false);
       });
   };
@@ -157,9 +162,9 @@ export class HomeStore {
         }
         this.setFields('isGetProfileApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('error', error);
-        showToast({title: error});
+        showToast({title: JSON.stringify(error)});
         this.setFields('isGetProfileApiLoading', false);
       });
   };

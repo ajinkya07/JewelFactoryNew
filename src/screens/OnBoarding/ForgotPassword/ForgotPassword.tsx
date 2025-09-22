@@ -57,7 +57,7 @@ const ForgotPassword = () => {
       }
     } catch (err) {
       console.log('err', err);
-      showToast({title: error});
+      showToast({title: JSON.stringify(error)});
     }
   };
 

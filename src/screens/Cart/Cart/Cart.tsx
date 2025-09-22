@@ -15,14 +15,18 @@ import PlaceOrderModal from '../components/PlaceOrderModal/PlaceOrderModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 import CartEditModal from '../components/CartEditModal/CartEditModal';
+import {isDefined} from '../../../utils/helper';
 
 const Cart = observer((props: any) => {
   const userId = RootStore.appStore.userId;
   const cartData = RootStore.cartStore.cartData;
   // Add state to store the product being edited
   const [productToEdit, setProductToEdit] = useState(null);
-
-  var userData = {fullName: '', mobileNo: '', email: ''};
+  const [userData, setUserData] = useState({
+    fullName: '',
+    mobileNo: '',
+    email: '',
+  });
 
   useFocusEffect(
     useCallback(() => {
@@ -47,15 +51,15 @@ const Cart = observer((props: any) => {
     const mobile = await AsyncStorage.getItem('mobileNumber');
     const email = await AsyncStorage.getItem('emailId');
 
-    if (name) {
-      userData.fullName = name;
-    }
-    if (mobile) {
-      userData.mobileNo = mobile;
-    }
-    if (email) {
-      userData.email = email;
-    }
+    console.log('name', name);
+    console.log('mobile', mobile);
+    console.log('email', email);
+
+    setUserData({
+      fullName: isDefined(name) ? name : '',
+      mobileNo: isDefined(mobile) ? mobile : '',
+      email: isDefined(email) ? email : '',
+    });
 
     RootStore.cartStore.setFields('showPlaceOrderModal', true);
   };
@@ -79,7 +83,7 @@ const Cart = observer((props: any) => {
     RootStore.cartStore.deleteCartWishListProduct(deleteData);
   };
 
-  const onPressEdit = item => {
+  const onPressEdit = (item: any) => {
     setProductToEdit(item);
     RootStore.cartStore.setFields('isEditCartModalVisible', true);
   };
@@ -163,7 +167,6 @@ const Cart = observer((props: any) => {
       <CartEditModal
         isModalVisible={RootStore.cartStore.isEditCartModalVisible}
         setModalVisible={closeEditModal}
-        userDetails={userData}
         productData={productToEdit}
       />
     </>

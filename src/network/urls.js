@@ -1,11 +1,11 @@
-var url = 'https://jewel.factory.jewelmarts.in/webservices/';
-var adminWeb = 'https://jewel.factory.jewelmarts.in/adminWeb/';
+var url = 'https://jewelfactory.jewelmarts.com/webservices/';
+var adminWeb = 'https://jewelfactory.jewelmarts.com/adminWeb/';
 
 export const urls = {
-  imageUrl: 'https://jewel.factory.jewelmarts.in/',
-  // https://jewel.factory.jewelmarts.in/admin_panel/privacy_policy
+  imageUrl: 'https://jewelfactory.jewelmarts.com/',
+  // https://jewelfactory.jewelmarts.com/admin_panel/privacy_policy
 
-  webUrl: 'https://jewel.factory.jewelmarts.in/adminWeb/',
+  webUrl: 'https://jewelfactory.jewelmarts.com/adminWeb/',
 
   Login: {
     url: url + 'User_registration/userLogin',

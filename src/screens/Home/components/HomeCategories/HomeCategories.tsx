@@ -6,11 +6,15 @@ import IconPack from '../../../../utils/IconPack';
 import {strings} from '../../../../utils/strings';
 import {isDefined} from '../../../../utils/helper';
 import {useNavigation} from '@react-navigation/native';
-import {constants} from '../../../../utils/constants';
 import {navigateToCategoryOrSubCategory} from '../../Home.utils';
+import RootStore from '../../../../stores/RootStore';
 
 const HomeCategories = ({data}: any) => {
   const navigation = useNavigation();
+
+  let categoryImageBaseUrl =
+    RootStore.homeStore.allParameterData?.base_url +
+    'public/backend/collection/';
 
   if (!isDefined(data)) {
     return null;
@@ -33,7 +37,7 @@ const HomeCategories = ({data}: any) => {
               <Image
                 source={
                   item.image_name != ''
-                    ? {uri: constants.IMAGE_URL + item.image_name}
+                    ? {uri: categoryImageBaseUrl + item.image_name}
                     : IconPack.APP_LOGO
                 }
                 style={styles.categoryImage}

@@ -60,7 +60,7 @@ const SearchByCodeModal = ({isModalVisible, setModalVisible}: any) => {
               placeholder={!isInputFocused ? strings.Search : ''}
               onFocus={() => setInputFocused(true)}
               onBlur={() => setInputFocused(false)}
-              onChangeText={text => setInputText(text)}
+              onChangeText={(text: string) => setInputText(text)}
               keyboardType="default"
             />
           </View>
@@ -68,7 +68,7 @@ const SearchByCodeModal = ({isModalVisible, setModalVisible}: any) => {
         <View style={styles.section}>
           <PressableComponent
             btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-            text={strings.Contine}
+            text={strings.continue}
             containerStyle={styles.btn}
             pressableStyle={styles.btn}
             onPress={() => {

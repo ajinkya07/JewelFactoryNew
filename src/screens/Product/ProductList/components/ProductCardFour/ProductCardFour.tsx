@@ -5,6 +5,8 @@ import {styles} from './ProductCardFour.styles';
 import {Observer} from 'mobx-react';
 import {constants} from '../../../../../utils/constants';
 import {colors} from '../../../../../utils/colors';
+import RootStore from '../../../../../stores/RootStore';
+import {showToast} from '../../../../../utils/helper';
 
 const ProductCardFour = ({
   item,
@@ -15,6 +17,10 @@ const ProductCardFour = ({
 }: any) => {
   const KEYS = item.key;
   const VALUES = item.value;
+
+  const showAlreadyInCartToast = () => {
+    showToast({title: 'Product already added to cart'});
+  };
 
   return (
     <Observer>
@@ -27,9 +33,14 @@ const ProductCardFour = ({
               style={styles.imageStyle}
               source={
                 item.image_name != ''
-                  ? {uri: constants.ZOOM_URL + item.image_name}
+                  ? {
+                      uri:
+                        RootStore.homeStore.allParameterData
+                          ?.PRODUCT_ZOOM_IMAGE + item.image_name,
+                    }
                   : IconPack.APP_LOGO
               }
+              defaultSource={IconPack.APP_LOGO}
               resizeMode="contain"
             />
 
@@ -101,7 +112,9 @@ const ProductCardFour = ({
                     <Image source={IconPack.CART} style={styles.wishlistIcon} />
                   </Pressable>
                 ) : (
-                  <Pressable disabled={true} style={styles.wishlistView}>
+                  <Pressable
+                    onPress={() => showAlreadyInCartToast()}
+                    style={styles.wishlistView}>
                     <Image source={IconPack.CART} style={styles.wishlistIcon} />
                   </Pressable>
                 )}

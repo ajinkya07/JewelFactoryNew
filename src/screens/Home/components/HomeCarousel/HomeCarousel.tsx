@@ -24,9 +24,9 @@ const HomeCarousel = ({data}: any) => {
         itemWidth={width}
         itemHeight={220}
         data={data}
-        // autoplay={true}
+        autoplay={true}
         loop={true}
-        autoplayDelay={4000}
+        autoplayDelay={8000}
         onSnapToItem={onSnapToItem}
         renderItem={({item, index}) => (
           <Pressable

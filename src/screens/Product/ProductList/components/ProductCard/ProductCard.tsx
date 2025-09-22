@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
+import React from 'react';
+import {View, Text, Pressable, Image, ActivityIndicator} from 'react-native';
 import IconPack from '../../../../../utils/IconPack';
 import {styles} from './ProductCard.styles';
 import {Observer} from 'mobx-react';
-import {useNavigation} from '@react-navigation/native';
-import {urls} from '../../../../../network/urls';
-import {constants} from '../../../../../utils/constants';
 import {colors} from '../../../../../utils/colors';
+import RootStore from '../../../../../stores/RootStore';
+import {showToast} from '../../../../../utils/helper';
 
 const ProductCard = ({
   item,
@@ -17,6 +16,10 @@ const ProductCard = ({
 }: any) => {
   const KEYS = item.key;
   const VALUES = item.value;
+
+  const showAlreadyInCartToast = () => {
+    showToast({title: 'Product already added to cart'});
+  };
 
   return (
     <Observer>
@@ -29,10 +32,15 @@ const ProductCard = ({
               style={styles.imageStyle}
               source={
                 item.image_name != ''
-                  ? {uri: constants.THUMB_URL + item.image_name}
+                  ? {
+                      uri:
+                        RootStore.homeStore.allParameterData
+                          ?.PRODUCT_THUMB_IMAGE + item.image_name,
+                    }
                   : IconPack.APP_LOGO
               }
               resizeMode="contain"
+              defaultSource={IconPack.APP_LOGO}
             />
 
             <View style={styles.productInfo}>
@@ -75,26 +83,20 @@ const ProductCard = ({
           <View style={styles.wishlistCartContiner}>
             {item.quantity == 0 && (
               <>
-                {item.in_wishlist == 0 ? (
-                  <Pressable
-                    hitSlop={styles.hitSlop10}
-                    style={styles.wishlistView}
-                    onPress={() => addToWishlist(item)}>
-                    <Image
-                      source={IconPack.WISHLIST_EMPTY}
-                      style={styles.wishlistIcon}
-                    />
-                  </Pressable>
-                ) : (
-                  <Pressable
-                    onPress={() => addToWishlist(item)}
-                    style={styles.wishlistView}>
-                    <Image
-                      source={IconPack.WISHLIST}
-                      style={styles.wishlistIcon}
-                    />
-                  </Pressable>
-                )}
+                <Pressable
+                  hitSlop={styles.hitSlop10}
+                  style={styles.wishlistView}
+                  onPress={() => addToWishlist(item)}>
+                  <Image
+                    source={
+                      item.in_wishlist == 0
+                        ? IconPack.WISHLIST_EMPTY
+                        : IconPack.WISHLIST
+                    }
+                    style={styles.wishlistIcon}
+                  />
+                </Pressable>
+
                 {item.in_cart == 0 ? (
                   <Pressable
                     hitSlop={styles.hitSlop10}
@@ -103,7 +105,9 @@ const ProductCard = ({
                     <Image source={IconPack.CART} style={styles.wishlistIcon} />
                   </Pressable>
                 ) : (
-                  <Pressable disabled={true} style={styles.wishlistView}>
+                  <Pressable
+                    onPress={() => showAlreadyInCartToast()}
+                    style={styles.wishlistView}>
                     <Image source={IconPack.CART} style={styles.wishlistIcon} />
                   </Pressable>
                 )}

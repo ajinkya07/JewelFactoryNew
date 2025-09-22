@@ -43,7 +43,7 @@ const ConfirmationModal = ({
           ) : (
             <>
               <PressableComponent
-                btnType={PRESSABLE_BTN_TYPE.SECONDARY}
+                btnType={PRESSABLE_BTN_TYPE.PRIMARY}
                 text={cancelText}
                 isPairButton={true}
                 isRightButton={false}

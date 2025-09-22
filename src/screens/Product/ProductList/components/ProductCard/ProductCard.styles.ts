@@ -63,7 +63,7 @@ export const styles = EStyleSheet.create({
     productInfo: {
         backgroundColor: colors.white,
         marginBottom: '5rem',
-        marginHorizontal: '5rem'
+        marginHorizontal: '10rem'
     },
     infoTitle: {
         flex: 1,
@@ -76,5 +76,7 @@ export const styles = EStyleSheet.create({
         color: colors.black,
         fontSize: '16rem',
         fontFamily: fontFamilyBold,
+        minWidth: '10%',
+        textAlign: 'center'
     }
 })

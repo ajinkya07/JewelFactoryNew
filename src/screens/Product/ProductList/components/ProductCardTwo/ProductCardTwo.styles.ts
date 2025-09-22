@@ -15,7 +15,7 @@ export const styles = EStyleSheet.create({
         width: CARD_WIDTH,
         borderRadius: '14rem',
         backgroundColor: colors.white,
-        paddingBottom: '10rem',
+        paddingBottom: '20rem',
         marginLeft: CARD_MARGIN_LEFT,
         marginTop: '10rem',
         shadowColor: '#000',

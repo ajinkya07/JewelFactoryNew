@@ -12,7 +12,12 @@ import PressableComponent, {
   PRESSABLE_BTN_TYPE,
 } from '../../components/PressableComponent/PressableComponent';
 import {constants} from '../../utils/constants';
-import {openLink, openNativeShare} from '../../utils/helper';
+import {
+  openLink,
+  openNativeShare,
+  openRateApp,
+  openURL,
+} from '../../utils/helper';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {urls} from '../../network/urls';
@@ -33,8 +38,6 @@ const Menu = () => {
   const termsConditions = (data as any)?.terms_and_conditions || '';
 
   const orderHistoryUrl = `${urls.webUrl}ClientOrderHistory?user_id=${userId}`;
-
-  const callEmail = `${urls.imageUrl}adminApp/Call_Email_Us`;
 
   useEffect(() => {
     setDetails();
@@ -57,8 +60,8 @@ const Menu = () => {
     }
   };
 
-  const onPressMuskseed = () => {
-    openLink(constants.muskseedWebUrl);
+  const openWebsite = () => {
+    openLink(constants.muskseedUrl);
   };
 
   const onPressMenuOption = (id: string) => {
@@ -106,7 +109,9 @@ const Menu = () => {
       case strings.shareApp:
         openNativeShare();
         break;
-
+      case strings.rateApp:
+        openRateApp();
+        break;
       case strings.logout:
         RootStore.appStore.resetStoreOnLogout();
         break;
@@ -134,7 +139,7 @@ const Menu = () => {
             </View>
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.TEXT}
-              onPress={onPressEdit}
+              onPress={() => onPressEdit()}
               text={strings.edit}
               align={PRESSABLE_ALIGN.LEFT}
               colorConfig={{
@@ -187,10 +192,10 @@ const Menu = () => {
           </View>
 
           <View style={styles.footer}>
-            <Text style={styles.version}>{strings.version} 1.0.0</Text>
+            <Text style={styles.version}>{strings.version} 1.0.1</Text>
             <Text style={styles.madeWithLove}>
               {strings.madeWithLove}{' '}
-              <Text onPress={onPressMuskseed} style={styles.muskseed}>
+              <Text onPress={openWebsite} style={styles.muskseed}>
                 {strings.muskseed}
               </Text>
             </Text>

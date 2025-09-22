@@ -6,10 +6,12 @@ import WebView from 'react-native-webview';
 import {urls} from '../../network/urls';
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent';
 import HeaderComponent from '../../components/Header/HeaderComponent';
+import RootStore from '../../stores/RootStore';
 
-var userId = 1;
 const Customise = () => {
-  const url = `${urls.Customise}?user_id=${userId}`;
+  const userId = RootStore.appStore.userId;
+
+  const url = `${urls.Customise.url}?user_id=${userId}`;
 
   const onErrorWebview = () => {
     //

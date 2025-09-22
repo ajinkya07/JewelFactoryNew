@@ -96,7 +96,7 @@ const MeltingOptionsModal = ({isModalVisible, setModalVisible}: any) => {
           <View style={styles.section}>
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-              text={strings.Continue}
+              text={strings.continue}
               colorConfig={{
                 pressedBgColor: colors.hyperlinkPressed,
               }}

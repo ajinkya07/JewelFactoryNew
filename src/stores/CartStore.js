@@ -77,7 +77,7 @@ export class CartStore {
         }
         this.setFields('isCartApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         this.setFields('isCartApiLoading', false);
         console.log('error', error);
       });
@@ -103,7 +103,7 @@ export class CartStore {
         }
         this.setFields('isWishlistApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('error', error);
         this.setFields('isWishlistApiLoading', false);
       });
@@ -131,8 +131,8 @@ export class CartStore {
         }
         this.setFields('isCartWeightApiLoading', false);
       })
-      .catch(function (error) {
-        showToast({title: error});
+      .catch(error => {
+        showToast({title: JSON.stringify(error)});
         this.setFields('isCartWeightApiLoading', false);
       });
   };
@@ -160,8 +160,8 @@ export class CartStore {
         this.setFields('showPlaceOrderModal', false);
         this.callCartWishlistApis();
       })
-      .catch(function (error) {
-        showToast({title: error});
+      .catch(error => {
+        showToast({title: JSON.stringify(error)});
         this.setFields('isPlaceOrderFromCartApiLoading', false);
       });
   };
@@ -188,8 +188,8 @@ export class CartStore {
         this.setFields('isMoveProductApiLoading', false);
         this.callCartWishlistApis();
       })
-      .catch(function (error) {
-        showToast({title: error});
+      .catch(error => {
+        showToast({title: JSON.stringify(error)});
         this.setFields('isMoveProductApiLoading', false);
       });
   };
@@ -216,8 +216,8 @@ export class CartStore {
         this.setFields('isDeleteCartWishlistItemApiLoading', false);
         this.callCartWishlistApis();
       })
-      .catch(function (error) {
-        showToast({title: error});
+      .catch(error => {
+        showToast({title: JSON.stringify(error)});
         this.setFields('isDeleteCartWishlistItemApiLoading', false);
       });
   };
@@ -249,7 +249,7 @@ export class CartStore {
       })
       .catch(error => {
         console.log('error', error);
-        showToast({title: error});
+        showToast({title: JSON.stringify(error)});
         this.setFields('isUpdateCardProductApiLoading', false);
       });
   };

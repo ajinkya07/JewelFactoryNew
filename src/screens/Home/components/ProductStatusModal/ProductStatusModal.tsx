@@ -28,7 +28,7 @@ const ProductStatusModal = ({isModalVisible, setModalVisible}: any) => {
     },
   ];
 
-  const handleOptionSelect = id => {
+  const handleOptionSelect = (id: any) => {
     RootStore.homeStore.setFields('productStatus', id);
   };
 
@@ -77,7 +77,7 @@ const ProductStatusModal = ({isModalVisible, setModalVisible}: any) => {
           <View style={styles.section}>
             <PressableComponent
               btnType={PRESSABLE_BTN_TYPE.PRIMARY}
-              text={strings.Continue}
+              text={strings.continue}
               colorConfig={{
                 pressedBgColor: colors.hyperlinkPressed,
               }}

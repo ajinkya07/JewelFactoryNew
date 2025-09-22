@@ -43,7 +43,7 @@ const CartEditModal = ({isModalVisible, setModalVisible, productData}: any) => {
           setWeight(productData.values[weightIndex] || '');
         }
 
-        const lengthIndex = productData.keys.findIndex(key =>
+        const lengthIndex = productData.keys.findIndex((key: any) =>
           key.includes('length'),
         );
         if (lengthIndex !== -1) {
@@ -97,6 +97,7 @@ const CartEditModal = ({isModalVisible, setModalVisible, productData}: any) => {
           <Divider style={styles.upperDivider} />
           <Text style={styles.sectionTitle}>Edit Product</Text>
           <ScrollView>
+            {/* @ts-ignore */}
             <InputFieldWithIcon
               iconSource={IconPack.CODE}
               placeholder="Code"
@@ -155,6 +156,7 @@ const CartEditModal = ({isModalVisible, setModalVisible, productData}: any) => {
                 pressedBgColor: colors.hyperlinkPressed,
               }}
               onPress={handleUpdate}
+              isLoading={RootStore.cartStore.isUpdateCardProductApiLoading}
             />
           </ScrollView>
         </View>

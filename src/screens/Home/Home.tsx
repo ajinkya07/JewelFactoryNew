@@ -5,6 +5,7 @@ import {
   ScrollView,
   Platform,
   RefreshControl,
+  Text,
 } from 'react-native';
 import {styles} from './Home.styles';
 import {observer} from 'mobx-react';
@@ -14,6 +15,8 @@ import RootStore from '../../stores/RootStore';
 import {getDeviceId} from '../../utils/helper';
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent';
 import HeaderComponent from '../../components/Header/HeaderComponent';
+import {strings} from '../../utils/strings';
+import RetryComponent from '../../components/RetryComponent';
 
 const Home = () => {
   useEffect(() => {
@@ -65,6 +68,8 @@ const Home = () => {
           <View style={styles.loader}>
             <LoadingComponent />
           </View>
+        ) : RootStore.homeStore.isHomeApiError ? (
+          <RetryComponent onPress={onRefresh} />
         ) : (
           <>
             <HomeCarousel data={RootStore.homeStore.carouselData} />

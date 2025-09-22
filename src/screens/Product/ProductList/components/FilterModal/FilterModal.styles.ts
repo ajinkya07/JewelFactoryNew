@@ -58,6 +58,11 @@ export const styles = EStyleSheet.create({
         marginHorizontal: '8rem',
         borderRadius: '10rem'
     },
+    itemContainer2: {
+        backgroundColor: colors.pressedColorOpacity,
+        marginHorizontal: '8rem',
+        borderRadius: '10rem'
+    },
     content: {
         marginHorizontal: '40rem',
         justifyContent: 'center',
@@ -100,4 +105,22 @@ export const styles = EStyleSheet.create({
         fontFamily: fontFamilyBold,
         color: colors.hyperlinkColor,
     },
+    radioCircle: {
+        height: '20rem',
+        width: '20rem',
+        borderRadius: '10rem',
+        borderWidth: '2rem',
+        borderColor: colors.brandColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    selectedRb: {
+        width: '9rem',
+        height: '9rem',
+        borderRadius: '25rem',
+        backgroundColor: colors.pressedBtnColor,
+    },
+    productName: {
+        marginVertical: '10rem'
+    }
 })

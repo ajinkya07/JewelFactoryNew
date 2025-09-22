@@ -11,7 +11,6 @@ import PressableComponent, {
   PRESSABLE_BTN_TYPE,
 } from '../../../components/PressableComponent/PressableComponent';
 import ProductCard from './components/ProductCard/ProductCard';
-import Modal from 'react-native-modal';
 import {strings} from '../../../utils/strings';
 import HeaderComponent from '../../../components/Header/HeaderComponent';
 import RootStore from '../../../stores/RootStore';
@@ -24,16 +23,19 @@ import ViewAsModal from './components/ViewAsModal/ViewAsModal';
 import ProductCardTwo from './components/ProductCardTwo/ProductCardTwo';
 import ProductCardThree from './components/ProductCardThree/ProductCardThree';
 import ProductCardFour from './components/ProductCardFour/ProductCardFour';
+import RetryComponent from '../../../components/RetryComponent';
 
 const ProductList = (props: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sortModalVisible, setSortModalVisible] = useState(false);
-  const [selectedSortById, setSortById] = useState('6');
+  const [selectedSortById, setSortById] = useState('2');
   const [selectedPriceId, setSelectedPriceId] = useState('0');
   const [isFilterModalVisible, setFilterModalVisible] = useState(false);
   const [productInventoryId, setProductInventoryId] = useState(false);
   const [isViewAsModalVisible, setViewAsModalVisible] = useState(false);
   const [selectedViewStyleId, setSelectedViewStyleId] = useState('1');
+
+  const [data, setData] = useState([]);
 
   const [netWeight, setNetWeight] = useState({
     minNetWeight: '',
@@ -88,10 +90,94 @@ const ProductList = (props: any) => {
   }, []);
 
   useEffect(() => {
-    if (RootStore.productStore.isProductUpdated) {
+    const data = isFromSearch
+      ? categoryData
+      : RootStore.productStore.productListData;
+
+    setData(data);
+  }, [RootStore.productStore.productListData]);
+
+  useEffect(() => {
+    const {
+      isProductUpdated,
+      isProductUpdatedForCart,
+      isProductUpdatedForPlusOne,
+      isProductUpdatedForWishlist,
+      addProductToCartData,
+      addRemoveProductToCartByOneData,
+      addProductToWishlistData,
+    } = RootStore.productStore;
+
+    if (isProductUpdated) {
       getDataAfterProductUpdate();
     }
-  }, [RootStore.productStore.isProductUpdated]);
+
+    if (isProductUpdatedForCart) {
+      var dex = data.findIndex(
+        item => item.product_inventory_id == productInventoryId,
+      );
+      if (dex !== -1) {
+        if (
+          addProductToCartData?.data &&
+          addProductToCartData?.data?.quantity != null
+        ) {
+          data[dex].quantity = addProductToCartData?.data?.quantity;
+
+          setData(data);
+        } else if (addProductToCartData.data == null) {
+          data[dex].quantity = '0';
+
+          setData(data);
+        }
+      }
+    }
+
+    if (isProductUpdatedForPlusOne) {
+      var dex = data.findIndex(
+        item => item.product_inventory_id == productInventoryId,
+      );
+      if (dex !== -1) {
+        if (
+          addRemoveProductToCartByOneData?.data &&
+          addRemoveProductToCartByOneData?.data?.quantity != null
+        ) {
+          data[dex].quantity = addRemoveProductToCartByOneData?.data?.quantity;
+
+          setData(data);
+        } else if (addRemoveProductToCartByOneData.data == null) {
+          data[dex].quantity = '0';
+
+          setData(data);
+
+          getDataAfterProductUpdate();
+        }
+      }
+    }
+    if (isProductUpdatedForWishlist) {
+      var dex = data.findIndex(
+        item => item.product_inventory_id == productInventoryId,
+      );
+      if (dex !== -1) {
+        if (
+          addProductToWishlistData?.data &&
+          addProductToWishlistData?.data?.quantity != null
+        ) {
+          data[dex].in_wishlist = addProductToWishlistData?.data?.quantity;
+
+          setData(data);
+        } else if (addProductToWishlistData.data == null) {
+          data[dex].in_wishlist = '0';
+
+          setData(data);
+        }
+      }
+    }
+  }, [
+    RootStore.productStore.isProductUpdated,
+    RootStore.productStore.isProductUpdatedForCart,
+    RootStore.productStore.isProductUpdatedForPlusOne,
+    RootStore.productStore.isProductUpdatedForWishlist,
+  ]);
 
   const getProducts = () => {
     if (isFromSearch && isDefined(categoryData)) {
@@ -153,6 +239,8 @@ const ProductList = (props: any) => {
     wishlistData.append('product_inventory_table', 'product_master');
 
     RootStore.productStore.addProductToWishlist(wishlistData);
+
+    setProductInventoryId(item.product_inventory_id);
   };
 
   const addToCart = (item: any) => {
@@ -212,6 +300,7 @@ const ProductList = (props: any) => {
       params.append('max_gross_weight', grossWeight.maxGrossWeight);
       params.append('min_net_weight', netWeight.minNetWeight);
       params.append('max_net_weight', netWeight.maxNetWeight);
+      params.append('product_name', RootStore.productStore.selectedProductName);
 
       RootStore.productStore.getProductListApi(params);
     }
@@ -253,27 +342,31 @@ const ProductList = (props: any) => {
     const grossWeightData =
       RootStore.productStore.filterByParamsData?.gross_weight;
 
-    RootStore.productStore.setFields(
-      'minGrossWeight',
-      grossWeightData[0].min_gross_weight,
-    );
-    RootStore.productStore.setFields(
-      'maxGrossWeight',
-      grossWeightData[0].max_gross_weight,
-    );
+    if (isDefined(grossWeightData)) {
+      RootStore.productStore.setFields(
+        'minGrossWeight',
+        grossWeightData[0]?.min_gross_weight,
+      );
+      RootStore.productStore.setFields(
+        'maxGrossWeight',
+        grossWeightData[0]?.max_gross_weight,
+      );
+    }
   };
 
   const resetNetWt = () => {
     const netWeightData = RootStore.productStore.filterByParamsData?.net_weight;
 
-    RootStore.productStore.setFields(
-      'minNetWeight',
-      netWeightData[0].min_net_weight,
-    );
-    RootStore.productStore.setFields(
-      'maxNetWeight',
-      netWeightData[0].max_net_weight,
-    );
+    if (isDefined(netWeightData)) {
+      RootStore.productStore.setFields(
+        'minNetWeight',
+        netWeightData[0]?.min_net_weight,
+      );
+      RootStore.productStore.setFields(
+        'maxNetWeight',
+        netWeightData[0]?.max_net_weight,
+      );
+    }
   };
 
   const setFilterData = () => {
@@ -289,6 +382,7 @@ const ProductList = (props: any) => {
   const onPressReset = () => {
     resetGrossWt();
     resetNetWt();
+    RootStore.productStore.setFields('selectedProductName', '');
   };
 
   const applySortBy = () => {
@@ -306,6 +400,7 @@ const ProductList = (props: any) => {
       params.append('max_gross_weight', RootStore.productStore.maxGrossWeight);
       params.append('min_net_weight', RootStore.productStore.minNetWeight);
       params.append('max_net_weight', RootStore.productStore.maxNetWeight);
+      params.append('product_name', RootStore.productStore.selectedProductName);
 
       RootStore.productStore.applyFilterProducts(params);
     } else if (!isFromfilter) {
@@ -339,13 +434,12 @@ const ProductList = (props: any) => {
     params.append('min_price', RootStore.productStore.minPrice);
     params.append('max_price', RootStore.productStore.maxPrice);
     params.append('price_type', selectedPriceId);
+    params.append('product_name', RootStore.productStore.selectedProductName);
 
     RootStore.productStore.getProductListApi(params);
   };
 
   const onPressProduct = (item: any) => {
-    console.log('item.collection_id', item.collection_id);
-
     // @ts-ignore
     navigation.navigate('ProductDetails', {
       collectionId: item.collection_id,
@@ -354,19 +448,16 @@ const ProductList = (props: any) => {
     });
   };
 
-  const data = isFromSearch
-    ? categoryData
-    : RootStore.productStore.productListData;
   const sortByData = RootStore.productStore.sortByParamsData;
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderComponent />
+      <HeaderComponent rightIcon3={true} />
 
       <View style={styles.container}>
         {RootStore.productStore.isProductListApiLoading ? (
           <LoadingComponent />
-        ) : RootStore.productStore.productListData.length > 0 ? (
+        ) : data.length > 0 ? (
           <View style={styles.container}>
             <View style={styles.flex}>
               <FlatList
@@ -459,32 +550,37 @@ const ProductList = (props: any) => {
               />
             </View>
           </View>
-        ) : RootStore.productStore.productListData.length === 0 ? (
+        ) : data.length === 0 &&
+          RootStore.productStore.isProductListApiError === false ? (
           <NoDataFoundComponent />
+        ) : RootStore.productStore.isProductListApiError ? (
+          <RetryComponent onPress={getProducts} />
         ) : (
           <></>
         )}
 
         {/*   Sort + Filters + View as CTA */}
-        {!RootStore.productStore.isProductListApiLoading && !isFromSearch && (
-          <View style={styles.bottomViewContainer}>
-            <View style={styles.filterRowContainer}>
-              {BOTTOM_FOOTER_OPTIONS.map((item: any, index: number) => {
-                return (
-                  <BottomComponent
-                    key={index}
-                    id={item.id}
-                    title={item.title}
-                    onPress={(value: number) => onPressBottomItem(value)}
-                    style={styles.filterTextView}
-                    source={styles.imageSource}
-                    imageStyle={styles.filterImageStyle}
-                  />
-                );
-              })}
+        {!RootStore.productStore.isProductListApiLoading &&
+          !isFromSearch &&
+          data?.length > 0 && (
+            <View style={styles.bottomViewContainer}>
+              <View style={styles.filterRowContainer}>
+                {BOTTOM_FOOTER_OPTIONS.map((item: any, index: number) => {
+                  return (
+                    <BottomComponent
+                      key={index}
+                      id={item.id}
+                      title={item.title}
+                      onPress={(value: number) => onPressBottomItem(value)}
+                      style={styles.filterTextView}
+                      source={styles.imageSource}
+                      imageStyle={styles.filterImageStyle}
+                    />
+                  );
+                })}
+              </View>
             </View>
-          </View>
-        )}
+          )}
       </View>
       {sortModalVisible && (
         <SortModal

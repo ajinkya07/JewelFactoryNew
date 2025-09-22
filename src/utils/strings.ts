@@ -54,7 +54,7 @@ export const strings = {
   sort: 'Sort',
   viewAs: 'View as',
   viewAsDesc:
-    'View products in different mode like grid,single etc\n(arrow indicates scroll direction)',
+    'View products in different mode like grid,single etc',
   productsFound: 'products found',
   enterMobileNo: 'Please enter mobile number',
   enterValidMobileNo: 'Please enter valid mobile number',
@@ -117,7 +117,7 @@ export const strings = {
   deliveryDate: 'Delivery date',
   reset: 'Reset',
   SelectCategories: 'Select Categories',
-  Continue: 'Continue',
+  continue: 'Continue',
   Available: 'Available',
   Sold: 'Sold',
   Search: 'Search',

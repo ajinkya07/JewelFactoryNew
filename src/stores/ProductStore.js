@@ -18,13 +18,13 @@ export class ProductStore {
   }
 
   isProductListApiLoading = false;
+  isProductListApiError = false;
   productListData = [];
   isSortByParamsApiLoading = false;
   sortByParamsData = [];
   isFilterByParamsApiLoading = false;
   filterByParamsData = {};
   isAddProductToWishlistApiLoading = false;
-  isProductUpdated = false;
   isAddProductToCartApiLoading = false;
   isAddRemoveToCartByOneCartApiLoading = false;
   minGrossWeight = '';
@@ -41,6 +41,18 @@ export class ProductStore {
   isSearchByCodeApiLoading = false;
   SearchByCodeData = [];
   isProductSearchApiLoading = false;
+  selectedProductName = '';
+
+  isProductUpdatedForCart = false;
+  addProductToCartData = null;
+
+  isProductUpdatedForPlusOne = false;
+  addRemoveProductToCartByOneData = null;
+
+  isProductUpdatedForWishlist = false;
+  addProductToWishlistData = null;
+
+  isProductUpdated = false;
 
   setFields(eName, data) {
     this[eName] = data;
@@ -48,12 +60,13 @@ export class ProductStore {
 
   resetFields() {
     this.isProductListApiLoading = false;
+    this.isProductListApiError = false;
     this.productListData = [];
     this.isSortByParamsApiLoading = false;
-    (this.sortByParamsData = []), (this.isFilterByParamsApiLoading = false);
+    this.sortByParamsData = [];
+    this.isFilterByParamsApiLoading = false;
     this.filterByParamsData = {};
     this.isAddProductToWishlistApiLoading = false;
-    this.isProductUpdated = false;
     this.isAddProductToCartApiLoading = false;
     this.isAddRemoveToCartByOneCartApiLoading = false;
     this.minGrossWeight = '';
@@ -70,6 +83,18 @@ export class ProductStore {
     this.isSearchByCodeApiLoading = false;
     this.SearchByCodeData = [];
     this.isProductSearchApiLoading = false;
+    this.selectedProductName = '';
+
+    this.isProductUpdatedForCart = false;
+    this.addProductToCartData = null;
+
+    this.isProductUpdatedForPlusOne = false;
+    this.addRemoveProductToCartByOneData = null;
+
+    this.isProductUpdatedForWishlist = false;
+    this.addProductToWishlistData = null;
+
+    this.isProductUpdated = false;
   }
 
   // product list api
@@ -84,8 +109,6 @@ export class ProductStore {
     axios
       .post(urls.ProductGrid.url, data, header)
       .then(res => {
-        console.log('getProductList', res.data);
-
         if (res.data.ack === '1') {
           const {products} = res.data?.data;
           this.setFields('productListData', products);
@@ -95,13 +118,11 @@ export class ProductStore {
         }
         this.setFields('isProductListApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('error', error);
-        runInAction(() => {
-          this.productListData = [];
-          this.isProductListApiLoading = false;
-        });
-        showToast({title: strings.globalErrorMsg});
+        this.setFields('isProductListApiLoading', false);
+        this.setFields('isProductListApiError', true);
+        showToast({title: JSON.stringify(error)});
       });
   };
 
@@ -122,7 +143,7 @@ export class ProductStore {
         }
         this.setFields('isSortByParamsApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         this.setFields('sortByParamsData', []);
         this.setFields('isSortByParamsApiLoading', false);
       });
@@ -145,7 +166,7 @@ export class ProductStore {
         }
         this.setFields('isFilterByParamsApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         this.setFields('filterByParamsData', []);
         this.setFields('isFilterByParamsApiLoading', false);
       });
@@ -157,67 +178,74 @@ export class ProductStore {
       return true;
     }
     this.setFields('isAddProductToWishlistApiLoading', true);
-    this.setFields('isProductUpdated', false);
+    this.setFields('isProductUpdatedForWishlist', false);
+    this.setFields('isProductUpdatedForPlusOne', false);
+    this.setFields('isProductUpdatedForCart', false);
 
     axios
       .post(urls.addToCartWishlist.url, data, header)
       .then(res => {
         if (res.data.ack === '1') {
           showToast({type: 'success', title: res.data?.msg});
-          this.setFields('isProductUpdated', true);
+          this.setFields('isProductUpdatedForWishlist', true);
+          this.setFields('addProductToWishlistData', res.data);
         } else {
           showToast({title: res.data?.msg});
-          this.setFields('isProductUpdated', false);
+          this.setFields('isProductUpdatedForWishlist', false);
+          this.setFields('addProductToWishlistData', null);
         }
         this.setFields('isAddProductToWishlistApiLoading', false);
       })
-      .catch(function (error) {
-        showToast({title: res.data?.msg});
-        this.setFields('isProductUpdated', false);
+      .catch(error => {
+        showToast({title: strings.globalErrorMsg});
+        this.setFields('isProductUpdatedForWishlist', false);
         this.setFields('isAddProductToWishlistApiLoading', false);
+        this.setFields('addProductToWishlistData', null);
       });
   };
 
   // add to cart api
   addProductToCart = data => {
-    console.log('addProductToCart', data);
-
     if (this.isAddProductToCartApiLoading) {
       return true;
     }
     this.setFields('isAddProductToCartApiLoading', true);
-    this.setFields('isProductUpdated', false);
+    this.setFields('isProductUpdatedForCart', false);
+    this.setFields('isProductUpdatedForPlusOne', false);
+    this.setFields('isProductUpdatedForWishlist', false);
 
     axios
       .post(urls.addToCartWishlist.url, data, header)
       .then(res => {
-        console.log('addProductToCart res', res.data);
-
         if (res.data.ack === '1') {
-          this.setFields('isProductUpdated', true);
+          this.setFields('isProductUpdatedForCart', true);
+          this.setFields('addProductToCartData', res.data);
+
           showToast({type: 'success', title: res.data?.msg});
         } else {
           showToast({title: res.data?.msg});
-          this.setFields('isProductUpdated', false);
+          this.setFields('isProductUpdatedForCart', false);
+          this.setFields('addProductToCartData', null);
         }
         this.setFields('isAddProductToCartApiLoading', false);
       })
-      .catch(function (error) {
-        showToast({title: res.data?.msg});
-        this.setFields('isProductUpdated', false);
+      .catch(error => {
+        showToast({title: strings.globalErrorMsg});
+        this.setFields('isProductUpdatedForCart', false);
         this.setFields('isAddProductToCartApiLoading', false);
+        this.setFields('addProductToCartData', null);
       });
   };
 
   // add to cart by one  api
   addRemoveProductToCartByOne = data => {
-    console.log('addProductToCartPlusOne', data);
-
     if (this.isAddRemoveToCartByOneCartApiLoading) {
       return true;
     }
     this.setFields('isAddRemoveToCartByOneCartApiLoading', true);
-    this.setFields('isProductUpdated', false);
+    this.setFields('isProductUpdatedForPlusOne', false);
+    this.setFields('isProductUpdatedForCart', false);
+    this.setFields('isProductUpdatedForWishlist', false);
 
     axios
       .post(urls.addToCartGridAdd.url, data, header)
@@ -225,18 +253,21 @@ export class ProductStore {
         console.log('addProductToCartPlusOne res', res.data);
 
         if (res.data.ack === '1') {
-          this.setFields('isProductUpdated', true);
+          this.setFields('isProductUpdatedForPlusOne', true);
+          this.setFields('addRemoveProductToCartByOneData', res.data);
           showToast({type: 'success', title: res.data?.msg});
         } else {
           showToast({title: res.data?.msg});
-          this.setFields('isProductUpdated', false);
+          this.setFields('isProductUpdatedForPlusOne', false);
+          this.setFields('addRemoveProductToCartByOneData', null);
         }
         this.setFields('isAddRemoveToCartByOneCartApiLoading', false);
       })
-      .catch(function (error) {
-        showToast({title: res.data?.msg});
-        this.setFields('isProductUpdated', false);
+      .catch(error => {
+        showToast({title: strings.globalErrorMsg});
+        this.setFields('isProductUpdatedForPlusOne', false);
         this.setFields('isAddRemoveToCartByOneCartApiLoading', false);
+        this.setFields('addRemoveProductToCartByOneData', null);
       });
   };
 
@@ -264,10 +295,10 @@ export class ProductStore {
         }
         this.setFields('isApplyFilterApiLoading', false);
       })
-      .catch(function (error) {
-        showToast({title: res.data?.msg});
-        this.setFields('isProductUpdated', false);
-        this.setFields('isApplyFilterApiLoading', false);
+      .catch(error => {
+        showToast({title: JSON.stringify(error)});
+        this.isApplyFilterApiLoading = false;
+        this.isProductUpdated = false;
       });
   };
 
@@ -292,8 +323,8 @@ export class ProductStore {
         }
         this.setFields('isProductDetailsApiLoading', false);
       })
-      .catch(function (error) {
-        showToast({title: res.data?.msg});
+      .catch(error => {
+        showToast({title: JSON.stringify(error)});
         this.setFields('isProductDetailsApiLoading', false);
       });
   };
@@ -332,8 +363,8 @@ export class ProductStore {
           false,
         );
       })
-      .catch(function (error) {
-        showToast({title: res.data?.msg});
+      .catch(error => {
+        showToast({title: JSON.stringify(error)});
         this.setFields(
           isAddToCart
             ? 'isAddToCartFromDetailsLoading'
@@ -374,13 +405,13 @@ export class ProductStore {
         }
         this.setFields('isSearchByCodeApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('error', error);
         runInAction(() => {
           this.SearchByCodeData = [];
           this.isSearchByCodeApiLoading = false;
         });
-        showToast({title: strings.globalErrorMsg});
+        showToast({title: JSON.stringify(error)});
       });
   };
 
@@ -412,12 +443,12 @@ export class ProductStore {
         }
         this.setFields('isProductSearchApiLoading', false);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log('error', error);
         runInAction(() => {
           this.isProductSearchApiLoading = false;
         });
-        showToast({title: strings.globalErrorMsg});
+        showToast({title: JSON.stringify(error)});
       });
   };
 }

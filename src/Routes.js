@@ -263,6 +263,14 @@ const MainApp = observer(() => {
         }}
       />
       <Stack.Screen
+        name="CartWishlist"
+        component={CartWishlist}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
         name="SubCategoryList"
         component={SubCategoryList}
         options={{

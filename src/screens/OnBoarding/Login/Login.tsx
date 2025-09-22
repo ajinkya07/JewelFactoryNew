@@ -12,12 +12,14 @@ import InputComponent from '../../../components/InputComponent/InputComponent';
 import {getDeviceId, showToast, validateMobNum} from '../../../utils/helper';
 import {constants} from '../../../utils/constants';
 import {colors} from '../../../utils/colors';
+import IconPack from '../../../utils/IconPack';
 
 const Login = () => {
   const [inputs, setLoginInputs] = useState({
     mobileNo: '', //'9876543211',
     password: '', //'12345',
   });
+  const [isPasswordVisible, setPasswordVisible] = useState(false);
 
   const onPressLogin = async () => {
     let error = '';
@@ -46,7 +48,7 @@ const Login = () => {
       }
     } catch (err) {
       console.log('error', error);
-      showToast({title: error});
+      showToast({title: JSON.stringify(error)});
     }
   };
 
@@ -63,6 +65,10 @@ const Login = () => {
 
   const onPressRegister = () => {
     RootStore.appStore.handleScreenNavigation('Register');
+  };
+
+  const onPressPasswordIcon = () => {
+    setPasswordVisible(!isPasswordVisible);
   };
 
   return (
@@ -91,6 +97,15 @@ const Login = () => {
             style={styles.passwordInputTop}
             placeholder={strings.password}
             returnKeyType="done"
+            secureTextEntry={!isPasswordVisible}
+            iconSource={
+              inputs?.password
+                ? isPasswordVisible
+                  ? IconPack.HIDE
+                  : IconPack.UNHIDE
+                : null
+            }
+            onPressIconSource={onPressPasswordIcon}
           />
         </View>
         <PressableComponent
@@ -112,12 +127,20 @@ const Login = () => {
           textStyle={styles.forgotPassword}
           onPress={onPressForgotPassword}
         />
-        <Text style={styles.dontHaveAcc}>
-          {strings.dontHaveAccount}
-          <Text style={styles.register} onPress={onPressRegister}>
-            {strings.register}
-          </Text>
-        </Text>
+        <View style={styles.flexRow}>
+          <Text style={styles.dontHaveAcc}>{strings.dontHaveAccount}</Text>
+          <PressableComponent
+            btnType={PRESSABLE_BTN_TYPE.TEXT}
+            text={strings.register}
+            containerStyle={styles.registerBtn}
+            pressableStyle={styles.registerBtnTouchable}
+            colorConfig={{
+              pressedBgColor: colors.hyperlinkPressed,
+            }}
+            textStyle={styles.register}
+            onPress={onPressRegister}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

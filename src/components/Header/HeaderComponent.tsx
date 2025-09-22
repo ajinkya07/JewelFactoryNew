@@ -22,11 +22,17 @@ const HeaderComponent = ({
   headerOuterContentStyle,
   showAppIcon = false,
   onFirstIconPress,
-  onThirdIconPress,
+  onPressCart,
   onFourthIconPress,
   showDivider = true,
+  renderChildText = false,
 }: any) => {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation();
+
+  const onBellIconPress = () => {
+    // @ts-ignore
+    navigation.navigate('Notification');
+  };
 
   const onPressContactUs = () => {
     onFirstIconPress
@@ -39,12 +45,12 @@ const HeaderComponent = ({
 
   const navigateToCart = () => {
     // @ts-ignore
-    onFourthIconPress ? onFourthIconPress() : navigation.navigate('Cart');
+    onFourthIconPress
+      ? onFourthIconPress()
+      : RootStore.appStore.handleScreenNavigation('CartWishlist', {
+          hideHeader: true,
+        });
     RootStore.cartStore.callCartWishlistApis();
-  };
-
-  const onBellIconPress = () => {
-    navigation.navigate('Notification');
   };
 
   return (
@@ -88,21 +94,21 @@ const HeaderComponent = ({
               )}
               {rightIcon3 && (
                 <TouchableOpacity
-                  onPress={() => onThirdIconPress()}
+                  onPress={() => navigateToCart()}
                   style={{marginHorizontal: 8}}>
                   <Image
                     style={styles.imageIconStyle}
                     resizeMode="contain"
-                    source={IconPack.WISHLIST}
+                    source={IconPack.CART}
                   />
-                  <View style={styles.wishlistCount}>
+                  {/* <View style={styles.wishlistCount}>
                     <Text style={styles.wishlistCountText}>2</Text>
-                  </View>
+                  </View> */}
                 </TouchableOpacity>
               )}
               {rightIcon4 && (
                 <TouchableOpacity
-                  onPress={onBellIconPress}
+                  onPress={() => onBellIconPress()}
                   style={{marginHorizontal: 8}}>
                   <Image
                     style={styles.imageIconStyle}
@@ -121,6 +127,11 @@ const HeaderComponent = ({
                     source={IconPack.HEADPHONE}
                   />
                 </TouchableOpacity>
+              )}
+              {renderChildText && (
+                <Text style={{marginHorizontal: 20, fontSize: 18}}>
+                  {renderChildText}
+                </Text>
               )}
             </View>
           </View>

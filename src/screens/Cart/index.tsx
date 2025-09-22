@@ -3,12 +3,15 @@ import CartWishlistTopTabs from './components/CartWishlistTopTabs/CartWishlistTo
 import {SafeAreaView} from 'react-native';
 import HeaderComponent from '../../components/Header/HeaderComponent';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import {observer} from 'mobx-react';
 
-const CartWishlist = () => {
+const CartWishlist = (props: any) => {
+  const hideHeader = props?.route?.params?.hideHeader || false;
+
   return (
     <SafeAreaView style={styles.container}>
       <>
-        <HeaderComponent showAppIcon={true} isBack={false} />
+        <HeaderComponent showAppIcon={!hideHeader} isBack={hideHeader} />
         <CartWishlistTopTabs />
       </>
     </SafeAreaView>
@@ -21,4 +24,4 @@ const styles = EStyleSheet.create({
   },
 });
 
-export default CartWishlist;
+export default observer(CartWishlist);
